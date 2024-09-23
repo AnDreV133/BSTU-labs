@@ -216,12 +216,20 @@ if __name__ == "__main__":
         s='S'
     )
 
+    # g.run_process(GMode.LEFT_OUTPUT, [
+    #     1, 5,  8, 5, 8, 6, 8, 6,  8, 5, 8, 6, 8, 6,
+    # ])  # aaaaaaaaaba
+    # g.clear()
+    # g.run_process(GMode.LEFT_OUTPUT, [
+    #     1, 5,  8, 5,  8, 5,  8, 6, 8, 6, 8, 6, 8, 6,
+    # ])  # ааааааbа
+
     g.run_process(GMode.LEFT_OUTPUT, [
-        1, 5,  8, 5, 8, 6, 8, 6,  8, 5, 8, 6, 8, 6,
+        1, 5, 8, 5, 8, 6, 8, 6, 8, 6
     ])  # aaaaaaaaaba
     g.clear()
     g.run_process(GMode.LEFT_OUTPUT, [
-        1, 5,  8, 5,  8, 5,  8, 6, 8, 6, 8, 6, 8, 6,
+        1, 5, 8, 6, 8, 5, 8, 6, 8, 6
     ])  # ааааааbа
 
     # g.run_check_process(GMode.RIGHT_OUTPUT,[1, 4, 7, 5, 3, 7, 7, 6, 6, 4, 6, 2, 3, 6, 6])

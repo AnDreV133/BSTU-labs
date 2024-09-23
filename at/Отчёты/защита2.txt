@@ -1,0 +1,15 @@
+Для цепочки aaaaaaba неэквивалентные выводы не получились, но получились для aaaaaaaaaba.
+
+Для последовательности правил: 1, 5, 8, 5, 8, 6, 8, 6, 8, 6 - получим:
+ЛСФ ДВ: S(A(B(aA(B(aA(e))aB(aA(e))))aB(aA(e)))ba)
+Вывод:
+S => Aba => BaBba => aAaBba => aBaBaBba => aaAaBaBba => aaaBaBba => aaaaAaBba => aaaaaBba => aaaaaaAba => aaaaaaba
+1    5      8         5         8            6             8            6             8            6
+
+Для последовательности правил: 1, 5, 8, 6, 8, 5, 8, 6, 8, 6 - получим:
+ЛСФ ДВ: S(A(B(aA(e))aB(aA(B(aA(e))aB(aA(e)))))ba)
+Вывод:
+S => Aba => BaBba => aAaBba => aaBba => aaaAba => aaaBaBba => aaaaAaBba => aaaaaBba => aaaaaaAba => aaaaaaba
+1    5      8         6          8         5         8            6             8            6            
+
+Деревья не равны, значит выводы неэквивалентны

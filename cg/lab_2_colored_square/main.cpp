@@ -13,8 +13,9 @@ LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 
 HWND hWndStatusBar; // Дескриптор компонента StatusBar
 
-int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInst, LPSTR lpszArgs, int nWinMode)
-{
+Painter painter;
+
+int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInst, LPSTR lpszArgs, int nWinMode) {
     char szWinName[] = "Graphics Window Class"; // Имя класса окна
 
     HWND hWnd; // Дескриптор главного окна
@@ -30,41 +31,41 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInst, LPSTR lpszArgs,
     wcl.cbClsExtra = 0; // Без дополнительной информации
     wcl.cbWndExtra = 0;
 
-    wcl.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); //Белый фон
+    wcl.hbrBackground = (HBRUSH) GetStockObject(WHITE_BRUSH); //Белый фон
 
     if (!RegisterClassA(&wcl)) // Регистрируем класс окна
         return 0;
 
     hWnd = CreateWindowA(szWinName, // Создать окно
-        "Лабораторная работа №2. Растровая заливка геометрических фигур",
-        WS_OVERLAPPEDWINDOW, // Стиль окна
-        CW_USEDEFAULT, // x-координата
-        CW_USEDEFAULT, // y-координата
-        CW_USEDEFAULT, // Ширина
-        CW_USEDEFAULT, // Высота
-        HWND_DESKTOP, // Без родительского окна
-        NULL, // Без меню
-        hThisInstance, // Дескриптор приложения
-        NULL); // Без дополнительных аргументов
+                         "Лабораторная работа №2. Растровая заливка геометрических фигур",
+                         WS_OVERLAPPEDWINDOW, // Стиль окна
+                         CW_USEDEFAULT, // x-координата
+                         CW_USEDEFAULT, // y-координата
+                         CW_USEDEFAULT, // Ширина
+                         CW_USEDEFAULT, // Высота
+                         HWND_DESKTOP, // Без родительского окна
+                         NULL, // Без меню
+                         hThisInstance, // Дескриптор приложения
+                         NULL); // Без дополнительных аргументов
 
     // Создаём компонент типа StatusBar
     hWndStatusBar = CreateWindowExA(
-        0, STATUSCLASSNAMEA, NULL,
-        WS_CHILD | WS_VISIBLE | SBARS_SIZEGRIP,
-        0, 0, 0, 0,
-        hWnd, (HMENU) 10001,
-        hThisInstance, NULL
+            0, STATUSCLASSNAMEA, NULL,
+            WS_CHILD | WS_VISIBLE | SBARS_SIZEGRIP,
+            0, 0, 0, 0,
+            hWnd, (HMENU) 10001,
+            hThisInstance, NULL
     );
 
     // Настройка частей StatusBar'а
-    int statwidths[] = { 150, 300, -1 };
-    SendMessageA(hWndStatusBar, SB_SETPARTS, sizeof(statwidths) / sizeof(int), (LPARAM)statwidths);
+    int statwidths[] = {150, 300, -1};
+    SendMessageA(hWndStatusBar, SB_SETPARTS, sizeof(statwidths) / sizeof(int), (LPARAM) statwidths);
 
     ShowWindow(hWnd, nWinMode); // Показать окно
     UpdateWindow(hWnd); // Перерисовать окно
 
     while (GetMessage(&msg, NULL, 0, 0)) // Запустить цикл обработки сообщений
-    { 
+    {
         TranslateMessage(&msg); // Разрешить использование клавиатуры
         DispatchMessage(&msg); // Вернуть управление операционной системе Windows
     }
@@ -76,25 +77,21 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInst, LPSTR lpszArgs,
 
 // Следующая функция вызывается операционной системой Windows и получает в качестве
 // параметров сообщения из очереди сообщений данного приложения
-LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
+LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     static int pixelSize = 1; // Размер "большого" пикселя
 
-    switch (message)
-    {
+    switch (message) {
         // Обработка сообщения на создание окна
-        case WM_CREATE:
-        {
+        case WM_CREATE: {
             // Создаем таймер, посылающий сообщения
             // функции окна примерно 30 раз в секунду
-            SetTimer(hWnd, 1, 1000/30, NULL);
+            SetTimer(hWnd, 1, 1000 / 30, NULL);
         }
-        break;
+            break;
 
 
-        // Обработка сообщения на перерисовку окна
-        case WM_PAINT:
-        {
+            // Обработка сообщения на перерисовку окна
+        case WM_PAINT: {
             PAINTSTRUCT ps;
 
             HDC hdc = BeginPaint(hWnd, &ps);
@@ -103,7 +100,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
             RECT rect = ps.rcPaint;
             GetClientRect(hWnd, &rect);
 
-        
+
             int width = rect.right - rect.left;
             int height = rect.bottom - rect.top;
 
@@ -116,8 +113,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
             Frame frame(W, H);
 
-            Painter painter;
-            
             // Вычислим время, которое нужно затратить для рисования одного кадра
             char repaint_time[50];
             DWORD t1 = GetTickCount();
@@ -127,24 +122,22 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
             // Системная структура для хранения цвета пикселя
             // Буфер кадра, который будет передаваться операционной системе, должен состоять из массива этих структур
             // Она не совпадает с порядком следования цветов в формате RBG
-            typedef struct tagRGBPIXEL
-            {
-                unsigned char BLUE;		// Компонента синего цвета
-                unsigned char GREEN;	// Компонента зелёного цвета
-                unsigned char RED;		// Компонента красного цвета
+            typedef struct tagRGBPIXEL {
+                unsigned char BLUE;        // Компонента синего цвета
+                unsigned char GREEN;    // Компонента зелёного цвета
+                unsigned char RED;        // Компонента красного цвета
                 unsigned char ALPHA;    // Прозрачность
             } RGBPIXEL;
 
             // Выделение памяти для второго буфера, который будет передаваться функции CreateBitmap для создания картинки
-            RGBPIXEL* bitmap = (RGBPIXEL*) HeapAlloc(GetProcessHeap(), 0, (size_t)width * height * sizeof(RGBPIXEL));
+            RGBPIXEL *bitmap = (RGBPIXEL *) HeapAlloc(GetProcessHeap(), 0, (size_t) width * height * sizeof(RGBPIXEL));
 
             // Копирование массива пикселей в соответствии с системным форматом пикселя и масштабирование картинки
             // W и H - ширина и высота изображения в буфере кадра
             // ratio - коэффициент масштабирования пикселей
             for (int y = 0; y < H * ratio; y++)
-                for (int x = 0; x < W * ratio; x++)
-                {
-                    RGBPIXEL* pixel = bitmap + (size_t)y * width + x;
+                for (int x = 0; x < W * ratio; x++) {
+                    RGBPIXEL *pixel = bitmap + (size_t) y * width + x;
                     COLOR color = frame.GetPixel(x / ratio, y / ratio);
                     pixel->RED = color.RED;
                     pixel->GREEN = color.GREEN;
@@ -167,13 +160,13 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
             // Копировать содержимое из временного контекста srcHdc в основной контекст окна hdc
             BitBlt(
-                hdc,        // Основной контекст
-                0, 0,       // Координаты левого верхнего угла, от которого будет выполняться вставка
-                width,      // Ширина вставляемого изображения
-                height,     // Высота вставляемого изображения
-                srcHdc,     // Дескриптор временного контекста
-                0, 0,       // Координаты считываемого изображения
-                SRCCOPY);   // Параметры операции - копирование 
+                    hdc,        // Основной контекст
+                    0, 0,       // Координаты левого верхнего угла, от которого будет выполняться вставка
+                    width,      // Ширина вставляемого изображения
+                    height,     // Высота вставляемого изображения
+                    srcHdc,     // Дескриптор временного контекста
+                    0, 0,       // Координаты считываемого изображения
+                    SRCCOPY);   // Параметры операции - копирование
 
             SetBkMode(hdc, TRANSPARENT);
             DrawTextA(hdc, repaint_time, -1, &rect, 0);
@@ -187,30 +180,28 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
             // Удаление временного контекста
             DeleteDC(srcHdc);
         }
-        break;
+            break;
 
-        case WM_MOUSEMOVE:
-        {
+        case WM_MOUSEMOVE: {
             char str[256];
 
             // Устанавливаем текст в разных частях StatusBar'а
             // Экранные координаты курсора мыши
             sprintf_s(str, "X = %d, Y = %d", LOWORD(lParam), HIWORD(lParam));
-            SendMessageA(hWndStatusBar, SB_SETTEXTA, 2, (LPARAM)str);
+            SendMessageA(hWndStatusBar, SB_SETTEXTA, 2, (LPARAM) str);
 
             // Координаты пикселя в буфере кадра
             sprintf_s(str, "BX = %d, BY = %d", LOWORD(lParam) / pixelSize, HIWORD(lParam) / pixelSize);
-            SendMessageA(hWndStatusBar, SB_SETTEXTA, 1, (LPARAM)str);
+            SendMessageA(hWndStatusBar, SB_SETTEXTA, 1, (LPARAM) str);
 
             sprintf_s(str, "Масштаб (F2/F3): %d", pixelSize);
-            SendMessageA(hWndStatusBar, SB_SETTEXTA, 0, (LPARAM)str);
+            SendMessageA(hWndStatusBar, SB_SETTEXTA, 0, (LPARAM) str);
         }
-        break;
+            break;
 
         case WM_KEYDOWN:
-            if (wParam == VK_F2 || wParam == VK_F3)
-            {
-                if (pixelSize > 1  && wParam == VK_F2) pixelSize--;
+            if (wParam == VK_F2 || wParam == VK_F3) {
+                if (pixelSize > 1 && wParam == VK_F2) pixelSize--;
                 if (pixelSize < 64 && wParam == VK_F3) pixelSize++;
 
                 // Перерисовать окно
@@ -218,15 +209,21 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
                 char str[256];
                 sprintf_s(str, "Масштаб (F2/F3): %d", pixelSize);
-                SendMessageA(hWndStatusBar, SB_SETTEXTA, 0, (LPARAM)str);
+                SendMessageA(hWndStatusBar, SB_SETTEXTA, 0, (LPARAM) str);
             }
-			if (wParam == VK_F1)
-            {
-                MessageBoxA(hWnd, "Работу выполнил студент группы ПВ-221 Колесников А.И.", "О программе", MB_ICONINFORMATION);
+            if (wParam == VK_F1) {
+                MessageBoxA(hWnd, "Работу выполнил студент группы ПВ-221 Колесников А.И.", "О программе",
+                            MB_ICONINFORMATION);
+            }
+            if (wParam == VK_F4 || wParam == VK_F5) {
+                if (global_alpha >= 0 && wParam == VK_F4) global_alpha -= 5;
+                if (global_alpha <= 255 && wParam == VK_F5) global_alpha += 5;
+                // Перерисовать окно
+                InvalidateRect(hWnd, NULL, false);
             }
             break;
 
-        // Обработка сообщения на изменение размера окна
+            // Обработка сообщения на изменение размера окна
         case WM_SIZE:
 
             // Подгоняем размеры StatusBar под размер окна
@@ -247,10 +244,28 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
             PostQuitMessage(0);
             break;
 
+        case WM_LBUTTONDOWN:
+            global_clicked_pixel = {
+                    LOWORD(lParam) / pixelSize,
+                    HIWORD(lParam) / pixelSize
+            };
+            global_action = painter.CHANGE;
+            InvalidateRect(hWnd, NULL, false);
+            break;
+
+        case WM_RBUTTONDOWN:
+            global_clicked_pixel = {
+                    LOWORD(lParam) / pixelSize,
+                    HIWORD(lParam) / pixelSize
+            };
+            global_action = painter.HIGHLIGHT;
+            InvalidateRect(hWnd, NULL, false);
+            break;
+
         default:
             // Все сообщения, не обрабатываемые в данной функции, направляются на обработку по умолчанию
             return DefWindowProcA(hWnd, message, wParam, lParam);
-}
+    }
 
     return 0;
 }
