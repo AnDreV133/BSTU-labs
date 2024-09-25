@@ -240,9 +240,9 @@ public:
                 D -= 4 * y - 2;
             }
 
-            for (int i = x0 - x; i < x0 + x; i++) {
-                SetPixel(i, y0 + y, getColorByAlpha(color, i, y0 + y));
-                SetPixel(i, y0 - y, getColorByAlpha(color, i, y0 - y));
+            for (int i = -x; i <= x; i++) {
+                SetPixel(x0 + i, y0 + y, getColorByAlpha(color, x0 + i, y0 + y));
+                SetPixel(x0 + i, y0 - y, getColorByAlpha(color, x0 + i, y0 - y));
             }
             for (int i = x0 - y; i < x0 + y; i++) {
                 SetPixel(i, y0 + x, getColorByAlpha(color, i, y0 + x));
@@ -266,38 +266,39 @@ public:
             }
 
             // Перенос и отражение вычисленных координат на все октанты окружности
-            for (int X0 = -x; X0 <= x; X0++) {
-                SetPixel(x0 + X0, y0 + y,
+            for (int i = -x; i <= x; i++) {
+                SetPixel(x0 + i, y0 + y,
                          getColorByAlpha(
                                  interpolator.color(
-                                         x0 + X0 + 0.5f, y0 + y),
-                                 x0 + X0 + 0.5f, y0 + y
+                                         x0 + i, y0 + y),
+                                 x0 + i, y0 + y
                          )
                 );
 
-                SetPixel(x0 + X0, y0 - y,
+                SetPixel(x0 + i, y0 - y,
                          getColorByAlpha(
                                  interpolator.color(
-                                         x0 + X0 + 0.5f, y0 - y),
-                                 x0 + X0 + 0.5f, y0 - y
+                                         x0 + i, y0 - y),
+                                 x0 + i, y0 - y
                          )
                 );
             }
 
-            for (int X0 = -y; X0 <= y; X0++) {
-                SetPixel(x0 + X0, y0 + x,
+            for (int i = -y; i <= y; i++) {
+                SetPixel(x0 + i, y0 + x,
                          getColorByAlpha(
                                  interpolator.color(
-                                         x0 + X0 + 0.5f, y0 + x),
-                                 x0 + X0 + 0.5f, y0 + x
+                                         x0 + i, y0 + x),
+                                 x0 + i, y0 + x
                          )
                 );
+                if (x == 0) continue;
 
-                SetPixel(x0 + X0, y0 - x,
+                SetPixel(x0 + i, y0 - x,
                          getColorByAlpha(
                                  interpolator.color(
-                                         x0 + X0 + 0.5f, y0 - x),
-                                 x0 + X0 + 0.5f, y0 - x
+                                         x0 + i, y0 - x),
+                                 x0 + i, y0 - x
                          )
                 );
             }

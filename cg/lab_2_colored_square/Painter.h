@@ -10,6 +10,7 @@
 #include "interpolator/BarycentricInterpolator.h"
 #include "interpolator/RadialInterpolator.h"
 #include "interpolator/OneColorInterpolator.h"
+#include "interpolator/RadialMultiColorInterpolator.h"
 
 class Painter {
     enum DrawMode {
@@ -83,6 +84,29 @@ public:
 
         // Размер рисунка возьмём меньше (7 / 8), чтобы он не касался границ экрана
         float a = 7.0 / 8.0 * ((W < H) ? W - 1 : H - 1) / 2;
+
+        if (false) {
+            std::vector<COLOR> colors = {
+                    {255,0,0},
+                    {0, 255, 0},
+                    {0, 0, 255},
+                    {0, 255, 255},
+                    {255,0,  255},
+
+            };
+
+            RadialMultiColorInterpolator radialMultiColorInterpolator(W/2, H/2,global_angle, colors);
+
+            // Рисуем внешний круг
+            frame.Circle(
+                    W/2,
+                    H/2,
+                    a,
+                    radialMultiColorInterpolator
+            );
+
+            return;
+        }
 
         // Инициализируем исходные координаты центра и вершин квадрата
         struct {

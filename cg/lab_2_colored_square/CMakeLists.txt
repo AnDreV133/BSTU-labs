@@ -14,4 +14,4 @@ add_executable(
         interpolator/BarycentricInterpolator.h
         interpolator/RadialInterpolator.h
         interpolator/SectorInterpolator.h
-        interpolator/BaseInterpolator.h global_values.h interpolator/OneColorInterpolator.h)
+        interpolator/BaseInterpolator.h global_values.h interpolator/OneColorInterpolator.h interpolator/RadialMultiColorInterpolator.h)
