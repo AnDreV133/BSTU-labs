@@ -40,7 +40,7 @@ class Frame {
     COLOR getColorByAlpha(COLOR color, int x, int y) {
         // Для рисования полупрозрачных фигур будем использовать альфа-смешивание
         if (color.ALPHA < 255) {
-            COLOR written = matrix[(int) y][x]; // Уже записанное в буфере кадра значение цвета, т.е. цвет фона
+            COLOR written = matrix[y][x]; // Уже записанное в буфере кадра значение цвета, т.е. цвет фона
             float a = color.ALPHA / 255.0f, b = 1 - a;
             color.RED = color.RED * a + written.RED * b;
             color.GREEN = color.GREEN * a + written.GREEN * b;
@@ -233,24 +233,38 @@ public:
         int x = 0, y = r;
         int D = x * x + y * y - r * r +
                 x * x + (y - 1) * (y - 1) - r * r;
-
+        int xp = -1, yp = -1;
         while (x < y) {
-            if (D >= 0) {
+            if (D > 0) {
                 y--;
                 D -= 4 * y - 2;
             }
 
-            for (int i = -x; i <= x; i++) {
-                SetPixel(x0 + i, y0 + y, getColorByAlpha(color, x0 + i, y0 + y));
-                SetPixel(x0 + i, y0 - y, getColorByAlpha(color, x0 + i, y0 - y));
+            if (x != xp) {
+                xp = x;
+
+                if (x != 0) {
+                    for (int i = x0 - y; i < x0 + y; i++) {
+                        SetPixel(i, y0 + x, getColorByAlpha(color, i, y0 + x));
+                        SetPixel(i, y0 - x, getColorByAlpha(color, i, y0 - x));
+                    }
+                } else {
+                    for (int i = x0 - y; i < x0 + y; i++) {
+                        SetPixel(i, y0 + x, getColorByAlpha(color, i, y0 + x));
+                    }
+                }
             }
-            for (int i = x0 - y; i < x0 + y; i++) {
-                SetPixel(i, y0 + x, getColorByAlpha(color, i, y0 + x));
-                SetPixel(i, y0 - x, getColorByAlpha(color, i, y0 - x));
+            if (y != yp) {
+                yp = y;
+
+                for (int i = x0 - x; i < x0 + x; i++) {
+                    SetPixel(i, y0 + y, getColorByAlpha(color, i, y0 + y));
+                    SetPixel(i, y0 - y, getColorByAlpha(color, i, y0 - y));
+                }
             }
 
-            x++;
             D += 4 * x;
+            x++;
         }
     }
 
@@ -258,6 +272,8 @@ public:
     void Circle(int x0, int y0, int r, InterpolatorClass &interpolator) {
         int x = 0, y = r;
         int D = 2 * x * x + 2 * y * y - 2 * r * r - 2 * y + 1;
+
+        int xp = -1, yp = -1;
         while (x < y) {
             // Если ближе точка (x, y - 1), то смещаемся к ней
             if (D > 0) {
@@ -265,42 +281,27 @@ public:
                 y--;
             }
 
-            // Перенос и отражение вычисленных координат на все октанты окружности
-            for (int i = -x; i <= x; i++) {
-                SetPixel(x0 + i, y0 + y,
-                         getColorByAlpha(
-                                 interpolator.color(
-                                         x0 + i, y0 + y),
-                                 x0 + i, y0 + y
-                         )
-                );
+            if (x != xp) {
+                xp = x;
 
-                SetPixel(x0 + i, y0 - y,
-                         getColorByAlpha(
-                                 interpolator.color(
-                                         x0 + i, y0 - y),
-                                 x0 + i, y0 - y
-                         )
-                );
+                if (x != 0) {
+                    for (int i = x0 - y; i <= x0 + y; i++) {
+                        SetPixel(i, y0 + x, getColorByAlpha(interpolator.color(i, y0 + x), i, y0 + x));
+                        SetPixel(i, y0 - x, getColorByAlpha(interpolator.color(i, y0 - x), i, y0 - x));
+                    }
+                } else {
+                    for (int i = x0 - y; i <= x0 + y; i++) {
+                        SetPixel(i, y0 + x, getColorByAlpha(interpolator.color(i, y0 + x), i, y0 + x));
+                    }
+                }
             }
+            if (y != yp) {
+                yp = y;
 
-            for (int i = -y; i <= y; i++) {
-                SetPixel(x0 + i, y0 + x,
-                         getColorByAlpha(
-                                 interpolator.color(
-                                         x0 + i, y0 + x),
-                                 x0 + i, y0 + x
-                         )
-                );
-                if (x == 0) continue;
-
-                SetPixel(x0 + i, y0 - x,
-                         getColorByAlpha(
-                                 interpolator.color(
-                                         x0 + i, y0 - x),
-                                 x0 + i, y0 - x
-                         )
-                );
+                for (int i = x0 - x; i <= x0 + x; i++) {
+                    SetPixel(i, y0 + y, getColorByAlpha(interpolator.color(i, y0 + y), i, y0 + y));
+                    SetPixel(i, y0 - y, getColorByAlpha(interpolator.color(i, y0 - y), i, y0 - y));
+                }
             }
 
             x++;

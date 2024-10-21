@@ -216,21 +216,21 @@ if __name__ == "__main__":
         s='S'
     )
 
-    # g.run_process(GMode.LEFT_OUTPUT, [
-    #     1, 5,  8, 5, 8, 6, 8, 6,  8, 5, 8, 6, 8, 6,
-    # ])  # aaaaaaaaaba
-    # g.clear()
-    # g.run_process(GMode.LEFT_OUTPUT, [
-    #     1, 5,  8, 5,  8, 5,  8, 6, 8, 6, 8, 6, 8, 6,
-    # ])  # ааааааbа
-
     g.run_process(GMode.LEFT_OUTPUT, [
-        1, 5, 8, 5, 8, 6, 8, 6, 8, 6
+        1, 5,  8, 5, 8, 6, 8, 6,  8, 5, 8, 6, 8, 6,
     ])  # aaaaaaaaaba
     g.clear()
     g.run_process(GMode.LEFT_OUTPUT, [
-        1, 5, 8, 6, 8, 5, 8, 6, 8, 6
+        1, 5,  8, 5,  8, 5,  8, 6, 8, 6, 8, 6, 8, 6,
     ])  # ааааааbа
+
+    # g.run_process(GMode.LEFT_OUTPUT, [
+    #     1, 5, 8, 5, 8, 6, 8, 6, 8, 6
+    # ])  # aaaaaaaaaba
+    # g.clear()
+    # g.run_process(GMode.LEFT_OUTPUT, [
+    #     1, 5, 8, 6, 8, 5, 8, 6, 8, 6
+    # ])  # ааааааbа
 
     # g.run_check_process(GMode.RIGHT_OUTPUT,[1, 4, 7, 5, 3, 7, 7, 6, 6, 4, 6, 2, 3, 6, 6])
     # g.clear()
@@ -248,7 +248,8 @@ if __name__ == "__main__":
     # print()
 
     # seq = [1, 5, 8, 6, 8, 5, 8, 6, 8, 6]
-    # # seq = [1, 5, 8, 8, 5, 6, 8, 8, 6, 6]
+    # seq = [1, 5, 8, 8, 5, 6, 8, 8, 6, 6]
+    # seq = [1, 5, 8, 8, 5, 6, 8, 8, 6, 6]
     # g.run_check_process(GMode.FREE_OUTPUT, seq)
     # g.clear()
     # g.run_check_process(GMode.LEFT_OUTPUT, seq)

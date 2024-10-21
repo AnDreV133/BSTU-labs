@@ -6,308 +6,258 @@
 #include "Frame.h"
 #include "Assets.h"
 #include "global_values.h"
-#include "interpolator/SectorInterpolator.h"
+#include "Matrix.h"
 #include "interpolator/BarycentricInterpolator.h"
-#include "interpolator/RadialInterpolator.h"
-#include "interpolator/OneColorInterpolator.h"
-#include "interpolator/RadialMultiColorInterpolator.h"
+#include "SawShader.h"
 
 class Painter {
-    enum DrawMode {
-        SECTOR = 0,
-        RADIAL = 1,
-        BARYCENTRIC = 2,
-//        FILL = 3,
-    };
+    COLOR sawColor = {150, 150, 150};
+    COLOR sawCenterColor = {100, 100, 100};
 
-    DrawMode spinDrawMode(DrawMode mode) {
-        switch (mode) {
-            case SECTOR:
-                return RADIAL;
-            case RADIAL:
-                return BARYCENTRIC;
-            case BARYCENTRIC:
-//                return FILL;
-//            case FILL:
-                return SECTOR;
-        }
-        return SECTOR;
-    }
-
-    BaseInterpolator &getInterpolator(
-            int indexMode,
-            int action,
-            OneColorInterpolator &oneColorInterpolator,
-            SectorInterpolator &sectorInterpolator,
-            RadialInterpolator &radialInterpolator,
-            BarycentricInterpolator &barycentricInterpolator
+    void drawSaw_(
+            Frame &frame,
+            Matrix &WS,
+            float xC, float yC,
+            float radius,
+            float maxCoord,
+            float globalAngle
     ) {
-        if (action == CHANGE) {
-            modes[indexMode] = spinDrawMode(modes[indexMode]);
-            highlighted[indexMode] = false;
-        } else if (action == HIGHLIGHT) {
-            for (auto &h: highlighted) h = false;
-            highlighted[indexMode] = true;
-        }
+        globalAngle = globalAngle * 180.0f / M_PI * 2;
 
-        if (highlighted[indexMode]) {
-            return oneColorInterpolator;
-        }
+        float maxAngle = 360.0f;
+        float rotateAngle = 12.0f;
+        float angle = 0.0f;
+        while (angle < maxAngle) {
+            // точки для рисования зубьев
+            Vector p3 = {0, maxCoord, 1.0f};
+            p3 = p3 * Matrix::rotation(10 + globalAngle + angle) * WS;
 
-        if (modes[indexMode] == SECTOR) {
-            return sectorInterpolator;
-        } else if (modes[indexMode] == RADIAL) {
-            return radialInterpolator;
-        } else if (modes[indexMode] == BARYCENTRIC) {
-            return barycentricInterpolator;
-        } else {
-            std::cerr << "Unknown draw mode\n";
-            throw std::exception();
+            Vector p2 = {0, maxCoord, 1.0f};
+            p2 = p2 * Matrix::rotation(10 + globalAngle + angle) * WS;
+
+            Vector p1 = {0, 0, 1.0f};
+            p1 = p1 * WS;
+
+//            // рисуем зубья
+//            frame.Triangle(
+//                    p5.x() + xC, p5.y() + yC,
+//                    p4.x() + xC, p4.y() + yC,
+//                    p3.x() + xC, p3.y() + yC,
+//                    sawColor
+//            );
+
+            TriangleShader shader(
+                    p1.x() + xC, p1.y() + yC,
+                    p2.x() + xC, p2.y() + yC,
+                    p3.x() + xC, p3.y() + yC,
+                    sawColor
+            );
+            frame.Triangle(
+                    p3.x() + xC, p3.y() + yC,
+                    p2.x() + xC, p2.y() + yC,
+                    p1.x() + xC, p1.y() + yC,
+                    shader
+            );
+
+            // отклоняем угол для рисования следующего зуба
+            angle += rotateAngle;
         }
     }
 
-    OneColorInterpolator highlightColor{{160, 160, 0, 255}};
+    void drawSaw(
+            Frame &frame,
+            Matrix &WS,
+            float xC, float yC,
+            float radius,
+            float maxCoord,
+            float globalAngle
+    ) {
+        globalAngle = globalAngle * 180.0f / M_PI * 2;
 
-    DrawMode modes[5] = {RADIAL, BARYCENTRIC, SECTOR, BARYCENTRIC, SECTOR};
-    bool highlighted[5] = {};
-    int actionOnFigure[5] = {NOTHING, NOTHING, NOTHING, NOTHING, NOTHING};
+        float maxAngle = 360.0f;
+        float rotateAngle = 12.0f;
+        float angle = 0.0f;
+        while (angle < maxAngle) {
+            // точки для рисования зубьев
+            Vector p5 = {0.0f, maxCoord, 1.0f};
+            p5 = p5 * Matrix::rotation(10 + globalAngle + angle) * WS;
+
+            Vector p4 = {0.0f, maxCoord - 1, 1.0f};
+            p4 = p4 * Matrix::rotation(358 + globalAngle + angle) * WS;
+
+            Vector p3 = {0.0f, maxCoord - 2, 1.0f};
+            p3 = p3 * Matrix::rotation(3 + globalAngle + angle) * WS;
+
+            Vector p2 = {0.0f, maxCoord - 3, 1.0f};
+            p2 = p2 * Matrix::rotation(10 + globalAngle + angle) * WS;
+
+            Vector p1 = {0.0f, maxCoord - 3, 1.0f};
+            p1 = p1 * Matrix::rotation(350 + globalAngle + angle) * WS;
+
+            // рисуем зубья
+            frame.Triangle(
+                    p5.x() + xC, p5.y() + yC,
+                    p4.x() + xC, p4.y() + yC,
+                    p3.x() + xC, p3.y() + yC,
+                    sawColor
+            );
+            frame.Triangle(
+                    p4.x() + xC, p4.y() + yC,
+                    p2.x() + xC, p2.y() + yC,
+                    p1.x() + xC, p1.y() + yC,
+                    sawColor
+            );
+
+            // отклоняем угол для рисования следующего зуба
+            angle += rotateAngle;
+        }
+        // рисуем внешний круг
+        frame.Circle(
+                xC, yC,
+                radius * 0.84,
+                sawColor
+        );
+        // рисуем внутренний круг
+        frame.Circle(
+                xC, yC,
+                radius * 0.3,
+                sawCenterColor
+        );
+    }
+
+    int currH = 0;
+    float currAngle = 0;
+
+    void drawStars(
+            Frame &frame,
+            Matrix WS,
+            float xC, float yC,
+            float maxCoord,
+            float globalAngle
+    ) {
+        globalAngle = globalAngle * 180.0f / M_PI;
+
+        // получаем переменную для просчёта удаления искр
+        int h = (int) globalAngle % (int) (maxCoord * 3);
+        // условие для повторного воспроизведения
+        if (currH > h) currAngle = rand() % 40 - 10;
+        currH = h;
+
+        // изменяем положение координатной плоскости
+        Matrix toss =
+                Matrix::rotation(currAngle)
+                * Matrix::transform(0, h)
+                * Matrix::rotation(globalAngle)
+                * Matrix::scale(h * 0.025f);
+
+        // применяем матрицу на точки для построения звезды
+        Vector p1 = {0.0f, maxCoord * 3 / 4, 1.0f};
+        p1 = p1 * toss * WS;
+        Vector p2 = {0.0f, maxCoord * 1 / 4 - 1.0f, 1.0f};
+        p2 = p2 * toss * WS;
+        Vector p3 = {0.0f, -maxCoord * 1 / 4 - 1.4f, 1.0f};
+        p3 = p3 * toss * WS;
+        Vector p4 = {maxCoord / 2, -maxCoord * 3 / 4, 1.0f};
+        Vector p4_ = {-maxCoord / 2, -maxCoord * 3 / 4, 1.0f};
+        p4 = p4 * toss * WS;
+        p4_ = p4_ * toss * WS;
+        Vector p5 = {maxCoord * 3 / 4, maxCoord * 1 / 4 - 1.0f, 1.0f};
+        Vector p5_ = {-maxCoord * 3 / 4, maxCoord * 1 / 4 - 1.0f, 1.0f};
+        p5 = p5 * toss * WS;
+        p5_ = p5_ * toss * WS;
+
+        // интерополируем цвета
+        BarycentricInterpolator interpolator(
+                xC, yC + 10,
+                0, 0,
+                frame.width - 1, 0,
+                {255, 255, 0},
+                {180, 180, 180},
+                {180, 180, 180}
+        );
+        // получаем цвет из интерполятора
+        COLOR starColor = interpolator.color(p3.x() + xC, p3.y() + yC);
+
+        // рисуем звезду
+        frame.Triangle(
+                p5.x() + xC, p5.y() + yC,
+                p2.x() + xC, p2.y() + yC,
+                p3.x() + xC, p3.y() + yC,
+                starColor
+        );
+        frame.Triangle(
+                p4.x() + xC, p4.y() + yC,
+                p3.x() + xC, p3.y() + yC,
+                p1.x() + xC, p1.y() + yC,
+                starColor
+        );
+        frame.Triangle(
+                p5_.x() + xC, p5_.y() + yC,
+                p2.x() + xC, p2.y() + yC,
+                p3.x() + xC, p3.y() + yC,
+                starColor
+        );
+        frame.Triangle(
+                p4_.x() + xC, p4_.y() + yC,
+                p3.x() + xC, p3.y() + yC,
+                p1.x() + xC, p1.y() + yC,
+                starColor
+        );
+    }
 
 public:
-    enum ACTION {
-        NOTHING = 0,
-        HIGHLIGHT = 1,
-        CHANGE = 2
-    };
-
     void Draw(Frame &frame) {
         int W = frame.width, H = frame.height;
 
         // Размер рисунка возьмём меньше (7 / 8), чтобы он не касался границ экрана
         float a = 7.0 / 8.0 * ((W < H) ? W - 1 : H - 1) / 2;
 
-        if (false) {
-            std::vector<COLOR> colors = {
-                    {255,0,0},
-                    {0, 255, 0},
-                    {0, 0, 255},
-                    {0, 255, 255},
-                    {255,0,  255},
-
-            };
-
-            RadialMultiColorInterpolator radialMultiColorInterpolator(W/2, H/2,global_angle, colors);
-
-            // Рисуем внешний круг
-            frame.Circle(
-                    W/2,
-                    H/2,
-                    a,
-                    radialMultiColorInterpolator
-            );
-
-            return;
-        }
-
-        // Инициализируем исходные координаты центра и вершин квадрата
-        struct {
-            float x;
-            float y;
-        }
-                C = {W / 2 + 0.5f, H / 2 + 0.5f},
-                A_st[3] = {
-                {C.x, C.y - a},
-                {static_cast<float>(+a * sin(2. * M_PI / 3) + C.x),
-                      static_cast<float>( -a * cos(2. * M_PI / 3) + C.y)},
-                {static_cast<float>(+a * sin(-2. * M_PI / 3) + C.x),
-                      static_cast<float>(-a * cos(-2. * M_PI / 3) + C.y)}},
-                B_mv[3] = {
-                {A_st[0].x, A_st[0].y},
-                {A_st[1].x, A_st[1].y},
-                {A_st[2].x, A_st[2].y}
-        };
-
-        // Поворачиваем все вершины треугольника вокруг точки C на угол global_angle
-        for (int i = 0; i < 3; i++) {
-            double xi = B_mv[i].x, yi = B_mv[i].y;
-            B_mv[i].x = (xi - C.x) * cos(global_angle) - (yi - C.y) * sin(global_angle) + C.x;
-            B_mv[i].y = (xi - C.x) * sin(global_angle) + (yi - C.y) * cos(global_angle) + C.y;
-        }
-
-
         Assets::drawChessBg(frame);
 
-        SectorInterpolator sectorInterpolator(C.x, C.y);
-        RadialInterpolator radialInterpolator1(
-                C.x, C.y,
-                C.x, C.y,
-                {255, 20, 20, global_alpha},
-                {50, 255, 50, global_alpha},
-                0
-        );
-        BarycentricInterpolator barycentricInterpolator1(
-                A_st[0].x, A_st[0].y,
-                A_st[1].x, A_st[1].y,
-                A_st[2].x, A_st[2].y,
-                {200, 40, 40, global_alpha},
-                {50, 200, 50, global_alpha},
-                {50, 50, 200, global_alpha}
-        );
-        RadialInterpolator radialInterpolator2(
-                C.x, C.y,
-                C.x, C.y,
-                {255, 255, 20, global_alpha},
-                {50, 255, 255, global_alpha},
-                0
-        );
-        BarycentricInterpolator barycentricInterpolator2(
-                A_st[0].x, A_st[0].y,
-                A_st[1].x, A_st[1].y,
-                A_st[2].x, A_st[2].y,
-                {200, 200, 200, global_alpha},
-                {50, 50, 50, global_alpha},
-                {0, 0, 200, global_alpha}
-        );
-        RadialInterpolator radialInterpolator3(
-                C.x, C.y,
-                C.x, C.y,
-                {255, 255, 255, global_alpha},
-                {50, 50, 50, global_alpha},
-                global_angle
-        );
-        BarycentricInterpolator barycentricInterpolator3(
-                A_st[0].x, A_st[0].y,
-                A_st[1].x, A_st[1].y,
-                A_st[2].x, A_st[2].y,
-                {200, 0, 0, global_alpha},
-                {0, 200, 0, global_alpha},
-                {0, 0, 200, global_alpha}
-        );
-        RadialInterpolator radialInterpolator4(
-                C.x, C.y,
-                C.x, C.y,
-                {255, 20, 20, global_alpha},
-                {50, 255, 50, global_alpha},
-                0
-        );
-        BarycentricInterpolator barycentricInterpolator4(
-                (B_mv[0].x + C.x) / 2, (B_mv[0].y + C.y) / 2,
-                (B_mv[1].x + C.x) / 2, (B_mv[1].y + C.y) / 2,
-                (B_mv[2].x + C.x) / 2, (B_mv[2].y + C.y) / 2,
-                {200, 40, 40, global_alpha},
-                {50, 200, 50, global_alpha},
-                {50, 50, 200, global_alpha}
+        Matrix WS = Matrix::WorldToScreen(
+                W / 2 - a / 2, H / 2 - a / 2,
+                W / 2 + a / 2, H / 2 + a / 2,
+                -15, -15, 15, 15
         );
 
-        if (global_action != NOTHING
-            && global_clicked_pixel.x != -1
-            && global_clicked_pixel.y != -1
-                ) {
-            actionOnFigure[0] = frame.IsPointInCircle(
-                    C.x, C.y, a,
-                    global_clicked_pixel.x,
-                    global_clicked_pixel.y
-            ) ? global_action : NOTHING;
-            actionOnFigure[1] = frame.IsPointInTriangle(
-                    A_st[0].x, A_st[0].y,
-                    A_st[1].x, A_st[1].y,
-                    A_st[2].x, A_st[2].y,
-                    global_clicked_pixel.x, global_clicked_pixel.y
-            ) ? global_action : NOTHING;
-            actionOnFigure[2] = frame.IsPointInCircle(
-                    C.x, C.y, a / 2,
-                    global_clicked_pixel.x,
-                    global_clicked_pixel.y
-            ) ? global_action : NOTHING;
-            actionOnFigure[3] = frame.IsPointInTriangle(
-                    (B_mv[0].x + C.x) / 2, (B_mv[0].y + C.y) / 2,
-                    (B_mv[1].x + C.x) / 2, (B_mv[1].y + C.y) / 2,
-                    (B_mv[2].x + C.x) / 2, (B_mv[2].y + C.y) / 2,
-                    global_clicked_pixel.x, global_clicked_pixel.y
-            ) ? global_action : NOTHING;
-            actionOnFigure[4] = frame.IsPointInCircle(
-                    C.x, C.y, a / 4,
-                    global_clicked_pixel.x,
-                    global_clicked_pixel.y
-            ) ? global_action : NOTHING;
-        }
+        float globalAngle = global_angle;
 
-        bool isFirstFigureChange = false;
-        for (int i = 4; i >= 0; i--) {
-            if (!isFirstFigureChange && actionOnFigure[i] != NOTHING) {
-                isFirstFigureChange = true;
-            } else {
-                actionOnFigure[i] = NOTHING;
-            }
-        }
-
-        // Рисуем внешний круг
-        frame.Circle(
-                C.x,
-                C.y,
-                a,
-                getInterpolator(
-                        0,
-                        actionOnFigure[0],
-                        highlightColor,
-                        sectorInterpolator,
-                        radialInterpolator1,
-                        barycentricInterpolator1
-                )
+        TriangleShader shader(
+                W, H,
+                0, 0,
+                W,-H,
+                sawColor
         );
-
-        // Рисуем статичный треугольник
         frame.Triangle(
-                A_st[0].x, A_st[0].y,
-                A_st[1].x, A_st[1].y,
-                A_st[2].x, A_st[2].y,
-                getInterpolator(
-                        1,
-                        actionOnFigure[1],
-                        highlightColor,
-                        sectorInterpolator,
-                        radialInterpolator2,
-                        barycentricInterpolator2
-                )
+                W, H,
+                0, 0,
+                W,-H,
+                shader
+        );
+        frame.Triangle(
+                W, H,
+                0, 0,
+                -W,H,
+                shader
         );
 
-        // Рисуем средний круг
-        frame.Circle(
-                C.x, C.y,
+        drawSaw_(
+                frame,
+                WS,
+                W / 2, H / 2,
                 a / 2,
-                getInterpolator(
-                        2,
-                        actionOnFigure[2],
-                        highlightColor,
-                        sectorInterpolator,
-                        radialInterpolator3,
-                        barycentricInterpolator3
-                )
+                15,
+                -globalAngle
+//                0
         );
 
-        // Рисуем вращающийся внутренний треугольник
-        frame.Triangle(
-                (B_mv[0].x + C.x) / 2, (B_mv[0].y + C.y) / 2,
-                (B_mv[1].x + C.x) / 2, (B_mv[1].y + C.y) / 2,
-                (B_mv[2].x + C.x) / 2, (B_mv[2].y + C.y) / 2,
-                getInterpolator(
-                        3,
-                        actionOnFigure[3],
-                        highlightColor,
-                        sectorInterpolator,
-                        radialInterpolator4,
-                        barycentricInterpolator4
-                )
+        drawStars(
+                frame,
+                WS,
+                W * 5 / 8.2, H / 2,
+                15,
+                globalAngle
         );
-        frame.Circle(
-                C.x, C.y,
-                a / 4,
-                {255, 0, 0, global_alpha}
-        );
-
-        global_clicked_pixel = {-1, -1};
-        for (auto &action: actionOnFigure) {
-            action = NOTHING;
-        }
     }
 };
 

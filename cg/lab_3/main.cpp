@@ -244,24 +244,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
             PostQuitMessage(0);
             break;
 
-        case WM_LBUTTONDOWN:
-            global_clicked_pixel = {
-                    LOWORD(lParam) / pixelSize,
-                    HIWORD(lParam) / pixelSize
-            };
-            global_action = painter.CHANGE;
-            InvalidateRect(hWnd, NULL, false);
-            break;
-
-        case WM_RBUTTONDOWN:
-            global_clicked_pixel = {
-                    LOWORD(lParam) / pixelSize,
-                    HIWORD(lParam) / pixelSize
-            };
-            global_action = painter.HIGHLIGHT;
-            InvalidateRect(hWnd, NULL, false);
-            break;
-
         default:
             // Все сообщения, не обрабатываемые в данной функции, направляются на обработку по умолчанию
             return DefWindowProcA(hWnd, message, wParam, lParam);
