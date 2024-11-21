@@ -1,151 +1,265 @@
-class RecognizeException(Exception):
-    def __init__(self, message):
-        self.message = message
+task = 1
 
-    def __str__(self):
-        return str(self.message)
+MESSAGES = {
+    -1: "Отвергнуть. Последовательность пуста",
+    -2: "Отвергнуть. Входной символ невалидный",
+    -3: "Отвергнуть. Символ b должен быть введён не более 1 раза",
+    -4: "Отвергнуть. Символ а должен быть введён не более 1 раза",
+    -5: "Отвергнуть. Символ b должен быть введён хотя бы 1 раз",
+    -6: "Отвергнуть. Символ a должен быть введён хотя бы 1 раз",
+    0: "Допустить."
+}
 
 
-class Recognizer:
-    YES = 'допустить'
-    NO = 'отвергнуть'
+def S1(input):
+    if len(input) == 0:
+        return -1
 
-    def check_inter(self, chain: str):
-        S = 0
-        for ch in chain:
-            if S < 0:
-                raise RecognizeException(self.ERROR_DICT[S])
-            S = self.TABLE[self.L[ch]][S]
-            print(S)
-        return self.YES if S == 3 else self.NO
+    if input[0] == 'a':
+        return S2(input[1:])
+    elif input[0] == 'b':
+        return S6(input[1:])
+    else:
+        return -2
 
-    def check_comp(self, chain: str):
-        return self._S0(chain)
 
-    def __init__(self):
-        self.TABLE = [[2, -2, 3, 2],  # Апостроф
-                      [-1, -2, 2, 0],  # Плюс
-                      [-1, -2, 1, -3]]  # Диез
-        self.TABLE += [[-1, 2, 2, -3] for i in range(0, 8)]  # Восьмиричные числа
-        self.TABLE += [[-1, -2, 2, -3] for ch in self.ELSE]  # Все остальные символы
+def S2(input):
+    if len(input) == 0:
+        return -5
 
-        self.L = {
-            "'": 0,
-            "+": 1,
-            "#": 2
-        }
-        index = 3
-        for ch in range(0, 8):
-            self.L.update({str(ch): index})
-            index += 1
-        for ch in self.ELSE:
-            self.L.update({str(ch): index})
-            index += 1
+    if input[0] == 'a':
+        return S3(input[1:])
+    elif input[0] == 'b':
+        return S4(input[1:])
+    else:
+        return -2
 
-    ERROR_DICT = {
-        -1: 'Часть строки должна начинаться с апострофа',
-        -2: 'После диеза должна идти цифра из восьмиричной системы счисления',
-        -3: 'После апострофа должн идти апостроф или плюс'
-    }
 
-    APOSTROPH = "'"
-    PLUS = '+'
-    DIEZ = '#'
-    EIGTH_DIGIT = '01234567'
-    ELSE = 'йцукенгшщзхъэждлорпавыфячсмитьбю.,-!"№;%:?*()_=' \
-           'qwertyuiop[];lkjhgf dsa'  # Множество всех входных символов за исключением тех что выше
+def S3(input):
+    _input = input
+    while True:
+        if len(_input) == 0:
+            return -5
 
-    def _S0(self, chain: str):
-        if not chain:
-            return self.NO
-        ch = chain[0]
-        if ch in self.APOSTROPH:
-            return self._S2(chain[1:])
+        if _input[0] == 'a':
+            _input = _input[1:]
+        elif _input[0] == 'b':
+            return S5(_input[1:])
         else:
-            raise RecognizeException('Часть строки должна начинаться с апострофа')
+            return -2
 
-    def _S1(self, chain: str):
-        if not chain:
-            return self.NO
-        ch = chain[0]
-        if ch in self.EIGTH_DIGIT:
-            return self._S2(chain[1:])
+
+def S5(input):
+    _input = input
+    while True:
+        if len(_input) == 0:
+            return 0
+
+        if _input[0] == 'a':
+            _input = _input[1:]
+        elif _input[0] == 'b':
+            return -3
         else:
-            raise RecognizeException('После диеза должна идти цифра из восьмиричной системы счисления')
+            return -2
 
-    def _S2(self, chain: str):
-        if not chain:
-            return self.NO
-        ch = chain[0]
-        if ch in self.APOSTROPH:
-            return self._S3(chain[1:])
-        elif ch in self.DIEZ:
-            return self._S1(chain[1:])
+
+def S4(input):
+    if len(input) == 0:
+        return 0
+
+    if input[0] == 'a':
+        return S5(input[1:])
+    elif input[0] == 'b':
+        return S9(input[1:])
+    else:
+        return -2
+
+
+def S6(input):
+    if len(input) == 0:
+        return -6
+
+    if input[0] == 'a':
+        return S4(input[1:])
+    elif input[0] == 'b':
+        return S7(input[1:])
+    else:
+        return -2
+
+
+def S7(input):
+    _input = input
+    while True:
+        if len(_input) == 0:
+            return -6
+
+        if _input[0] == 'a':
+            return S9(_input[1:])
+        elif _input[0] == 'b':
+            _input = _input[1:]
         else:
-            return self._S2(chain[1:])
+            return -2
 
-    def _S3(self, chain: str):
-        if not chain:
-            return self.YES
-        ch = chain[0]
-        if ch in self.APOSTROPH:
-            return self._S2(chain[1:])
-        elif ch in self.PLUS:
-            return self._S0(chain[1:])
+
+def S9(input):
+    _input = input
+    while True:
+        if len(_input) == 0:
+            return 0
+
+        if _input[0] == 'a':
+            return -4
+        elif _input[0] == 'b':
+            _input = _input[1:]
         else:
-            raise RecognizeException('После апострофа должн идти апостроф или плюс')
+            return -2
 
 
-if __name__ == '__main__':
-    recognizer = Recognizer()
-    print('Вы хотите работать с консолью или файлом?')
-    print('1 - консоль')
-    print('2 - файл')
+def L3validator(input):
+    result = S1(input)
+    return result
 
-    flag = int(input())
-    if flag == 1:
-        print('Введите цепочку', end=' ')
-        chain = input()
 
-        print('Выберите тип реализации')
-        print('1 - компиляционный')
-        print('2 - интерпретационный')
-        flag = int(input())
-        if flag == 1:
-            print(recognizer.check_comp(chain))
-        elif flag == 2:
-            print(recognizer.check_inter(chain))
+if task == 0:
+    check_set = [
+        ("aaaaabaaaa", 1),
+        ("bbbbbabbbb", 1),
+        ("ab", 1),
+        ("ba", 1),
+        ("aab", 1),
+        ("bba", 1),
+        ("aba", 1),
+        ("bab", 1),
+        ("", 0),
+        ("aabb", 0),
+        ("bbaa", 0),
+        ("aaabaab", 0),
+        ("bbbabba", 0),
+        ("cccc", 0),
+    ]
 
-    elif flag == 2:
-        print('Введите путь к файлу')
-        path = input()
+    check_set = [
+        ("aaab", 1),
+        ("aab", 1),
+        ("aaba", 1),
+        ("ab", 1),
+        ("aba", 1),
+        ("abaa", 1),
+        ("ba", 1),
+        ("bab", 1),
+        ("babb", 1),
+        ("bbba", 1),
+        ("bba", 1),
+        ("bbbab", 1),
+        ("bbab", 1),
+        ("", 0),  # 1
+        ("c", 0),  # 1
+        ("a", 0),  # 2
+        ("aaa", 0),  # 3
+        ("ab", 1),  # 4
+        ("ba", 1),  # 4
+        ("aab", 1),  # 5
+        ("aba", 1),  # 5
+        ("baa", 1),  # 5
+        ("aabb", 0),  # 5
+        ("b", 0),  # 6
+        ("bb", 0),  # 7
+        ("bba", 1),  # 9
+        ("bab", 1),  # 9
+        ("abb", 1),  # 9
+        ("bbaa", 0)  # 9
+    ]
 
-        print('Введите ')
-        print('1 - что бы удалить из файла все недопустимые цепочки')
-        print('2 - что бы удалить из файла все допустимые цепочки')
-        flag = int(input())
+    for check in check_set:
+        res = L3validator(check[0])
+        if check[1]:
+            print(check[0], res >= 0, MESSAGES[res], sep='\t')
+        else:
+            print(check[0], res < 0, MESSAGES[res], sep='\t')
 
-        with open(path) as f:
-            all_chain = f.read().split('\n')
-        delete_chain = []
-        if flag == 1:
-            for chain in all_chain:
-                print(chain)
-                try:
-                    print(recognizer.check_comp(chain))
-                except:
-                    print('отвергнуть')
-                    delete_chain.append(chain)
-        if flag == 2:
-            for chain in all_chain:
-                print(chain)
-                try:
-                    print(recognizer.check_comp(chain))
-                except:
-                    print('отвергнуть')
-                    continue
-                delete_chain.append(chain)
-        with open(path, 'w') as f:
-            for chain in all_chain:
-                if chain not in delete_chain:
-                    f.write(chain + '\n')
+CONVERT = {
+    2: -5,
+    3: -5,
+    6: -6,
+    7: -6,
+    -1: -1,
+    -2: -2,
+    -3: -3,
+    -4: -4,
+    -5: -5,
+    -6: -6,
+}
+
+MESSAGES = {
+    -1: "Отвергнуть. Последовательность пуста",
+    -2: "Отвергнуть. Входной символ невалидный",
+    -3: "Отвергнуть. Символ b должен быть введён не более 1 раза",
+    -4: "Отвергнуть. Символ а должен быть введён не более 1 раза",
+    -5: "Отвергнуть. Символ b должен быть введён хотя бы 1 раз",
+    -6: "Отвергнуть. Символ a должен быть введён хотя бы 1 раз",
+    0: "Допустить",
+}
+
+PERMITTING = [4, 5, 8]
+
+MATRIX = {
+    'a': [2, 3, 3, 5, 5, 4, 8, -4],
+    'b': [6, 4, 5, 8, -3, 7, 7, 8],
+}
+
+
+def L3validator(input):
+    if len(input) == 0:
+        return -1
+
+    S = 1
+    while len(input) > 0 and S > 0:
+        if not input[0] in MATRIX.keys():
+            return -2
+        S = MATRIX[input[0]][S - 1]
+        input = input[1:]
+
+    if S in PERMITTING:
+        return 0
+
+    return S
+
+
+if task == 1:
+    check_set = [
+        ("aaab", 1),
+        ("aab", 1),
+        ("aaba", 1),
+        ("ab", 1),
+        ("aba", 1),
+        ("abaa", 1),
+        ("ba", 1),
+        ("bab", 1),
+        ("babb", 1),
+        ("bbba", 1),
+        ("bba", 1),
+        ("bbbab", 1),
+        ("bbab", 1),
+        ("", 0),  # 1
+        ("c", 0),  # 1
+        ("a", 0),  # 2
+        ("aaa", 0),  # 3
+        ("ab", 1),  # 4
+        ("ba", 1),  # 4
+        ("aab", 1),  # 5
+        ("aba", 1),  # 5
+        ("baa", 1),  # 5
+        ("aabb", 0),  # 5
+        ("b", 0),  # 6
+        ("bb", 0),  # 7
+        ("bba", 1),  # 9
+        ("bab", 1),  # 9
+        ("abb", 1),  # 9
+        ("bbaa", 0)  # 9
+    ]
+    for check in check_set:
+        res = L3validator(check[0])
+        if check[1]:
+            print(check[0], res == 0, MESSAGES[res], sep='\t')
+        else:
+            print(check[0], res != 0, MESSAGES[CONVERT[res]], sep='\t')

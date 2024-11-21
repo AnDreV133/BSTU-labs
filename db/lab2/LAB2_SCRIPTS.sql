@@ -15,7 +15,7 @@ INSERT INTO store
 		(3, 'LA, 12 Avenue');
 
 INSERT INTO product 
-		(article, name, quantity_to_assess)
+		(article, name,  quantity_to_assess)
 	VALUES 
 		(1, 'Колбаса докторская', '100g'),
 		(2, 'Сырок плавленный', 'p'),
