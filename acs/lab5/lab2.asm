@@ -2,30 +2,30 @@
  .model flat, stdcall ; 
  option casemap: none ; 
 
-include c:\masm32\include\windows.inc
-include c:\masm32\include\kernel32.inc
-include c:\masm32\include\user32.inc
-include c:\masm32\include\msvcrt.inc
-includelib c:\masm32\lib\kernel32.lib
-includelib c:\masm32\lib\msvcrt.lib
-includelib c:\masm32\lib\user32.lib
+include windows.inc
+include kernel32.inc
+include user32.inc
+include msvcrt.inc
+includelib kernel32.lib
+includelib msvcrt.lib
+includelib user32.lib
 
 
 .DATA
 q dq 3.0
 n dq 1.0
-n_end dq 50.0
+buf dq ?
+n_end dq 25.0
 sum dq 0.0
-part_degree_2_23 dq 2.0
-part_degree_3_2 dq 3.0
-part_degree_5_3 dq 5.0
+const_2 dq 2.0
+const_4 dq 4.0
+; part_degree_5_3 dq 5.0
 degree dq 1.0
 str_fmt db "n = %.1f, S = %.2f ", 13, 10, 0
 
 .CODE
 
 pow proc
-    finit ;инициализация сопроц.
     fld qword PTR [ESP + 4] ;st: x
     fldz ;st: 0 x
     db 0DBh , 0F0h+1 ;FCOMI 0, x (сравнение х и 0)
@@ -65,14 +65,13 @@ pow proc
         FLD ST(2)
         FPREM
         F2XM1
-        FADD ST(0), ST(1)
-        FMUL ST(0), ST(2)
+        FADDp ST(1), ST(0)
+        FMULp ST(1), ST(0)
 
         CMP EAX, 0
         je ret1
 
-    FMUL ST(0), ST(4); умножение 2^(целая часть) * 2^(дробная часть)
-
+        FMUL ST(0), ST(2); умножение 2^(целая часть) * 2^(дробная часть)
     ret1:
         RET 16
 pow endp
@@ -102,49 +101,44 @@ calculating_denominator proc
 calculating_denominator endp
 
 START:
+    finit
     fld q
     fsqrt
-    fst q
+    fstp q
     j1:
         mov eax, dword ptr [n]
         mov edx, dword ptr [n + 4]
         mov dword ptr [degree + 4], edx
         mov dword ptr [degree], eax 
         call calculating_denominator
-        fld1
+        fld n
         fdiv st(0), st(1)
         fld sum
-        FADD
+        fadd
         fst sum
 
         finit
-        fld part_degree_2_23
+        fld const_2
         fld n
-        fmul st(0), st(1)
-        fld part_degree_3_2
-        fxch
-        fdiv st(0), st(1)
+        fmulp st(1), st(0)
         fst degree
         call calculating_denominator
-        fld part_degree_3_2
+        fld degree
         fdiv st(0), st(1)
         fld sum
-        FADD
+        fadd
         fst sum
 
         finit
-        fld part_degree_2_23
+        fld const_4
         fld n
-        fmul st(0), st(1)
-        fld part_degree_5_3
-        fxch
-        fdiv st(0), st(1)
+        fmulp st(1), st(0)
         fst degree
         call calculating_denominator
-        fld part_degree_5_3
+        fld degree
         fdiv st(0), st(1)
         fld sum
-        FADD
+        fadd
         fst sum
 
         sub ESP, 8 ; Выделение памяти в стеке
