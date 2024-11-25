@@ -1,4 +1,4 @@
-task = 1
+task = 2
 
 MESSAGES = {
     -1: "Отвергнуть. Последовательность пуста",
@@ -208,7 +208,7 @@ MATRIX = {
 }
 
 
-def L3validator(input):
+def L3validator_interp(input):
     if len(input) == 0:
         return -1
 
@@ -258,8 +258,132 @@ if task == 1:
         ("bbaa", 0)  # 9
     ]
     for check in check_set:
-        res = L3validator(check[0])
+        res = L3validator_interp(check[0])
         if check[1]:
             print(check[0], res == 0, MESSAGES[res], sep='\t')
         else:
             print(check[0], res != 0, MESSAGES[CONVERT[res]], sep='\t')
+
+
+def L3validator_comp(input: str):
+    S = 1
+    while (True):
+        if S == 1:
+            if len(input) == 0:
+                S = -1
+            elif input[0] == 'a':
+                S = 2
+            elif input[0] == 'b':
+                S = 6
+            else:
+                S = -2
+        elif S == 2:
+            if len(input) == 0:
+                S = -5
+            elif input[0] == 'a':
+                S = 3
+            elif input[0] == 'b':
+                S = 4
+            else:
+                S = -2
+        elif S == 3:
+            if len(input) == 0:
+                S = -5
+            elif input[0] == 'a':
+                S = 2
+            elif input[0] == 'b':
+                S = 5
+            else:
+                S = -2
+        elif S == 4:
+            if len(input) == 0:
+                S = 0
+            elif input[0] == 'a':
+                S = 5
+            elif input[0] == 'b':
+                S = 9
+            else:
+                S = -2
+        elif S == 5:
+            if len(input) == 0:
+                S = 0
+            elif input[0] == 'a':
+                S = 5
+            elif input[0] == 'b':
+                S = -3
+            else:
+                S = -2
+        elif S == 6:
+            if len(input) == 0:
+                S = -6
+            elif input[0] == 'a':
+                S = 4
+            elif input[0] == 'b':
+                S = 7
+            else:
+                S = -2
+        elif S == 7:
+            if len(input) == 0:
+                S = -6
+            elif input[0] == 'a':
+                S = 9
+            elif input[0] == 'b':
+                S = 7
+            else:
+                S = -2
+        elif S == 9:
+            if len(input) == 0:
+                S = 0
+            elif input[0] == 'a':
+                S = -4
+            elif input[0] == 'b':
+                S = 9
+            else:
+                S = -2
+        else:
+            raise Exception("Undefined state.")
+
+        if S <= 0:
+            return S
+
+        input = input[1:]
+
+if task == 2:
+    check_set = [
+        ("aaab", 1),
+        ("aab", 1),
+        ("aaba", 1),
+        ("ab", 1),
+        ("aba", 1),
+        ("abaa", 1),
+        ("ba", 1),
+        ("bab", 1),
+        ("babb", 1),
+        ("bbba", 1),
+        ("bba", 1),
+        ("bbbab", 1),
+        ("bbab", 1),
+        ("", 0),  # 1
+        ("c", 0),  # 1
+        ("a", 0),  # 2
+        ("aaa", 0),  # 3
+        ("ab", 1),  # 4
+        ("ba", 1),  # 4
+        ("aab", 1),  # 5
+        ("aba", 1),  # 5
+        ("baa", 1),  # 5
+        ("aabb", 0),  # 5
+        ("b", 0),  # 6
+        ("bb", 0),  # 7
+        ("bba", 1),  # 9
+        ("bab", 1),  # 9
+        ("abb", 1),  # 9
+        ("bbaa", 0)  # 9
+    ]
+    for check in check_set:
+        res = L3validator_comp(check[0])
+        if check[1]:
+            print(check[0], res == 0, MESSAGES[res], sep='\t')
+        else:
+            print(check[0], res != 0, MESSAGES[CONVERT[res]], sep='\t')
+
