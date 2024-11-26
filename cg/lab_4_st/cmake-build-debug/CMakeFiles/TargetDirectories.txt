@@ -1,0 +1,3 @@
+C:/Users/dmitr/Projects/3kurs1sem/cg/lab_4_st/cmake-build-debug/CMakeFiles/lab_4_st.dir
+C:/Users/dmitr/Projects/3kurs1sem/cg/lab_4_st/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/dmitr/Projects/3kurs1sem/cg/lab_4_st/cmake-build-debug/CMakeFiles/rebuild_cache.dir

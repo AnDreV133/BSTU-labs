@@ -80,10 +80,10 @@ public:
         }
 
         Shape main_shape(n, &frame);
-        switch (draw_type % 4) {
-//            case -1:
-//                main_shape.draw_square(main_matrix);
-//                break;
+        switch (draw_type % 4 - 1) {
+            case -1:
+                main_shape.draw_square(main_matrix);
+                break;
             case 0:
                 main_shape.draw_polygon(main_matrix);
                 break;

@@ -32,6 +32,10 @@ class Vector
       Vector temp(this->x, this->y, this->z, this->w);
       temp = temp * matrix;
 
+//      temp.x /= temp.w;
+//      temp.y /= temp.w;
+//      temp.z /= temp.w;
+
       this->x = temp.x;
       this->y = temp.y;
       this->z = temp.z;

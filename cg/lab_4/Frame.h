@@ -80,6 +80,22 @@ public:
         float y2 = p2.y;
         float z2 = p2.z;
 
+        float w0 = p0.w;
+        float w1 = p1.w;
+        float w2 = p2.w;
+
+        x0 /= w0;
+        y0 /= w0;
+        z0 /= w0;
+
+        x1 /= w1;
+        y1 /= w1;
+        z1 /= w1;
+
+        x2 /= w2;
+        y2 /= w2;
+        z2 /= w2;
+
         // Отсортируем точки таким образом, чтобы выполнилось условие: y0 < y1 < y2
         if (y1 < y0) {
             swap(x1, x0);
@@ -188,12 +204,12 @@ public:
     template <class Shader>
     void Quad(Vector p0, Vector p1, Vector p2, Vector p3, Shader shader) {
         Triangle(p0, p1, p2, shader);
-        Triangle(p2, p3, p0, shader);
+        Triangle(p1, p2, p3, shader);
     }
 
     void Quad(Vector p0, Vector p1, Vector p2, Vector p3, COLOR color) {
         Triangle(p0, p1, p2, color);
-        Triangle(p2, p3, p0, color);
+        Triangle(p1, p2, p3, color);
     }
 
     void DrawLine(Vector p1, Vector p2, COLOR color) {
@@ -201,6 +217,16 @@ public:
         float y1 = p1.y;
         float x2 = p2.x;
         float y2 = p2.y;
+
+        float w1 = p1.w;
+        float w2 = p2.w;
+
+
+        x1 /= w1;
+        y1 /= w1;
+
+        x2 /= w2;
+        y2 /= w2;
 
         int dy = y2 - y1, dx = x2 - x1;
         if (dx == 0 && dy == 0) {
@@ -250,14 +276,15 @@ public:
         float x0 = p0.x;
         float y0 = p0.y;
         float z0 = p0.z;
-        float w0 = p0.w;
         float x1 = p1.x;
         float y1 = p1.y;
         float z1 = p1.z;
-        float w1 = p1.w;
         float x2 = p2.x;
         float y2 = p2.y;
         float z2 = p2.z;
+
+        float w0 = p0.w;
+        float w1 = p1.w;
         float w2 = p2.w;
 
         x0 /= w0;

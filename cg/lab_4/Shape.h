@@ -101,6 +101,30 @@ class Shape {
         return this;
     }
 
+    Shape *draw_square_with_normalise(Matrix &projection_matrix) {
+        projection_matrix = Matrix::RotationX(90 * M_PI / 180) * projection_matrix;
+
+        Vector v1_hom = {1, 1, 0, 1};
+        Vector v2_hom = {1, -1, 0, 1};
+        Vector v3_hom = {-1, 1, 0, 1};
+        Vector v4_hom = {-1, -1, 0, 1};
+
+        Vector v1 = {1, 1, 0, 1};
+        v1.hom_to_st(projection_matrix);
+        Vector v2 = {1, -1, 0, 1};
+        v2.hom_to_st(projection_matrix);
+        Vector v3 = {-1, 1, 0, 1};
+        v3.hom_to_st(projection_matrix);
+        Vector v4 = {-1, -1, 0, 1};
+        v4.hom_to_st(projection_matrix);
+
+        Shader shader1(v1_hom, v2_hom, v3_hom);
+        frame->Triangle(v1, v2, v3, shader1);
+
+        Shader shader2(v2_hom, v3_hom, v4_hom);
+        frame->Triangle(v2, v3, v4, shader2);
+    }
+
 public:
     Shape(int n, Frame *f) {
         N = n;
@@ -191,7 +215,7 @@ public:
     }
 
     Shape *draw_square(Matrix &projection_matrix) {
-
+        return draw_square_with_normalise(projection_matrix);
     }
 };
 
