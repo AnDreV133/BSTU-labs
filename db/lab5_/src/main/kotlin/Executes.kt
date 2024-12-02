@@ -25,7 +25,7 @@ object Table {
     object Accounting {
         const val T_NAME = "accounting"
 
-//        const val ID = "id"
+        //        const val ID = "id"
         const val STORE_ID = "store_id"
         const val PRODUCT_ARTICLE = "product_article"
         const val COST = "cost"
@@ -193,15 +193,13 @@ fun Connection.executeBuy(
     purchases: List<Purchase>,
 ): Connection {
     try {
-
-
         val generatedCheckListId = prepareStatement(
             """
-        INSERT INTO ${Table.CheckList.T_NAME}
-            (${Table.CheckList.STORE_ID}, ${Table.CheckList.TIME})
-        VALUES
-            ($storeId, NOW());
-        """,
+            INSERT INTO ${Table.CheckList.T_NAME}
+                (${Table.CheckList.STORE_ID}, ${Table.CheckList.TIME})
+            VALUES
+                ($storeId, NOW());
+            """,
             arrayOf(Table.CheckList.ID)
         ).use { preparedStmt ->
             preparedStmt.executeUpdate()
@@ -228,8 +226,7 @@ fun Connection.executeBuy(
                 UPDATE ${Table.Accounting.T_NAME}
                     SET ${Table.Accounting.AMOUNT}=${Table.Accounting.AMOUNT}-${purchase.amount}
                     WHERE ${Table.Accounting.STORE_ID}=$storeId 
-                        AND ${Table.Accounting.PRODUCT_ARTICLE}=${purchase.article};
-                        
+                        AND ${Table.Accounting.PRODUCT_ARTICLE}=${purchase.article};   
                 """
                 )
         }
