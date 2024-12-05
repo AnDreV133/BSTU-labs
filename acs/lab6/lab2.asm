@@ -12,57 +12,58 @@ includelib msvcrt.lib
 includelib user32.lib
 
 .data
+    fmtBit db "%d", 0        ; Формат для вывода одного бита
+    fmtSpace db " ", 0       ; Формат для вывода пробела
+
     fmtF db "%d", 0 
-    fntNewLine db 10, 13, 0
+    fmtNewLine db 10, 13, 0
 
-    number dw 15 dup(7777h), 07531h
-
-    fmt db "k = %d", 13, 10, 0
+    number db 19 dup(77h), 000h
+    ; number db 19 dup(0FFh), 0F8h
 
 .code
-output proc uses eax ebx edx ecx a_ : word
-    xor eax, eax 
-    xor edx, edx 
-    mov ax, a_ 
-    clc
-    mov ecx, 16
+output_big_number proc uses eax ebx ecx edx esi, number_: dword
+    mov esi, number_
+    ; add esi, 19
+    mov ecx, 20
 
-output_number: 
-    rol ax, 1 
-    mov edx, eax 
-    and edx, 1b
-    push eax 
-    push ecx 
-    push edx
+output_loop:
+    push ecx                  ; Сохраняем ecx
+    mov ecx, 8                ; Устанавливаем счетчик для 8 бит
+    mov ebx, 010000000b                ; Маска для выделения бита
 
-    push edx
-    push offset fmtF 
-    call crt_printf
+bit_loop:
+    dec ecx
 
-    add esp, @WordSize * 2
+    mov eax, [esi]            ; Загружаем текущий байт в eax
+    and eax, ebx              ; Выделяем текущий бит
+    shr eax, cl
+    push ecx                  ; Сохраняем ecx
+    push eax                  ; Передаем бит в качестве аргумента
+    push offset fmtBit        ; Передаем формат для вывода бита
+    call crt_printf           ; Вызываем функцию printf
+    add esp, 8                ; Восстанавливаем стек
+    pop ecx                   ; Восстанавливаем ecx
 
-    pop edx 
-    pop ecx
-    pop eax
-    loop output_number
+    shr ebx, 1                ; Сдвигаем маску для следующего бита
 
-    ret 
-output endp
+    cmp ecx, 0
+    jne bit_loop             ; Повторяем цикл для оставшихся бит
 
-output_big_number proc uses eax ebx edx ecx number_ : dword 
-    mov ebx, number_
+    push offset fmtSpace      ; Передаем формат для вывода пробела
+    call crt_printf           ; Вызываем функцию printf
+    add esp, 4                ; Восстанавливаем стек
 
-    mov ecx, 0 
-print_val1_:
-    invoke output, word ptr [ebx + ecx * 2]
+    pop ecx                   ; Восстанавливаем ecx
+    inc esi                   ; Переходим к следующему байту
+    loop output_loop          ; Повторяем цикл для оставшихся байтов
 
-    inc ecx 
-    cmp ecx, 16
-    jne print_val1_
-    invoke crt_printf, offset fntNewLine 
-    add esp, @WordSize
+    ; Вывод новой строки
+    push offset fmtNewLine    ; Передаем формат для вывода новой строки
+    call crt_printf           ; Вызываем функцию printf
+    add esp, 4                ; Восстанавливаем стек
 
-    ret 
+    ret
 output_big_number endp
 
 div_2 proc number_ptr: dword, k_ : dword 
@@ -76,12 +77,12 @@ loop_start:
     mov esi, ebx
 
     clc
-    mov ecx, 16
+    mov ecx, 20
 
 loop_shift:
-    rcr word ptr [esi], 1 
+    sar byte ptr [esi], 1 
     pushf
-    add esi, 2 
+    add esi, 1 
     popf
     loop loop_shift
 
@@ -95,13 +96,13 @@ div_2 endp
 START:
 invoke output_big_number, offset number 
 
-invoke div_2, offset number, 2
-invoke output_big_number, offset number 
+; invoke div_2, offset number, 2
+; invoke output_big_number, offset number 
 
-invoke div_2, offset number, 1
-invoke output_big_number, offset number
+; invoke div_2, offset number, 1
+; invoke output_big_number, offset number
 
-invoke div_2, offset number, 1
+invoke div_2, offset number, 10
 invoke output_big_number, offset number 
 
 push 0	

@@ -21,6 +21,7 @@ includelib c:\masm32\lib\user32.lib
 .code
 output proc uses eax ebx edx ecx a_ : dword 
 	mov eax, a_
+	
 	shl eax, 12 
 	clc
 
@@ -70,9 +71,10 @@ second_loop:
 	shl edx, cl
 
 	xor eax, eax
+	not eax
 
-	or eax, ebx 
-	or eax, edx
+	xor eax, ebx 
+	xor eax, edx
 
 	push ecx 
 	push eax 
@@ -95,7 +97,7 @@ second_loop:
 	pop ecx
 	loop first_loop
 
-	push 0	
+	push 0  
 	call ExitProcess	
 
 END START
