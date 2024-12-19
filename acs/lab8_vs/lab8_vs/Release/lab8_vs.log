@@ -1,0 +1,12 @@
+﻿  lab8_vs.cpp
+  main.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 25 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+lab2_c.lib(lab2_c.dll) : error LNK2026: module unsafe for SAFESEH image.
+lab2_c.lib(lab2_c.dll) : error LNK2026: module unsafe for SAFESEH image.
+lab2_c.lib(lab2_c.dll) : error LNK2026: module unsafe for SAFESEH image.
+lab2_c.lib(lab2_c.dll) : error LNK2026: module unsafe for SAFESEH image.
+lab2_c.lib(lab2_c.dll) : error LNK2026: module unsafe for SAFESEH image.
+C:\Users\dmitr\Projects\3kurs1sem\acs\lab8_vs\Release\lab8_vs.exe : fatal error LNK1281: Unable to generate SAFESEH image.

@@ -1,0 +1,5 @@
+﻿  main.cpp
+  main64.cpp
+  Generating Code...
+main64.obj : error LNK2019: unresolved external symbol _sort_fastcall_args_64 referenced in function _main
+C:\Users\dmitr\Projects\3kurs1sem\acs\lab8_vs\Debug\lab8_vs.exe : fatal error LNK1120: 1 unresolved externals
