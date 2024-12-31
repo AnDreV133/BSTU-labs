@@ -78,10 +78,6 @@ class MP:
         }
     }
 
-    def _print_rule(self, rule: (str, str)):
-        rule_num = RULES.index(rule) + 1
-        print(f'{" " if rule_num < 10 else ""}{rule_num}. {rule[0]} -> {rule[1] if rule[1] else "e"}')
-
     def check(self, chain: str):
         stack = ['┤', 'S']
         chain += '┤'
@@ -100,7 +96,11 @@ class MP:
                     rule: (str, str) = MP.TABLE[X][chain[indexInSym]]  # тут вылетит ошибка если ячейка таблицы пуста
                     stack.pop()
                     stack += rule[1][::-1]
-                    self._print_rule(rule)
+                    rule_num = RULES.index(rule) + 1
+                    print(f'{" " if rule_num < 10 else ""}{rule_num}. {rule[0]} -> {rule[1] if rule[1] else "e"}')
+                    stack.reverse()
+                    print(*stack, sep='')
+                    stack.reverse()
                 except:
                     raise Exception
 
