@@ -1,0 +1,4 @@
+"T:\clion\CLion 2022.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S "T:\c github pc\c_learning" -B "T:\c github pc\c_learning\cmake-build-debug"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: T:/c github pc/c_learning/cmake-build-debug

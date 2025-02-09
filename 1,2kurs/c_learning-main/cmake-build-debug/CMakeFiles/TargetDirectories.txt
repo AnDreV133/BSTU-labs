@@ -1,0 +1,8 @@
+T:/c github pc/c_learning/cmake-build-debug/CMakeFiles/project.dir
+T:/c github pc/c_learning/cmake-build-debug/CMakeFiles/Matrix.dir
+T:/c github pc/c_learning/cmake-build-debug/CMakeFiles/Set.dir
+T:/c github pc/c_learning/cmake-build-debug/CMakeFiles/String.dir
+T:/c github pc/c_learning/cmake-build-debug/CMakeFiles/Sorts.dir
+T:/c github pc/c_learning/cmake-build-debug/CMakeFiles/Vector.dir
+T:/c github pc/c_learning/cmake-build-debug/CMakeFiles/edit_cache.dir
+T:/c github pc/c_learning/cmake-build-debug/CMakeFiles/rebuild_cache.dir

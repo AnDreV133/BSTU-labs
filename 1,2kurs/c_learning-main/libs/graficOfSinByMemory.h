@@ -1,0 +1,11 @@
+//
+// Created by admin on 28.01.2023.
+//
+
+#ifndef MAIN_C_GRAFICOFSINBYMEMORY_H
+#define MAIN_C_GRAFICOFSINBYMEMORY_H
+
+#endif //MAIN_C_GRAFICOFSINBYMEMORY_H
+
+
+void HEHEHEHEHE();

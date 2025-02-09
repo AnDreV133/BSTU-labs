@@ -1,0 +1,2 @@
+"T:\clion\CLion 2022.2.3\bin\mingw\bin\ar.exe" qc libVector.a CMakeFiles/Vector.dir/libs/Vector.c.obj
+"T:\clion\CLion 2022.2.3\bin\mingw\bin\ranlib.exe" libVector.a

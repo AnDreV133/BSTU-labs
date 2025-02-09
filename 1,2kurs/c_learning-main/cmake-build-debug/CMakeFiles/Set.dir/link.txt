@@ -1,0 +1,2 @@
+"T:\clion\CLion 2022.2.3\bin\mingw\bin\ar.exe" qc libSet.a CMakeFiles/Set.dir/libs/OperationOverSet.c.obj
+"T:\clion\CLion 2022.2.3\bin\mingw\bin\ranlib.exe" libSet.a

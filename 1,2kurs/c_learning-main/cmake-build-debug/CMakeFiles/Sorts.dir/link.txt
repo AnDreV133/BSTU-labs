@@ -1,0 +1,2 @@
+"T:\clion\CLion 2022.2.3\bin\mingw\bin\ar.exe" qc libSorts.a CMakeFiles/Sorts.dir/libs/Sorts.c.obj
+"T:\clion\CLion 2022.2.3\bin\mingw\bin\ranlib.exe" libSorts.a

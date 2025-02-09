@@ -1,0 +1,105 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.23"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "project",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Matrix::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Matrix-Debug-1443b0bba84fd2df0762.json",
+					"name" : "Matrix",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Set::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Set-Debug-aca50715b8195c91aa00.json",
+					"name" : "Set",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Sorts::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Sorts-Debug-5b18e03c07ed34d1dee1.json",
+					"name" : "Sorts",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "String::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-String-Debug-b743cb74e0c4e742c6ef.json",
+					"name" : "String",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Vector::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Vector-Debug-b63c9aa40b0183dbbd5d.json",
+					"name" : "Vector",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "project::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-project-Debug-797f0acf650dee76e608.json",
+					"name" : "project",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "T:/c github pc/c_learning/cmake-build-debug",
+		"source" : "T:/c github pc/c_learning"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

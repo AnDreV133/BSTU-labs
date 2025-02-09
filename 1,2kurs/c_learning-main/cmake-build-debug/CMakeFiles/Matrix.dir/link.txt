@@ -1,0 +1,2 @@
+"T:\clion\CLion 2022.2.3\bin\mingw\bin\ar.exe" qc libMatrix.a CMakeFiles/Matrix.dir/libs/OperationOverMatrix.c.obj
+"T:\clion\CLion 2022.2.3\bin\mingw\bin\ranlib.exe" libMatrix.a
