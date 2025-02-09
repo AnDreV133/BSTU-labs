@@ -1,0 +1,50 @@
+[
+{
+  "directory": "T:/2kurs2sem/OOP/lab5/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/project.dir/sources/function/Function.cpp.obj -c T:/2kurs2sem/OOP/lab5/sources/function/Function.cpp",
+  "file": "T:/2kurs2sem/OOP/lab5/sources/function/Function.cpp",
+  "output": "CMakeFiles/project.dir/sources/function/Function.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/OOP/lab5/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/project.dir/sources/function/FunctionManager.cpp.obj -c T:/2kurs2sem/OOP/lab5/sources/function/FunctionManager.cpp",
+  "file": "T:/2kurs2sem/OOP/lab5/sources/function/FunctionManager.cpp",
+  "output": "CMakeFiles/project.dir/sources/function/FunctionManager.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/OOP/lab5/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/project.dir/sources/function/Solver.cpp.obj -c T:/2kurs2sem/OOP/lab5/sources/function/Solver.cpp",
+  "file": "T:/2kurs2sem/OOP/lab5/sources/function/Solver.cpp",
+  "output": "CMakeFiles/project.dir/sources/function/Solver.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/OOP/lab5/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/project.dir/sources/function/IOHandler.cpp.obj -c T:/2kurs2sem/OOP/lab5/sources/function/IOHandler.cpp",
+  "file": "T:/2kurs2sem/OOP/lab5/sources/function/IOHandler.cpp",
+  "output": "CMakeFiles/project.dir/sources/function/IOHandler.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/OOP/lab5/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/project.dir/sources/function/specific/Hyperbola.cpp.obj -c T:/2kurs2sem/OOP/lab5/sources/function/specific/Hyperbola.cpp",
+  "file": "T:/2kurs2sem/OOP/lab5/sources/function/specific/Hyperbola.cpp",
+  "output": "CMakeFiles/project.dir/sources/function/specific/Hyperbola.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/OOP/lab5/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/project.dir/sources/function/specific/Line.cpp.obj -c T:/2kurs2sem/OOP/lab5/sources/function/specific/Line.cpp",
+  "file": "T:/2kurs2sem/OOP/lab5/sources/function/specific/Line.cpp",
+  "output": "CMakeFiles/project.dir/sources/function/specific/Line.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/OOP/lab5/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/project.dir/sources/function/specific/Parabola.cpp.obj -c T:/2kurs2sem/OOP/lab5/sources/function/specific/Parabola.cpp",
+  "file": "T:/2kurs2sem/OOP/lab5/sources/function/specific/Parabola.cpp",
+  "output": "CMakeFiles/project.dir/sources/function/specific/Parabola.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/OOP/lab5/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/project.dir/main.cpp.obj -c T:/2kurs2sem/OOP/lab5/main.cpp",
+  "file": "T:/2kurs2sem/OOP/lab5/main.cpp",
+  "output": "CMakeFiles/project.dir/main.cpp.obj"
+}
+]

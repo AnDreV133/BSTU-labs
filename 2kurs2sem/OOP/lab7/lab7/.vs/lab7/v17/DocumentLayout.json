@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab7\\lab7\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6E2365E6-935F-4BA4-9703-DADDDC9644BD}|lab7\\lab7.vcxproj|C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab7\\lab7\\lab7\\solve.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6E2365E6-935F-4BA4-9703-DADDDC9644BD}|lab7\\lab7.vcxproj|solutionrelative:lab7\\solve.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E2365E6-935F-4BA4-9703-DADDDC9644BD}|lab7\\lab7.vcxproj|C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab7\\lab7\\lab7\\lab7.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6E2365E6-935F-4BA4-9703-DADDDC9644BD}|lab7\\lab7.vcxproj|solutionrelative:lab7\\lab7.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "solve.h",
+              "DocumentMoniker": "C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab7\\lab7\\lab7\\solve.h",
+              "RelativeDocumentMoniker": "lab7\\solve.h",
+              "ToolTip": "C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab7\\lab7\\lab7\\solve.h",
+              "RelativeToolTip": "lab7\\solve.h",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAowFwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-03-27T09:24:54.388Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "lab7.cpp",
+              "DocumentMoniker": "C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab7\\lab7\\lab7\\lab7.cpp",
+              "RelativeDocumentMoniker": "lab7\\lab7.cpp",
+              "ToolTip": "C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab7\\lab7\\lab7\\lab7.cpp",
+              "RelativeToolTip": "lab7\\lab7.cpp",
+              "ViewState": "AQIAABYAAAAAAAAAAAAowCoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-27T08:37:52.682Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

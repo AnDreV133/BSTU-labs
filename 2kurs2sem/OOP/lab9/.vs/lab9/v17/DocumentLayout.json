@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab9\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F1341FFD-F1FF-41B7-ACA4-8D22A906B023}|lab9\\lab9.vcxproj|C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab9\\lab9\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F1341FFD-F1FF-41B7-ACA4-8D22A906B023}|lab9\\lab9.vcxproj|solutionrelative:lab9\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1341FFD-F1FF-41B7-ACA4-8D22A906B023}|lab9\\lab9.vcxproj|C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab9\\lab9\\text.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F1341FFD-F1FF-41B7-ACA4-8D22A906B023}|lab9\\lab9.vcxproj|solutionrelative:lab9\\text.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1341FFD-F1FF-41B7-ACA4-8D22A906B023}|lab9\\lab9.vcxproj|C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab9\\lab9\\text.html||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{F1341FFD-F1FF-41B7-ACA4-8D22A906B023}|lab9\\lab9.vcxproj|solutionrelative:lab9\\text.html||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "text.html",
+              "DocumentMoniker": "C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab9\\lab9\\text.html",
+              "RelativeDocumentMoniker": "lab9\\text.html",
+              "ToolTip": "C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab9\\lab9\\text.html",
+              "RelativeToolTip": "lab9\\text.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-04-08T12:28:41.094Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "text.html",
+              "DocumentMoniker": "C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab9\\lab9\\text.html",
+              "RelativeDocumentMoniker": "lab9\\text.html",
+              "ToolTip": "C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab9\\lab9\\text.html",
+              "RelativeToolTip": "lab9\\text.html",
+              "ViewState": "AQIAAFoBAAAAAAAAAAAkwGkBAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-04-08T07:10:02.151Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab9\\lab9\\main.cpp",
+              "RelativeDocumentMoniker": "lab9\\main.cpp",
+              "ToolTip": "C:\\Users\\dmitr\\Projects\\2kurs2sem\\OOP\\lab9\\lab9\\main.cpp",
+              "RelativeToolTip": "lab9\\main.cpp",
+              "ViewState": "AQIAAFAAAAAAAAAAAAAAAFoAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-07T17:30:24.342Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

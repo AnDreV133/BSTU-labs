@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash Maps in C++ with Simple Code Examples and Explanations</title>
+    <meta name="description" content="Code examples of how hash maps work in C++ with simple explanations. The C++ standard library&#39;s &#34;std::unordered_map&#34;.">
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <meta property="og:site_name" content="C++ By Example" />
+    <meta property="og:title" content="Hash Maps" />
+    <meta property="og:description" content="Code examples of how hash maps work in C++ with simple explanations. The C++ standard library&#39;s &#34;std::unordered_map&#34;." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cppbyexample.com/hash_map.html" />
+    <meta property="og:image" content="https://cppbyexample.com/icon-512.png" />
+    <style>
+
+        :root {
+            /* Solarized */
+            --base03: #002b36;
+            --base02: #073642;
+            --base01: #586e75;
+            --base00: #657b83;
+            --base0: #839496;
+            --base1: #93a1a1;
+            --base2: #eee8d5;
+            --base3: #fdf6e3;
+            --yellow: #b58900;
+            --orange: #cb4b16;
+            --red: #dc322f;
+            --magenta: #d33682;
+            --violet: #6c71c4;
+            --blue: #268bd2;
+            --cyan: #2aa198;
+            --green: #859900;
+        }
+
+        body {
+            -webkit-text-size-adjust: none;
+            margin: 0 auto;
+            padding: 0;
+            font-family: Verdana, "Bitstream Vera Sans", sans-serif;
+            line-height: 1.5em;
+            text-align: left;
+            word-wrap: break-word;
+        }
+
+        h1 {
+            font-family: Helvetica, Georgia, sans-serif;
+            font-size: 1.7em;
+            line-height: 1.5em;
+            text-align: left;
+            margin-bottom: 0em;
+        }
+
+        #tags {
+            margin-top: 0em;
+        }
+
+        h2 {
+            font-family: Helvetica, Georgia, sans-serif;
+            font-size: 1.5em;
+            line-height: 1.5em;
+            text-align: left;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        #title {
+            font-family: Helvetica, Georgia, sans-serif;
+            font-size: 2em;
+            font-weight: bold;
+            text-decoration: none;
+            border-width: 0 0 0 0;
+            border-style: none none none none;
+            display: inline;
+        }
+
+        #banner {
+            padding: 40px 00px 0px 0px;
+        }
+
+            #banner p {
+                font-size: 0.9em;
+            }
+
+        nav {
+            margin: 1em;
+            text-decoration: none;
+        }
+
+        section#articles, #banner {
+            position: relative;
+            display: block;
+            width: 620px;
+            margin: 0 auto;
+        }
+
+        /* 500-pixel layout for smaller screens */
+        @media (max-width: 680px) {
+            section#articles, #banner {
+                width: calc(100vw - 30px);
+            }
+        }
+
+        a:link, a:visited {
+            border-width: 0 0 1px 0;
+            padding: 3px 0px 2px 0px;
+            background-color: inherit;
+            color: inherit;
+        }
+
+        a.tag, code.tag {
+            color: var(--cyan);
+            padding: 0.1em 0.3em 0.1em 0.3em;
+            border-radius: 10px;
+        }
+
+        pre {
+            font-family: Monaco, monospace;
+            font-size: 0.95em;
+            white-space: pre-wrap;
+            padding: 0.5em;
+            line-height: 1.5em;
+            border-radius: 10px;
+        }
+
+        code {
+            color: var(--blue);
+            padding: 0.1em 0.3em 0.1em 0.3em;
+            border-radius: 10px;
+            font-size: 1.2em;
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                color: #222222;
+                background-color: var(--base3);
+            }
+
+            ::selection {
+                background-color: var(--base2);
+            }
+            /* Sublime Dark */
+            pre {
+                color: var(--base0);
+                background-color: var(--base03);
+            }
+
+                pre::selection, pre > span::selection {
+                    background-color: var(--base02);
+                }
+            /* Sublime Dark */
+            code {
+                background-color: var(--base2);
+            }
+
+            .Comment, .c, .ch, .cm, .c1, .cs {
+                color: var(--base01);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                color: #dddddd;
+                background-color: var(--base03);
+            }
+
+            ::selection {
+                background-color: var(--base02);
+            }
+            /* Sublime Light */
+            pre {
+                color: var(--base00);
+                background-color: var(--base3);
+            }
+
+                pre::selection, pre > span::selection {
+                    background-color: var(--base2);
+                }
+            /* Sublime Light */
+            code {
+                background: var(--base02);
+            }
+
+            .Comment, .c, .ch, .cm, .c1, .cs {
+                color: var(--base1);
+            }
+        }
+
+        .PreProc, .cp {
+            color: var(--orange);
+        }
+
+        .LineNr {
+            color: var(--base1);
+        }
+
+        .Constant, .cpf, .mi, .s {
+            color: var(--cyan);
+        }
+
+        .Type, .kt {
+            color: var(--yellow);
+        }
+
+        .Special, .se {
+            color: var(--red);
+        }
+
+        .Statement, .k {
+            color: var(--green);
+        }
+
+        .dateline {
+            color: #aaa;
+            font-size: .75em;
+            margin-top: -2em;
+            margin-bottom: 1.5em;
+            font-weight: normal;
+        }
+
+        .footer {
+            margin-top: 14em;
+            padding-bottom: 1em;
+            text-align: left;
+            background-color: transparent;
+        }
+
+        .smallprint {
+            margin-top: 4em;
+            line-height: 1.8em;
+            font-size: .8em;
+            text-align: left;
+            color: #aaa;
+        }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MB9C7KPQHY"></script>
+    <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MB9C7KPQHY');
+    </script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7449174967368098"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="banner">
+        <a id="title" href="/">C++ By Example</a>
+        <nav>
+            <a href="/">Home</a>
+            |
+            <a href="/all_tags.html">All Tags</a>
+            |
+            <a href="/cdn-cgi/l/email-protection#74171b1a0015170034170404160d110c15190418115a171b19">Contact</a>
+            |
+            <a href="/about.html">About</a>
+        </nav>
+    </div>
+    <hr />
+    <section id="articles">
+        <article>
+            <h1>Hash Maps</h1>
+            <h4 id="tags">
+                <code><a class="tag" href="/tags/c++17.html">c++17</a></code>
+                <code><a class="tag" href="/tags/containers.html">containers</a></code>
+                <code><a class="tag" href="/tags/intermediate.html">intermediate</a></code>
+            </h4>
+            <p><strong>Related:</strong> <a href="/hash_set.html">Hash Sets</a></p>
+            <p>
+                Hash maps, sometimes called dictionary or table, are known as <em>unordered maps</em> in C++.
+                The <a href="/what_is_std.html">C++ standard library&rsquo;s</a> implementation of hash map is called <code>std::unordered_map</code>.
+                <code>std::unordered_map</code> makes no guarantees about the order of its keys and their order can depend on when they are inserted into the map.
+                This means when iterating the key-value pairs of <code>std::unordered_map</code> we cannot know the order of iteration.
+                This allows <code>std::unordered_map</code> to optimize for the usage of element insertion and search, or the finding of individual values by key, when compared to <a href="/map.html">std::map</a>.
+            </p>
+<pre><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unordered_map&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">statusMessages</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Success&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="mi">404</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;This is not the page you&#39;re looking for&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="mi">403</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Unauthorized&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="mi">418</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;I&#39;m a teapot&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="n">statusMessages</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">503</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Something went wrong&quot;</span><span class="p">});</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">statusMessages</span><span class="p">[</span><span class="mi">418</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span>
+<span class="p">}</span><span class="w"></span>
+</pre>
+<pre>I'm a teapot</pre>
+
+            <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7449174967368098"
+                    crossorigin="anonymous"></script>
+            <p>
+                <ins class="adsbygoogle"
+                     style="display:block; text-align:center;"
+                     data-ad-layout="in-article"
+                     data-ad-format="fluid"
+                     data-full-width-responsive="true"
+                     data-ad-client="ca-pub-7449174967368098"
+                     data-ad-slot="3409050717"></ins>
+            </p>
+            <script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <h2 id="element-lookup">Element Lookup</h2>
+            <p>
+                There&rsquo;s two methods to find an element in a <code>std::unordered_map</code>: the <code>find()</code> method and the square bracket operator(<code>[]</code>).
+                To learn more <a href="/hash_map_find.html">click here</a>.
+            </p>
+            <h2 id="storing-custom-types">Storing Custom Types</h2>
+            <p>
+                <code>std::unordered_map</code> requires that the keys of the map are able to be compared for equality, meaning the keys should support the equality operator (<code>==</code>).
+                The keys of <code>std::unordered_map</code> are also required to be able to be hashable meaning you need to write a specialization of <code>std::hash</code> for the key type.
+                To learn more about storing custom types in <code>std::unordered_map</code> <a href="/hash_map_custom_types.html">click here</a>.
+            </p>
+            <h2 id="another-key-value-container">Another Key-Value Container</h2>
+            <p>
+                There&rsquo;s another <em>ordered</em> key-value container in C++: <code>std::map</code>.
+                While technically not a hash map, <code>std::map</code> is a key-value container that maintains its keys in sorted order at all times.
+                Click <a href="/map.html">here</a> to learn more.
+            </p>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7449174967368098"
+                    crossorigin="anonymous"></script>
+            <p>
+                <ins class="adsbygoogle"
+                     style="display:block; text-align:center;"
+                     data-ad-layout="in-article"
+                     data-ad-format="fluid"
+                     data-full-width-responsive="true"
+                     data-ad-client="ca-pub-7449174967368098"
+                     data-ad-slot="3409050717"></ins>
+            </p>
+            <script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </article><hr />
+        <p>For more C++ By Example, <a href="/index.html">click here</a>.</p>
+        <div id="footer">
+            <form id="siteSearch" action="https://duckduckgo.com/" method="get" style="margin-bottom: 2.5em;" onsubmit="this.q.value = 'site:cppbyexample.com ' + this.q.value">
+                <div>
+                    <input name="q" type="text" 10 style="margin-right: 8px; width: 66%;" />
+                    <input type="submit" value="Search" />
+                </div>
+            </form>
+            <p class="smallprint">
+                Copyright &copy; 2022 Rob Cusimano.
+                All code is owned by Rob Cusimano and made available under the following <a href="/license.html">MIT license</a>.
+            </p>
+        </div>
+    </section>
+</body>
+</html>

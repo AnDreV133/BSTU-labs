@@ -1,0 +1,20 @@
+[
+{
+  "directory": "T:/2kurs2sem/OOP/lab2/build",
+  "command": "c:/users/dmitr/gcc/bin/g++.exe   -g -o CMakeFiles/lab2.dir/Source/AudioCollection.cpp.obj -c T:/2kurs2sem/OOP/lab2/Source/AudioCollection.cpp",
+  "file": "T:/2kurs2sem/OOP/lab2/Source/AudioCollection.cpp",
+  "output": "CMakeFiles/lab2.dir/Source/AudioCollection.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/OOP/lab2/build",
+  "command": "c:/users/dmitr/gcc/bin/g++.exe   -g -o CMakeFiles/lab2.dir/Source/Player.cpp.obj -c T:/2kurs2sem/OOP/lab2/Source/Player.cpp",
+  "file": "T:/2kurs2sem/OOP/lab2/Source/Player.cpp",
+  "output": "CMakeFiles/lab2.dir/Source/Player.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/OOP/lab2/build",
+  "command": "c:/users/dmitr/gcc/bin/g++.exe   -g -o CMakeFiles/lab2.dir/main.cpp.obj -c T:/2kurs2sem/OOP/lab2/main.cpp",
+  "file": "T:/2kurs2sem/OOP/lab2/main.cpp",
+  "output": "CMakeFiles/lab2.dir/main.cpp.obj"
+}
+]

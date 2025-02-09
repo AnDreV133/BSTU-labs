@@ -1,0 +1,38 @@
+[
+{
+  "directory": "T:/2kurs2sem/InformTheor/lab3/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/lab3.dir/2.cpp.obj -c T:/2kurs2sem/InformTheor/lab3/2.cpp",
+  "file": "T:/2kurs2sem/InformTheor/lab3/2.cpp",
+  "output": "CMakeFiles/lab3.dir/2.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/InformTheor/lab3/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/lab3.dir/3_1.cpp.obj -c T:/2kurs2sem/InformTheor/lab3/3_1.cpp",
+  "file": "T:/2kurs2sem/InformTheor/lab3/3_1.cpp",
+  "output": "CMakeFiles/lab3.dir/3_1.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/InformTheor/lab3/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/lab3.dir/3_2.cpp.obj -c T:/2kurs2sem/InformTheor/lab3/3_2.cpp",
+  "file": "T:/2kurs2sem/InformTheor/lab3/3_2.cpp",
+  "output": "CMakeFiles/lab3.dir/3_2.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/InformTheor/lab3/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/lab3.dir/4.cpp.obj -c T:/2kurs2sem/InformTheor/lab3/4.cpp",
+  "file": "T:/2kurs2sem/InformTheor/lab3/4.cpp",
+  "output": "CMakeFiles/lab3.dir/4.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/InformTheor/lab3/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/lab3.dir/5.cpp.obj -c T:/2kurs2sem/InformTheor/lab3/5.cpp",
+  "file": "T:/2kurs2sem/InformTheor/lab3/5.cpp",
+  "output": "CMakeFiles/lab3.dir/5.cpp.obj"
+},
+{
+  "directory": "T:/2kurs2sem/InformTheor/lab3/build",
+  "command": "C:/Users/dmitr/gcc/bin/c++.exe   -g -o CMakeFiles/lab3.dir/6.cpp.obj -c T:/2kurs2sem/InformTheor/lab3/6.cpp",
+  "file": "T:/2kurs2sem/InformTheor/lab3/6.cpp",
+  "output": "CMakeFiles/lab3.dir/6.cpp.obj"
+}
+]

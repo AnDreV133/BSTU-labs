@@ -1,0 +1,36 @@
+{
+	"BUILD_DIR" : "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/kursackoop_autogen",
+	"CMAKE_BINARY_DIR" : "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop",
+	"CMAKE_SOURCE_DIR" : "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop",
+	"CROSS_CONFIG" : false,
+	"GENERATOR" : "Ninja",
+	"INCLUDE_DIR" : "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/kursackoop_autogen/include",
+	"INPUTS" : 
+	[
+		"C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/resources/white/H.png",
+		"C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/resources/white/B.png",
+		"C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/resources/white/K.png",
+		"C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/resources/white/Q.png",
+		"C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/resources/white/P.png",
+		"C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/resources/white/R.png",
+		"C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/resources/black/H.png",
+		"C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/resources/black/B.png",
+		"C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/resources/black/K.png",
+		"C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/resources/black/Q.png",
+		"C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/resources/black/P.png",
+		"C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/resources/black/R.png"
+	],
+	"LOCK_FILE" : "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/kursackoop_autogen.dir/AutoRcc_figuresimage_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "figuresimage" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_figuresimage.cpp",
+	"RCC_EXECUTABLE" : "C:/msys64/mingw64/share/qt6/bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/kursackoop_autogen.dir/AutoRcc_figuresimage_EWIEGA46WW_Used.txt",
+	"SOURCE" : "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/figuresimage.qrc",
+	"USE_BETTER_GRAPH" : false,
+	"VERBOSITY" : 0
+}

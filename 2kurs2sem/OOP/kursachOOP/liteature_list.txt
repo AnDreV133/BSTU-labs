@@ -1,0 +1,31 @@
+https://forum.qt.io/topic/128501/receive-drag-drop-events-for-items-in-qgraphicsscene/5 - использование графики
+
+https://habr.com/ru/articles/682122/ - 
+
+https://github.com/goutham/magic-bits/blob/master/include/magic_bits.hpp - шахматы на битбордах
+
+https://github.com/mdziubich/chessGame_cpp/tree/master?tab=readme-ov-file - шахматы
+
+https://www.chessprogramming.org/Bitboards#Pattern_and_Attacks - вики шахматные движки
+
+https://habr.com/ru/articles/210288/ - шпаргалка
+
+https://www.modernescpp.com/index.php/creational-patterns-singleton/ - синглтон
+
+https://stackoverflow.com/questions/32196179/how-to-synthesize-key-press-events - ивенты
+
+https://doc.qt.io/qt-6/qwidget.html - qwidget
+
+https://pro-prof.com/forums/topic/screensstack-qt - переключение окон
+
+https://github.com/nlohmann/json/blob/develop/docs/examples/at__json_pointer.cpp - библа json
+
+https://itnotesblog.ru/note/sohranenie-dannyh-v-fajl-sredstvami-qt - обработка файлов
+
+https://github.com/alamminsalo/chess/blob/master/logic/src/board.h - простые шахматы
+
+https://github.com/Julian-guillermo-zapata-rugeles/cronometro_c-plus-plus/blob/main/mainwindow.cpp - таймер
+
+https://www.chessprogramming.org/Dumb7Fill - скользящие фигуры
+
+https://jenyay.net/Programming/Uml - 

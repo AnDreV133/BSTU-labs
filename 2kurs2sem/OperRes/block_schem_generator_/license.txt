@@ -1,0 +1,211 @@
+SOFTWARE LICENSE AGREEMENT
+Aivosto Visustin v8
+
+
+This is an agreement between you, the end user, and Aivosto Oy, a
+Finland company. By installing, copying, distributing or using this
+software, you agree to be bound by the terms of this license agreement.
+
+This agreement applies to the computer software Visustin, major version
+number 8, including all available editions and documentation,
+hereinafter referred to as the Software.
+
+IF YOU DO NOT AGREE TO THE TERMS OF THIS AGREEMENT, DO NOT INSTALL,
+COPY, DISTRIBUTE OR USE THIS SOFTWARE.
+
+
+1. GRANT OF LICENSE. Aivosto Oy grants to you a nonexclusive license to
+install, copy, distribute and use the Software, in machine-readable
+binary executable code form, according to the terms set forth below.
+
+
+2. VERSIONS. The Software is provided under a "Try before you buy"
+concept. A Demo Version is a copy of the Software with a limited use
+period and/or a limited set of features. The Demo Version is labeled
+with the word "Demo" and is provided for the purpose of evaluation. A
+Full Version is a copy of the Software where some or all Demo Version
+limits on the use period and/or set of features have been lifted.
+
+
+3. USE OF THE DEMO VERSION. Subject to these terms, you are hereby
+licensed to use the Demo Version for evaluation purposes without charge
+for a period of 90 days.
+
+
+4. DISTRIBUTION OF THE DEMO VERSION. You may copy and distribute the
+Demo Version of the Software to anyone via any means provided that:
+a) you copy and distribute the complete, unmodified Demo Version as
+   available from Aivosto Oy, AND
+b) you don't copy or distribute any instructions or methods to
+   turn the Demo Version to a Full Version, AND
+c) you don't charge anything for the Demo Version, other than a
+   reasonable cost for the storage media it is on, AND
+d) you agree to stop further distribution of the Demo Version when
+   three (3) years have passed since the Demo Version was made
+   available by Aivosto Oy, AND
+e) you agree to stop further distribution of the Demo Version if
+   requested by Aivosto Oy.
+
+
+5. USE OF THE FULL VERSION. Use of the Software for any other purposes
+than what is described above under the headings "Use of the Demo
+Version" and "Distribution of the Demo Version" requires the purchase of
+a Full Version license.
+
+You may not copy or distribute the Full Version. A Full Version license
+entitles you to make a reasonable number of copies for your own licensed
+use.
+
+An Installation is defined as an installed and activated Full Version of
+the Software. Each computer hardware and operating system user account
+combination requires a separate Installation.
+
+The license type defines the number of Installations and users allowed.
+Additional Installations are permitted only if the Software is first
+uninstalled so that the number of Installations allowed by the license
+type is not exceeded at any time. Unless otherwise indicated, your
+license is a single user license.
+
+A SINGLE USER LICENSE permits two (2) Installations of the Software:
+- a primary Installation for one (1) simultaneous user, and
+- a secondary Installation for the exclusive use of the primary user
+  of the primary Installation.
+
+A TEAM LICENSE is equivalent to five (5) single user licenses.
+
+AN N-PACK, where N is a number, is equivalent to N single user licenses.
+
+A SITE LICENSE allows one hundred (100) Installations. The site license
+covers any number of users in a single organization within a radius of 3
+miles (5 km). This area is referred to as the Site. In addition,
+employees of the organization are allowed to use the Software outside
+the Site on their portable and home computers in either of the following
+cases: the employee either works solely at home, or the employee works
+at the Site a minimum of one day/week. Independent contractors of the
+organization may use the Software at the Site but not at other
+locations.
+
+AN UNLIMITED SITE LICENSE is equivalent to a site license that allows an
+unlimited number of Installations.
+
+A WORLD-WIDE LICENSE is equivalent to a site license that covers any
+location where the organization operates. The size of the license
+determines the allowed number of Installations.
+
+AN EDUCATIONAL LICENSE has the following additional restrictions:
+a) The Software may not be used for any revenue-generating activity.
+b) The license may not be transferred.
+
+
+6. ACTIVATION. Installation and use of the Software may require
+technical activation using an Internet connection. If the computer
+hardware, system environment or operating system user account
+information is changed, or the Installation has been damaged, a new
+activation may be required. Aivosto Oy may limit the number of
+activations in a given time period. Before activation, Aivosto Oy may
+require proof of purchase of a valid license and proof of uninstallation
+of an existing Installation.
+
+Activation may be permanent or temporary. A temporary activation is
+valid for a limited time period; continued use of the Software may
+require a new activation after the period.
+
+The availability of activation is guaranteed for three (3) years after
+purchase. During this time, activation is free of charge. After this
+time, activation may not be available or may require additional payment
+at the decision of Aivosto Oy.
+
+
+7. UPGRADES. To obtain this license as a product upgrade or conversion,
+you must first have a license for the software that is eligible for the
+upgrade or conversion (Previous License). Upon upgrade or conversion,
+this agreement takes the place of the license agreement of the Previous
+License, and the Previous License terminates.
+
+Unless otherwise indicated, a valid license to use the Full Version
+includes the right to install free version updates, provided that the
+major version number has not changed. Before giving a free update,
+Aivosto Oy may require proof of purchase of a valid license. Aivosto Oy
+reserves the right to assign version numbers.
+
+
+8. TRANSFERS. You may transfer a license to the Software to someone else
+by written consent of Aivosto Oy. Such consent is not to be unreasonably
+withheld provided that you conform to the following requirements:
+a) you delete all Installations and copies of the Full Version, AND
+b) you inform Aivosto Oy of the transfer 30 days in advance, AND
+c) you don't transfer, assign, rent, lease, sell or otherwise dispose of
+   the Software on a temporary basis, AND
+d) you transfer your entire license.
+
+
+9. COPYRIGHT. The Software is protected by copyright laws and
+international treaty provisions. You acknowledge that no title to the
+intellectual property in the Software is transferred to you.
+
+
+10. REVERSE ENGINEERING AND CRACKING. You agree that you will not
+attempt to reverse compile, modify, adapt, translate, copy, emulate,
+clone, or disassemble the Software in whole or in part. You also agree
+that you will not attempt to circumvent ("crack") any technical
+limitations on the period of use or available set of features of the
+Software, unless permitted by a valid license. Any version of the
+Software that is not digitally signed by Aivosto Oy, Finland, is
+considered a Modified Version. You may not install, copy, distribute or
+use a Modified Version.
+
+
+11. PROHIBITED USES. The Software may not be used for the design,
+development, production, use or stockpiling of weapons. The Software may
+not be used to provide automated services to anyone who is not licensed
+to use the Software.
+
+
+12. DISCLAIMER OF WARRANTIES. THIS SOFTWARE AND THE ACCOMPANYING FILES
+ARE SOLD "AS IS" AND WITHOUT WARRANTIES AS TO PERFORMANCE OR
+MERCHANTABILITY OR ANY OTHER WARRANTIES WHETHER EXPRESSED OR IMPLIED.
+Because of the various hardware and software environments into which the
+Software may be put, NO WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE IS
+OFFERED. The user must assume the entire risk of using the program.
+AIVOSTO OY SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, CONSEQUENTIAL
+OR INCIDENTAL DAMAGES (INCLUDING DAMAGES FOR LOSS OF BUSINESS PROFITS,
+BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, AND THE LIKE)
+ARISING OUT OF THE USE OR INABILITY TO USE THE SOFTWARE EVEN IF AIVOSTO
+OY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. ANY LIABILITY OF
+AIVOSTO OY WILL BE LIMITED EXCLUSIVELY TO PRODUCT REPLACEMENT OR REFUND
+OF PURCHASE PRICE.
+
+
+13. TERMINATION. This license is effective until terminated. If
+indicated as a time-limited license, this license will immediately
+terminate without notice from Aivosto Oy when the license period
+expires. This license will immediately terminate without notice from
+Aivosto Oy if you fail to comply with any provision of this license.
+Upon termination you shall destroy all the copies and Installations of
+the Software, including modified copies, if any.
+
+
+14. GOVERNING LAW AND DISPUTES. This agreement shall be governed by the
+laws of Finland and shall benefit Aivosto Oy, its successors and
+assigns. Any disputes shall be settled primarily through negotiations.
+In the event that disputes cannot be settled through negotiations, they
+shall be settled by the Finnish courts at the domicile of Aivosto Oy.
+
+
+15. SEVERABILITY. In the event of invalidity of any provision of this
+license, such invalidity shall not affect the validity of the remaining
+portions of this license.
+
+
+16. RESERVED RIGHTS. Aivosto Oy reserves the right to change the license
+terms at any time, in which case the new terms will apply to copies of
+the Software produced or obtained after the change.
+
+
+END OF AGREEMENT
+
+
+Aivosto Oy
+Business ID: 1107215-7
+Country of domicile: Finland
+www.aivosto.com

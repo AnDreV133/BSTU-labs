@@ -1,0 +1,299 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Windows - 10.0.22631 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/msys64/mingw64/bin/g++.exe 
+      Build flags: -DQT_QML_DEBUG
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/3.29.1/CompilerIdCXX/a.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:64 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-k3u05f"
+      binary: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-k3u05f"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-DQT_QML_DEBUG"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-k3u05f'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_36b51\\fast
+        no such file or directory
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:49 (try_compile)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Check for working CXX compiler: C:/msys64/mingw64/bin/g++.exe"
+    directories:
+      source: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-jafsrr"
+      binary: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-jafsrr"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-DQT_QML_DEBUG"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_COMPILER_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-jafsrr'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_d3669\\fast
+        no such file or directory
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/msys64/mingw64/bin/g++.exe 
+      Build flags: -DQT_QML_DEBUG
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/3.29.1/CompilerIdCXX/a.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:64 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-vp3o6b"
+      binary: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-vp3o6b"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-DQT_QML_DEBUG"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-vp3o6b'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_2a7ac\\fast
+        no such file or directory
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:49 (try_compile)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Check for working CXX compiler: C:/msys64/mingw64/bin/g++.exe"
+    directories:
+      source: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-lb2tsn"
+      binary: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-lb2tsn"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-DQT_QML_DEBUG"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_COMPILER_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-lb2tsn'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_1b478\\fast
+        no such file or directory
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/msys64/mingw64/bin/g++.exe 
+      Build flags: -DQT_QML_DEBUG
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/3.29.1/CompilerIdCXX/a.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:64 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-svehw7"
+      binary: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-svehw7"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-DQT_QML_DEBUG"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-svehw7'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_f4a43\\fast
+        no such file or directory
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:49 (try_compile)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Check for working CXX compiler: C:/msys64/mingw64/bin/g++.exe"
+    directories:
+      source: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-08ionf"
+      binary: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-08ionf"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-DQT_QML_DEBUG"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_COMPILER_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-08ionf'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_149f0\\fast
+        no such file or directory
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/msys64/mingw64/bin/g++.exe 
+      Build flags: -DQT_QML_DEBUG
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/3.29.1/CompilerIdCXX/a.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:64 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-ka0g1s"
+      binary: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-ka0g1s"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-DQT_QML_DEBUG"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-ka0g1s'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_b56f6\\fast
+        no such file or directory
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:49 (try_compile)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Check for working CXX compiler: C:/msys64/mingw64/bin/g++.exe"
+    directories:
+      source: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-6nhcrr"
+      binary: "C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-6nhcrr"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-DQT_QML_DEBUG"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_COMPILER_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/dmitr/Projects/2kurs2sem/OOP/kursachOOP/kursackoop/build/6_7_0_static-Debug/CMakeFiles/CMakeScratch/TryCompile-6nhcrr'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_4c379\\fast
+        no such file or directory
+        
+      exitCode: 1
+...

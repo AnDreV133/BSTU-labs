@@ -1,0 +1,80 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Windows - 10.0.22631 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/msys64/mingw64/bin/g++.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/dmitr/Projects/2kurs2sem/OOP/lab10/build/5_15_13_static-Release/CMakeFiles/3.29.1/CompilerIdCXX/a.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:64 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/dmitr/Projects/2kurs2sem/OOP/lab10/build/5_15_13_static-Release/CMakeFiles/CMakeScratch/TryCompile-8k9c8l"
+      binary: "C:/Users/dmitr/Projects/2kurs2sem/OOP/lab10/build/5_15_13_static-Release/CMakeFiles/CMakeScratch/TryCompile-8k9c8l"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/dmitr/Projects/2kurs2sem/OOP/lab10/build/5_15_13_static-Release/CMakeFiles/CMakeScratch/TryCompile-8k9c8l'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_8b774\\fast
+        no such file or directory
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:49 (try_compile)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Check for working CXX compiler: C:/msys64/mingw64/bin/g++.exe"
+    directories:
+      source: "C:/Users/dmitr/Projects/2kurs2sem/OOP/lab10/build/5_15_13_static-Release/CMakeFiles/CMakeScratch/TryCompile-niws0i"
+      binary: "C:/Users/dmitr/Projects/2kurs2sem/OOP/lab10/build/5_15_13_static-Release/CMakeFiles/CMakeScratch/TryCompile-niws0i"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_COMPILER_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/dmitr/Projects/2kurs2sem/OOP/lab10/build/5_15_13_static-Release/CMakeFiles/CMakeScratch/TryCompile-niws0i'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_db7b2\\fast
+        no such file or directory
+        
+      exitCode: 1
+...

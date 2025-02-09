@@ -1,0 +1,3 @@
+C:/Users/dmitr/Projects/2kurs2sem/OOP/lab10/build/Desktop_Qt_5_15_13_static_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/CMakeScratch/TryCompile-xd5qm0/CMakeFiles/cmTC_5382d.dir
+C:/Users/dmitr/Projects/2kurs2sem/OOP/lab10/build/Desktop_Qt_5_15_13_static_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/CMakeScratch/TryCompile-xd5qm0/CMakeFiles/edit_cache.dir
+C:/Users/dmitr/Projects/2kurs2sem/OOP/lab10/build/Desktop_Qt_5_15_13_static_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/CMakeScratch/TryCompile-xd5qm0/CMakeFiles/rebuild_cache.dir

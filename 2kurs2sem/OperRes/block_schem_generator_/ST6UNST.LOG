@@ -1,0 +1,71 @@
+ %% PLEASE DO NOT MODIFY OR DELETE THIS FILE! %% 
+ %% This file contains information about the installation of an application. %% 
+ %% It will be used to automatically remove all application components from your computer if you choose to do so. %% 
+
+
+NOTE: Beginning of the bootstrapper section
+
+*** ERROR: Unable to create a directory named 'C:'
+*** DURING THIS ACTION: CreateDir: "C:"
+
+CONFIG: Title: "Visustin v8 Demo"
+
+ACTION: RegKey: "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion", "SharedDLLs"
+
+ACTION: SystemFile: "C:\WINDOWS\SYSTEM32\VB6STKIT.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINDOWS\SYSTEM32\msvbvm60.dll"
+(File currently on disk was already up to date)
+
+ACTION: DllSelfRegister: "C:\WINDOWS\SYSTEM32\msvbvm60.dll"
+
+NOTE: End of the bootstrapper section
+
+NOTE: Now spawning the main Setup program 'Setup1.exe'....
+
+ACTION: CreateDir: "C:\Users\dmitr\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visustin"
+
+ACTION: PrivateFile: "T:\2kurs2sem\OperRes\block_schem_generator_\visustin.exe"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "T:\2kurs2sem\OperRes\block_schem_generator_\visustin.chm"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "T:\2kurs2sem\OperRes\block_schem_generator_\Visus8.vst"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "T:\2kurs2sem\OperRes\block_schem_generator_\Checklib.exe"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "T:\2kurs2sem\OperRes\block_schem_generator_\AddFlow5.ocx"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "T:\2kurs2sem\OperRes\block_schem_generator_\WinGraphviz.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "T:\2kurs2sem\OperRes\block_schem_generator_\FreeImage.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "T:\2kurs2sem\OperRes\block_schem_generator_\Visustin.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "T:\2kurs2sem\OperRes\block_schem_generator_\Config.exe"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "T:\2kurs2sem\OperRes\block_schem_generator_\license.txt"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "T:\2kurs2sem\OperRes\block_schem_generator_\readme.txt"
+(File was not found or was an older version -- new file copied)
+
+ACTION: DllSelfRegister: "T:\2kurs2sem\OperRes\block_schem_generator_\AddFlow5.ocx"
+
+ACTION: DllSelfRegister: "T:\2kurs2sem\OperRes\block_schem_generator_\WinGraphviz.dll"
+
+ACTION: ShellLink: "Visustin", "Visustin v8 Demo"
+
+ACTION: RegKey: "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion", "App Paths\visustin.exe"
+
+ACTION: RegValue: "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\visustin.exe", ""
+

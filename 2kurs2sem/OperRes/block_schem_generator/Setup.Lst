@@ -1,0 +1,41 @@
+[Bootstrap]
+SetupTitle=Install
+SetupText=Copying Files, please stand by.
+CabFile=visustin.CAB
+Spawn=Setup1.exe
+Uninstal=st6unst.exe
+TmpDir=msftqws.pdw
+Cabs=1
+
+[Bootstrap Files]
+File1=@VB6STKIT.DLL,$(WinSysPathSysFile),,,7/15/00 12:00:00 AM,101888,6.0.84.50
+File2=@msvbvm60.dll,$(WinSysPathSysFile),$(DLLSelfRegister),,4/14/08 2:12:00 AM,1384479,6.0.98.2
+
+[IconGroups]
+Group0=Visustin
+PrivateGroup0=-1
+Parent0=$(Programs)
+
+[Visustin]
+Icon1="Visustin.exe"
+Title1=Visustin v8 Demo
+StartIn1=$(AppPath)
+
+[Setup]
+Title=Visustin v8 Demo
+DefaultDir=$(ProgramFiles)\Visustin Demo
+AppExe=visustin.exe
+AppToUninstall=visustin.exe
+
+[Setup1 Files]
+File1=@visustin.exe,$(AppPath),,,2/15/23 12:04:31 PM,4352336,8.0.0.8
+File2=@visustin.chm,$(AppPath),,,2/1/23 10:20:42 PM,1516788,0.0.0.0
+File3=@Visus8.vst,$(AppPath),,,11/27/16 12:18:23 PM,125440,0.0.0.0
+File4=@Checklib.exe,$(AppPath),,,1/26/16 4:48:06 PM,122104,1.3.1.0
+File5=@AddFlow5.ocx,$(AppPath),$(DLLSelfRegister),$(Shared),4/7/07 10:02:56 AM,382552,5.4.0.19
+File6=@WinGraphviz.dll,$(AppPath),$(DLLSelfRegister),$(Shared),12/4/03 10:05:10 AM,659456,1.0.2.17
+File7=@FreeImage.dll,$(AppPath),,,03/17/12 3:43:38 PM,2713600,3.15.3.0
+File8=@Visustin.dll,$(AppPath),,,02/10/10 9:30:48 PM,208648,6.0.0.0
+File9=@Config.exe,$(AppPath),,,11/14/16 12:54:59 PM,83688,1.1.0.0
+File10=@license.txt,$(AppPath),,,11/5/16 11:07:24 AM,9775,0.0.0.0
+File11=@readme.txt,$(AppPath),,,2/15/23 1:29:37 PM,725,0.0.0.0
