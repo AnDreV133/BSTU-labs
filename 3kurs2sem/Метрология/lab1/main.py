@@ -3,48 +3,46 @@ import pandas as pd
 
 def средняя_производительность():
     res = []
-    for i in range(len(data)):
-        loc = float(data['loc'][i])
-        spending = int(data['spending'][i])
+    for i in range(len(data_mbf)):
+        loc = float(data_mbf['loc'][i])
+        spending = int(data_mbf['spending'][i])
         res.append(loc / spending)
 
     return sum(res) / len(res)
 
 
 def средняя_loc():
-    res = list(map(float, data['loc']))
+    res = list(map(float, data_mbf['loc']))
 
     return sum(res) / len(res)
 
 
 delimiter_length = 70
 
-data = pd.read_csv(
-    "data.csv",
+data_mbf = pd.read_csv(
+    "data-mbf-my.csv",
+    sep=';'
+)
+data_op = pd.read_csv(
+    "data-op-my.csv",
     sep=';'
 )
 произв_ср = средняя_производительность()
 loc_ср = средняя_loc()
 
 buf: dict = {
-    "func": [],
     "loc_waiting": [],
-    "prod_avg": [],
     "prod_i": [],
     "prod_i_an": [],
     "unit_cost": []
 }
-for i in range(len(data)):
-    proj = str(data['proj'][i])
-    loc = float(data['loc'][i])
-    spending = int(data['spending'][i])
-    cost = float(data['cost'][i])
-    errors = int(data['errors'][i])
-    doc = int(data['doc'][i])
-    func = int(data['func'][i])
-    loc_best = float(data['loc_best'][i])
-    loc_top = float(data['loc_top'][i])
-    loc_worst = float(data['loc_worst'][i])
+for i in range(len(data_mbf)):
+    proj = str(data_mbf['proj'][i])
+    loc = float(data_mbf['loc'][i])
+    spending = int(data_mbf['spending'][i])
+    cost = float(data_mbf['cost'][i])
+    errors = int(data_mbf['errors'][i])
+    doc = int(data_mbf['doc'][i])
 
     print("-" * delimiter_length)
 
@@ -62,8 +60,15 @@ for i in range(len(data)):
     документированность = doc / loc
     print("Документированность:", документированность, "страниц/тыс.LOC")
 
-    print("-" * delimiter_length)
+    buf['unit_cost'].append(удельная_стоимость)
 
+for i in range(len(data_op)):
+    func = str(data_op['func'][i])
+    loc_best = float(data_op['loc_best'][i])
+    loc_top = float(data_op['loc_top'][i])
+    loc_worst = float(data_op['loc_worst'][i])
+
+    print("-" * delimiter_length)
     print("Функция", func)
 
     loc_ожидания = (loc_best + loc_worst + 4 * loc_top) / 6
@@ -77,16 +82,11 @@ for i in range(len(data)):
     # произв_i_ан = производительность * loc_ср / loc_ожидания
     # print("Производительность (подход 3):", произв_i_ан, "тыс.LOC/чел.-мес")
 
-    buf['func'].append(func)
-    buf['loc_waiting'].append(loc_ожидания)
-    buf['prod_avg'].append(произв_ср)
     buf['prod_i'].append(произв_i)
     # buf['prod_i_an'].append(произв_i_ан)
-    buf['unit_cost'].append(удельная_стоимость)
+    buf['loc_waiting'].append(loc_ожидания)
 
-func = buf['func']
 loc_waiting = buf['loc_waiting']
-prod_avg = buf['prod_avg']
 prod_i = buf['prod_i']
 # prod_i_an = buf['prod_i_an']
 unit_cost = buf['unit_cost']
@@ -96,7 +96,7 @@ print("~" * delimiter_length)
 затраты_1 = sum(loc_waiting) / произв_ср
 print("Затраты (подход 1):", затраты_1, "чел.−мес")
 
-затраты_2 = sum(loc_waiting[i] / prod_i[i] for i in range(len(data)))
+затраты_2 = sum(loc_waiting[i] / prod_i[i] for i in range(len(data_mbf)))
 print("Затраты (подход 2):", затраты_2, "чел.−мес")
 
 # затраты_3 = sum(loc_waiting[i] / prod_i_an[i] for i in range(len(data)))
@@ -107,5 +107,5 @@ print("Затраты (подход 2):", затраты_2, "чел.−мес")
 стоимость_1_2 = удельная_стоимость_ср * sum(loc_waiting)
 print("Стоимость (подход 1,2):", стоимость_1_2, "у.е.")
 
-стоимость_3 = sum(loc_waiting[i] * удельная_стоимость_ср for i in range(len(data)))
+стоимость_3 = sum(loc_waiting[i] * удельная_стоимость_ср for i in range(len(data_mbf)))
 print("Стоимость (подход 3):", стоимость_3, "у.е.")

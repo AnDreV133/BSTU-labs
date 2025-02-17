@@ -1,0 +1,114 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <mem.h>
+#include <string.h>
+#include "IPX.H"
+
+#define BUFFER_SIZE 512
+#define FILE_SIZE (1024 * 1024)
+
+unsigned int packets_sent = 0;
+unsigned int packets_received = 0;
+
+void main(void) {
+    static unsigned Socket = 0x4567;
+    struct ECB TxECB;
+    struct IPX_HEADER TxHeader;
+    unsigned char TxBuffer[BUFFER_SIZE];
+    FILE* file;
+    size_t bytesRead;
+    unsigned int packetNumber = 0;
+
+    printf("\n*Server IPX*\n\n");
+
+    if (IPXOpenSocket(LONG_LIVED, &Socket)) {
+        printf("Opening socket error!\n");
+        exit(-1);
+    }
+
+    file = fopen(".\\image.jpg", "rb");
+    if (!file) {
+	printf("Failed to open file.\n");
+	IPXCloseSocket(&Socket);
+	exit(-1);
+    } 
+
+    printf("socket: %x swapped=%x\n", Socket, IntSwap(Socket));
+
+    memset(&TxECB, 0, sizeof(TxECB));
+    TxECB.Socket = IntSwap(Socket);
+    TxECB.FragmentCnt = 2;
+    TxECB.Packet[0].Address = &TxHeader;
+    TxECB.Packet[0].Size = sizeof(TxHeader);
+    TxECB.Packet[1].Address = TxBuffer;
+    TxECB.Packet[1].Size = BUFFER_SIZE;
+
+    memset(TxECB.ImmAddress, 0, 6);
+
+    TxHeader.PacketType = 4;
+    memset(TxHeader.DestNetwork, 0, 4);
+    memset(TxHeader.DestNode, 0, 6);
+    TxHeader.DestSocket = IntSwap(Socket);
+
+    
+    while ((bytesRead = fread(TxBuffer, 1, BUFFER_SIZE, file)) > 0) {        
+        printf("Sending packet:\n");
+    PrintECB(&TxECB);
+
+	IPXSendPacket(&TxECB);
+	packets_sent++;
+	printf("Packet %d sent (%u bytes).\n", packetNumber++, bytesRead);
+
+	{
+	    struct ECB RxECB;
+	    struct IPX_HEADER RxHeader;
+	    unsigned char RxBuffer[BUFFER_SIZE];
+
+	    memset(&RxECB, 0, sizeof(RxECB));
+	    RxECB.Socket = IntSwap(Socket);
+	    RxECB.FragmentCnt = 2;
+	    RxECB.Packet[0].Address = &RxHeader;
+	    RxECB.Packet[0].Size = sizeof(RxHeader);
+	    RxECB.Packet[1].Address = RxBuffer;
+	    RxECB.Packet[1].Size = BUFFER_SIZE;
+
+	    IPXListenForPacket(&RxECB);
+
+	    printf("Waiting for client acknowledgment...\n");
+	    while (RxECB.InUse) {
+		IPXRelinquishControl();
+		if (kbhit()) {
+		    getch();
+		    RxECB.CCode = 0xfe;
+		    break;
+		}
+
+	delay(30);
+	    }
+
+        printf("End listen...\n");
+        PrintECB(&RxECB);
+
+	    if (RxECB.CCode == 0) {
+		packets_received++;
+                printf("Acknowledgment received.\n");
+            }
+            else {
+                printf("Failed to receive acknowledgment.\n");
+                break;
+            }
+        }
+    }
+
+    fclose(file);
+    printf("File transfer complete.\n");
+
+    printf("\n--- Statistics ---\n");
+    printf("Packets Sent: %u\n", packets_sent);
+    printf("Packets Received: %u\n", packets_received);
+    printf("Packets Lost: %u\n", packets_sent - packets_received);
+
+    IPXCloseSocket(&Socket);
+    exit(0);
+}

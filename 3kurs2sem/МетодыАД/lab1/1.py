@@ -8,8 +8,6 @@ p = [
     (i + k) / 2 * (i + j + k),
     j / 2 * (i + j + k)
 ]
-print("p=", p)
-
 p = list(map(lambda x: x / sum(p), p))
 print("p=", p)
 
@@ -26,7 +24,11 @@ for _ in range(num_exp):
     else:
         count[3] += 1
 
-print("count=", count)
-
 count = list(map(lambda x: x / num_exp, count))
 print("count=", count)
+
+alpha = 0.05
+if all(map(lambda x: abs(x[0] - x[1]) < alpha, zip(count, p))):
+    print("Соответсвует распределению")
+else:
+    print("Не соответствует распределению")
