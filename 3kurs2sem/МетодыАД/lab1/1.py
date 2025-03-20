@@ -1,34 +1,66 @@
-import random
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.stats import pearsonr, norm, chisquare
+import numpy as np
 
-i, j, k = 1, 8, 7
+data = pd.read_csv('data.csv', sep=';')
 
-p = [
-    i / 2 * (i + j + k),
-    (j + k) / 2 * (i + j + k),
-    (i + k) / 2 * (i + j + k),
-    j / 2 * (i + j + k)
+# plt.title('COVID-19')
+# plt.plot(data['infected'], color='blue')
+# plt.plot(data['recovered'], color='green')
+# plt.plot(data['deaths'], color='black')
+# plt.plot(data['critical'], color='red')
+# plt.plot(data['sicked'], color='yellow')
+# plt.show()
+
+data_for_test = [
+    (data['infected'], "зараженные"),
+    (data['recovered'], "выздоровевшие"),
+    (data['deaths'], "умершие"),
+    (data['critical'], "критические ситуации"),
+    (data['sicked'], "болеющие")
 ]
-p = list(map(lambda x: x / sum(p), p))
-print("p=", p)
 
-count = [0] * 4
-num_exp = 10000
-for _ in range(num_exp):
-    rand = random.random()
-    if rand < p[0]:
-        count[0] += 1
-    elif rand < p[0] + p[1]:
-        count[1] += 1
-    elif rand < p[0] + p[1] + p[2]:
-        count[2] += 1
-    else:
-        count[3] += 1
+for named_data in data_for_test:
+    x = np.linspace(1, len(named_data[0]), len(named_data[0]))
+    y = named_data[0]
 
-count = list(map(lambda x: x / num_exp, count))
-print("count=", count)
+    # y = a * x ^ b
+    log_y = np.log(y)
 
-alpha = 0.05
-if all(map(lambda x: abs(x[0] - x[1]) < alpha, zip(count, p))):
-    print("Соответсвует распределению")
-else:
-    print("Не соответствует распределению")
+    mean_x = np.mean(x)
+    mean_log_y = np.mean(log_y)
+
+    lin_k = np.mean(
+        ((x - mean_x) * (log_y - mean_log_y))
+        / ((x - mean_x) ** 2)
+    )
+
+    lin_b = mean_log_y - lin_k * mean_x
+
+    # y = a * e^(bx)
+    a = np.exp(lin_b)
+    b = lin_k
+
+    y_repr = a * np.exp(b * x)
+
+    K, p_value = pearsonr(y, y_repr)
+    print(f"Для '{named_data[1]}':", "K=", K, "p-value=", p_value)
+    print(f"Функция регрессии: y=({a:.2})e^(({b:.2})x)")
+
+    ei = y - y_repr
+    mean_ei = np.mean(ei)
+
+    sigma = np.mean(ei ** 2 - mean_ei ** 2) ** 0.5
+
+    pi = norm.cdf(x+1 / sigma) - norm.cdf(x / sigma)
+    print(pi)
+    # K, p_value = chisquare(pi, ddof=1)
+    # print("Адекватность регрессии:", "K=", K, "p-value=", p_value)
+
+
+    plt.close()
+    plt.title(f"COVID-19 '{named_data[1]}'")
+    plt.plot(x, y, color='blue')
+    plt.plot(x, y_repr, color='red')
+    plt.show()
