@@ -10,7 +10,7 @@
 #define STR_BUF_SIZE 256
 #define TEXT_BUF_SIZE 256
 #define SMTP_PORT 25
-#define POP3_PORT 0
+#define POP3_PORT 110
 
 using namespace std;
 
@@ -149,10 +149,6 @@ SOCKET wait_client(SOCKET connection)
 
 ///////////////////////////////////////////////////////
 
-void* get_ssl_connect() {
-    
-}
-
 struct UserInfo
 {
     const char *server;
@@ -207,10 +203,12 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void input_message(string &dst, UserInfo user_info) {
+void input_message(string &dst, UserInfo user_info)
+{
     string full_message;
     string line;
-    while (getline(cin, line) && line != ".") {
+    while (getline(cin, line) && line != ".")
+    {
         full_message += line + "\r\n";
     }
 
@@ -223,7 +221,7 @@ void send(UserInfo user_info)
 {
     startup_wsa();
 
-    SOCKET sock = get_connect(getaddrbyname(user_info.server), SMTP_PORT); 
+    SOCKET sock = get_connect(getaddrbyname(user_info.server), SMTP_PORT);
     char cmd_buf[STR_BUF_SIZE];
     char text_buf[TEXT_BUF_SIZE];
 
@@ -277,7 +275,54 @@ void send(UserInfo user_info)
     disconnect(sock);
 }
 
+void read_resp(SOCKET sock)
+{
+    char buffer[TEXT_BUF_SIZE];
+    int bytes;
+
+    while ((bytes = recv(sock, buffer, TEXT_BUF_SIZE - 1, 0)) > 0)
+    {
+        buffer[bytes] = '\0';
+        printf("%s", buffer);
+
+        if (strstr(buffer, "\r\n.\r\n"))
+            break;
+    }
+}
+
+void send_cmd(SOCKET sock, const char *cmd)
+{
+    send(sock, cmd, strlen(cmd), 0);
+}
+
 void get(UserInfo user_info)
 {
-    
+    startup_wsa();
+
+    SOCKET sock = get_connect(getaddrbyname(user_info.server), POP3_PORT);
+    char cmd_buf[STR_BUF_SIZE];
+    char text_buf[TEXT_BUF_SIZE];
+
+    // авторизация
+    sprintf(cmd_buf, "USER %s\r\n", user_info.login);
+    send_cmd(sock, cmd_buf);
+    read_resp(sock);
+
+    sprintf(cmd_buf, "PASS %s\r\n", user_info.password);
+    send_cmd(sock, cmd_buf);
+    read_resp(sock);
+
+    // обработка
+    send_cmd(sock, "STAT\r\n");
+    read_resp(sock);
+
+    send_cmd(sock, "LIST\r\n");
+    read_resp(sock);
+
+    send_cmd(sock, "RETR 1\r\n");
+    read_resp(sock);
+
+    // завершение сессии
+    send_cmd(sock, "QUIT\r\n");
+    read_resp(sock);
 }
