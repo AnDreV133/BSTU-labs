@@ -276,8 +276,8 @@ void send_file(SOCKET con, sockaddr_in client_addr, std::ifstream *file)
 
 int main()
 {
-    auto con = connect("192.168.1.215", 0x8080);
-    auto client_addr = get_bind_addr("192.168.1.215", 0x8081);
+    auto con = connect("192.168.43.86", 0x8080);
+    auto client_addr = get_bind_addr("192.168.43.177", 0x8081);
 
     struct server_args args = {con, client_addr};
     auto server_thread = run_server(args);
