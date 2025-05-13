@@ -1,0 +1,129 @@
+<mxfile host="Electron" modified="2025-05-02T16:03:45.741Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="Si1nHSlfPZYtH6h_JG5s" version="24.6.4" type="device">
+  <diagram name="Страница — 1" id="Jcz3VhmNG0bWvzZBH_iN">
+    <mxGraphModel dx="726" dy="952" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="YiDQN6X00siexDa_-4pR-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="YiDQN6X00siexDa_-4pR-1" target="YiDQN6X00siexDa_-4pR-35" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YiDQN6X00siexDa_-4pR-1" value="начало" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="330" y="40" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="YiDQN6X00siexDa_-4pR-35" target="8xAg4VecBw0nY3L0YFb4-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YiDQN6X00siexDa_-4pR-35" value="Получить таблицу MAC-адресов&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="300" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YiDQN6X00siexDa_-4pR-54" value="конец" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="330" y="950" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="8xAg4VecBw0nY3L0YFb4-1" target="8xAg4VecBw0nY3L0YFb4-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-1" value="Получить таблицу IP-адресов&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="8xAg4VecBw0nY3L0YFb4-3" target="8xAg4VecBw0nY3L0YFb4-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="8xAg4VecBw0nY3L0YFb4-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="950" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="480" y="280" />
+              <mxPoint x="480" y="930" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-3" value="цикл i от 0 до&amp;nbsp;&lt;div&gt;кол-ва&amp;nbsp; MAC-адресов&lt;/div&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="240" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="8xAg4VecBw0nY3L0YFb4-7" target="8xAg4VecBw0nY3L0YFb4-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="8xAg4VecBw0nY3L0YFb4-7" target="8xAg4VecBw0nY3L0YFb4-21">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="730" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="460" y="380" />
+              <mxPoint x="460" y="730" />
+              <mxPoint x="360" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-7" value="индекс таблицы&amp;nbsp;&lt;div&gt;по i не равен текущему&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="340" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-10" value="да" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="410" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="8xAg4VecBw0nY3L0YFb4-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="359.9999999999999" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="8xAg4VecBw0nY3L0YFb4-14" target="8xAg4VecBw0nY3L0YFb4-21">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="660" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="440" y="480" />
+              <mxPoint x="440" y="710" />
+              <mxPoint x="360" y="710" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-14" value="цикл j от 0 до&amp;nbsp;&lt;div&gt;кол-ва&amp;nbsp; IP-адресов&lt;/div&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="440" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-15" value="нет" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="420" y="350" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="8xAg4VecBw0nY3L0YFb4-22" target="8xAg4VecBw0nY3L0YFb4-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="480" as="targetPoint" />
+            <mxPoint x="359.9999999999999" y="600" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="360" y="700" />
+              <mxPoint x="280" y="700" />
+              <mxPoint x="280" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="8xAg4VecBw0nY3L0YFb4-21" target="8xAg4VecBw0nY3L0YFb4-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-21" value="Определяем тип адреса" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="750" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-22" value="вывод заголовка" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="620" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="8xAg4VecBw0nY3L0YFb4-23" target="8xAg4VecBw0nY3L0YFb4-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-23" value="Определяем заголовок" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="8xAg4VecBw0nY3L0YFb4-25" target="8xAg4VecBw0nY3L0YFb4-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="280" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="360" y="910" />
+              <mxPoint x="260" y="910" />
+              <mxPoint x="260" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8xAg4VecBw0nY3L0YFb4-25" value="вывод заголовка" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="830" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

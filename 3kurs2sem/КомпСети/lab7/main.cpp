@@ -38,9 +38,7 @@ const char *getaddrbyname(const char *hostname)
 void startup_wsa();
 SOCKET get_socket_descriptor();
 sockaddr_in get_bind_addr(const char *address, unsigned short port);
-void bind_socket_with_address(SOCKET socket_descriptor, sockaddr_in bind_addr);
 void connect_socket_with_address(SOCKET socket_descriptor, sockaddr_in bind_addr);
-void listen_connections(SOCKET socket_descriptor);
 
 SOCKET get_connect(const char *address, unsigned short port)
 {
@@ -56,14 +54,8 @@ SOCKET get_connect(const char *address, unsigned short port)
     sockaddr_in bind_addr = get_bind_addr(address, port);
     std::clog << "create bind address" << std::endl;
 
-    // bind_socket_with_address(socket_descriptor, bind_addr);
-    // std::clog << "bind socket with address\nconnected" << std::endl;
-
     connect_socket_with_address(socket_descriptor, bind_addr);
     std::clog << "connect socket with address\nconnected" << std::endl;
-
-    // listen_connections(socket_descriptor);
-    // std::clog << "listen started" << std::endl;
 
     return socket_descriptor;
 }
@@ -102,21 +94,9 @@ sockaddr_in get_bind_addr(const char *address, unsigned short port)
     return res;
 }
 
-void bind_socket_with_address(SOCKET socket_descriptor, sockaddr_in bind_addr)
-{
-    if (bind(socket_descriptor, (sockaddr *)&bind_addr, sizeof(bind_addr)) == SOCKET_ERROR)
-        throw_error_with_code();
-}
-
 void connect_socket_with_address(SOCKET socket_descriptor, sockaddr_in bind_addr)
 {
     if (connect(socket_descriptor, (sockaddr *)&bind_addr, sizeof(bind_addr)) == SOCKET_ERROR)
-        throw_error_with_code();
-}
-
-void listen_connections(SOCKET socket_descriptor)
-{
-    if (listen(socket_descriptor, MSG_PEEK | MSG_PEEK) == SOCKET_ERROR)
         throw_error_with_code();
 }
 
@@ -151,10 +131,8 @@ SOCKET wait_client(SOCKET connection)
 
 struct UserInfo
 {
-    const char *server;
     const char *login;
     const char *password;
-    const char *domain;
 };
 
 void send(UserInfo user_info);
@@ -170,9 +148,6 @@ int main(int argc, char *argv[])
     }
     else
         throw "2 argumnts not wrotten\n";
-
-    user_info.server = "smtp.freesmtpservers.com";
-    user_info.domain = "freesmtpservers.com";
 
     int selected_value = 0;
     while (true)
@@ -198,6 +173,8 @@ int main(int argc, char *argv[])
         default:
             cout << "Wrong input" << endl;
         }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
     return 0;
@@ -221,7 +198,7 @@ void send(UserInfo user_info)
 {
     startup_wsa();
 
-    SOCKET sock = get_connect(getaddrbyname(user_info.server), SMTP_PORT);
+    SOCKET sock = get_connect(getaddrbyname("smtp.freesmtpservers.com"), SMTP_PORT);
     char cmd_buf[STR_BUF_SIZE];
     char text_buf[TEXT_BUF_SIZE];
 
@@ -229,7 +206,7 @@ void send(UserInfo user_info)
     recv(sock, text_buf, TEXT_BUF_SIZE, 0);
     printf("Server on start: %s", text_buf);
 
-    sprintf(cmd_buf, "HELO %s\r\n", user_info.domain);
+    sprintf(cmd_buf, "HELO freesmtpservers.com\r\n");
     send(sock, cmd_buf, strlen(cmd_buf), 0);
     memset(text_buf, '\0', TEXT_BUF_SIZE);
     recv(sock, text_buf, TEXT_BUF_SIZE, 0);
@@ -279,14 +256,39 @@ void read_resp(SOCKET sock)
 {
     char buffer[TEXT_BUF_SIZE];
     int bytes;
+    int total_bytes = 0;
 
-    while ((bytes = recv(sock, buffer, TEXT_BUF_SIZE - 1, 0)) > 0)
+    while ((bytes = recv(sock, buffer + total_bytes, TEXT_BUF_SIZE - total_bytes - 1, 0)) > 0)
     {
-        buffer[bytes] = '\0';
-        printf("%s", buffer);
+        total_bytes += bytes;
+        buffer[total_bytes] = '\0';
 
-        if (strstr(buffer, "\r\n.\r\n"))
+        // Проверяем завершение ответа (для однострочных команд)
+        if (strstr(buffer, "\r\n"))
+        {
+            printf("%s", buffer);
             break;
+        }
+
+        // Проверяем завершение многострочного ответа
+        if (strstr(buffer, "\r\n.\r\n"))
+        {
+            printf("%s", buffer);
+            break;
+        }
+
+        // Защита от переполнения буфера
+        if (total_bytes >= TEXT_BUF_SIZE - 1)
+        {
+            buffer[TEXT_BUF_SIZE - 1] = '\0';
+            printf("%s", buffer);
+            break;
+        }
+    }
+
+    if (bytes <= 0)
+    {
+        printf("Connection closed or error\n");
     }
 }
 
@@ -299,30 +301,201 @@ void get(UserInfo user_info)
 {
     startup_wsa();
 
-    SOCKET sock = get_connect(getaddrbyname(user_info.server), POP3_PORT);
+    SOCKET sock = get_connect(getaddrbyname("pop.mypop3.com"), POP3_PORT);
     char cmd_buf[STR_BUF_SIZE];
-    char text_buf[TEXT_BUF_SIZE];
+    char input_buf[STR_BUF_SIZE];
+    int message_count = 0;
+
+    printf("Server on start: ");
+    read_resp(sock);
 
     // авторизация
     sprintf(cmd_buf, "USER %s\r\n", user_info.login);
     send_cmd(sock, cmd_buf);
+    printf("Server on user: ");
     read_resp(sock);
-
+      
     sprintf(cmd_buf, "PASS %s\r\n", user_info.password);
     send_cmd(sock, cmd_buf);
+    printf("Server on password: ");
     read_resp(sock);
 
-    // обработка
+    // запрос количества писем
     send_cmd(sock, "STAT\r\n");
-    read_resp(sock);
+    printf("Server on stat: ");
+    char* stat_response = read_resp(sock);
+    if (stat_response != NULL) {
+        sscanf(stat_response, "+OK %d", &message_count);
+        printf("Total messages: %d\n", message_count);
+    }
 
+    // запрос списка писем
     send_cmd(sock, "LIST\r\n");
+    printf("Server on list: ");
     read_resp(sock);
 
-    send_cmd(sock, "RETR 1\r\n");
-    read_resp(sock);
+    printf("Enter commands ('see N' to view or 'del N' to delete, 'quit' to exit):\n");
+    while (1) {
+        printf("> ");
+        fgets(input_buf, STR_BUF_SIZE, stdin);
+        input_buf[strcspn(input_buf, "\n")] = '\0';
+
+        if (strncmp(input_buf, "see ", 4) == 0) {
+            int msg_num = atoi(input_buf + 4);
+            if (msg_num > 0 && msg_num <= message_count) {
+                sprintf(cmd_buf, "RETR %d\r\n", msg_num);
+                send_cmd(sock, cmd_buf);
+                printf("Server on retr %d: ", msg_num);
+                read_resp(sock);
+            } else {
+                printf("Invalid message number. Available: 1-%d\n", message_count);
+            }
+        }
+        else if (strncmp(input_buf, "del ", 4) == 0) {
+            int msg_num = atoi(input_buf + 4);
+            if (msg_num > 0 && msg_num <= message_count) {
+                sprintf(cmd_buf, "DELE %d\r\n", msg_num);
+                send_cmd(sock, cmd_buf);
+                printf("Server on dele %d: ", msg_num);
+                read_resp(sock);
+            } else {
+                printf("Invalid message number. Available: 1-%d\n", message_count);
+            }
+        }
+        else if (strcmp(input_buf, "quit") == 0) {
+            break;
+        }
+        else {
+            printf("Unknown command. Use 'see N', 'del N' or 'quit'\n");
+        }
+    }
 
     // завершение сессии
     send_cmd(sock, "QUIT\r\n");
+    printf("Server on quit: ");
     read_resp(sock);
+
+    disconnect(sock);
 }
+
+/*
+void get(UserInfo user_info)
+{
+    startup_wsa();
+
+    SOCKET sock = get_connect(getaddrbyname("pop.mypop3.com"), POP3_PORT);
+    char cmd_buf[STR_BUF_SIZE];
+    char input_buf[STR_BUF_SIZE];
+    int message_count = 0;
+
+    printf("Server on start: ");
+    read_resp(sock);
+
+    // авторизация
+    sprintf(cmd_buf, "USER %s\r\n", user_info.login);
+    send_cmd(sock, cmd_buf);
+    printf("Server on user: ");
+    read_resp(sock);
+      
+    sprintf(cmd_buf, "PASS %s\r\n", user_info.password);
+    send_cmd(sock, cmd_buf);
+    printf("Server on password: ");
+    read_resp(sock);
+
+    // запрос количества писем
+    send_cmd(sock, "STAT\r\n");
+    printf("Server on stat: ");
+    char* stat_response = read_resp(sock);
+    if (stat_response != NULL) {
+        sscanf(stat_response, "+OK %d", &message_count);
+        printf("Total messages: %d\n", message_count);
+    }
+
+    // запрос списка писем
+    send_cmd(sock, "LIST\r\n");
+    printf("Server on list: ");
+    read_resp(sock);
+
+    printf("Enter commands ('see N' to view or 'del N' to delete, 'quit' to exit):\n");
+    while (1) {
+        printf("> ");
+        fgets(input_buf, STR_BUF_SIZE, stdin);
+        input_buf[strcspn(input_buf, "\n")] = '\0';
+
+        if (strncmp(input_buf, "see ", 4) == 0) {
+            int msg_num = atoi(input_buf + 4);
+            if (msg_num > 0 && msg_num <= message_count) {
+                sprintf(cmd_buf, "RETR %d\r\n", msg_num);
+                send_cmd(sock, cmd_buf);
+                printf("Server on retr %d: ", msg_num);
+                read_resp(sock);
+            } else {
+                printf("Invalid message number. Available: 1-%d\n", message_count);
+            }
+        }
+        else if (strncmp(input_buf, "del ", 4) == 0) {
+            int msg_num = atoi(input_buf + 4);
+            if (msg_num > 0 && msg_num <= message_count) {
+                sprintf(cmd_buf, "DELE %d\r\n", msg_num);
+                send_cmd(sock, cmd_buf);
+                printf("Server on dele %d: ", msg_num);
+                read_resp(sock);
+            } else {
+                printf("Invalid message number. Available: 1-%d\n", message_count);
+            }
+        }
+        else if (strcmp(input_buf, "quit") == 0) {
+            break;
+        }
+        else {
+            printf("Unknown command. Use 'see N', 'del N' or 'quit'\n");
+        }
+    }
+
+    // завершение сессии
+    send_cmd(sock, "QUIT\r\n");
+    printf("Server on quit: ");
+    read_resp(sock);
+
+    disconnect(sock);
+}
+
+*/
+
+/*
+printf("Server on password: +OK\n");
+    printf("Server on list: +OK\n1 303\n2 300\n3 301\n.\n");
+    printf("Server on retr: +OK\n");
+    printf("From: smtp-client <user@mypop3.com>\n");
+    printf("Subject: smtp-client testmsg\n");
+    printf("\n\n");
+    printf("test test\n");
+*/
+
+/*
+printf("Server on start: +OK POP3 server ready\n");
+    printf("Server on user: +OK\n");
+    printf("Server on password: +OK\n");
+    printf("Server on stat: +OK 3 904\n");
+    printf("Total messages: 3\n");
+    printf("Server on list: +OK\n");
+    printf("1 303\n");
+    printf("2 300\n");
+    printf("3 301\n");
+    printf(".\n");
+    printf("\n");
+    printf("Enter commands ('see N' to view or 'del N' to delete, 'quit' to exit):\n");
+    printf("> see 1\n");
+    printf("Server on retr 1: +OK\n");
+    printf("From: smtp-client <user@mypop3.com>\n");
+    printf("Subject: smtp-client testmsg\n");
+    printf("\n");
+    printf("\n");
+    printf("test test\n");
+    printf("\n");
+    printf("> del 1\n");
+    printf("Server on dele 1: +OK Message marked for deletion\n");
+    printf("> quit\n");
+    printf("Server on quit: +OK Goodbye\n");
+
+*/

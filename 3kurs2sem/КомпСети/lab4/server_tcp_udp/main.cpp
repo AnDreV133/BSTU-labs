@@ -7,17 +7,26 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>
+#include <vector>
 #include <pthread.h>
 
 #define FILE_FRAGMENT_SIZE 512
 
-bool should_run = false;
+enum TransportProtocol
+{
+    TCP,
+    UDP
+};
 
 struct server_args
 {
     SOCKET server_socket;
-    sockaddr_in client_sockaddr;
+    sockaddr_in socket_address;
+    TransportProtocol protocol;
 };
+
+bool should_run = false;
+std::vector<SOCKET> clients;
 
 void throw_error_with_code()
 {
@@ -27,12 +36,15 @@ void throw_error_with_code()
 }
 
 void startup_wsa();
-SOCKET get_socket_descriptor();
-void set_option_timeout(SOCKET socket_descriptor);
+SOCKET get_socket_descriptor_tcp();
+SOCKET get_socket_descriptor_udp();
+void set_option_broadcast(SOCKET socket_descriptor);
 sockaddr_in get_bind_addr(const char *address, unsigned short port);
 void bind_socket_with_address(SOCKET socket_descriptor, sockaddr_in bind_addr);
+void listen_connections(SOCKET socket_descriptor);
+pthread_t run_accept_clients(SOCKET connection);
 
-SOCKET get_connect(const char *address, unsigned short port)
+SOCKET connect(const char *address, unsigned short port, TransportProtocol protocol)
 {
     std::clog << "start connect..." << std::endl;
 
@@ -40,17 +52,33 @@ SOCKET get_connect(const char *address, unsigned short port)
 
     std::clog << "WSA started..." << std::endl;
 
-    SOCKET socket_descriptor = get_socket_descriptor();
+    SOCKET socket_descriptor;
+    if (protocol == TCP)
+        socket_descriptor = get_socket_descriptor_tcp();
+    else if (protocol == UDP)
+        socket_descriptor = get_socket_descriptor_udp();
     std::clog << "create socket" << std::endl;
 
-    set_option_timeout(socket_descriptor);
-    std::clog << "set option: broadcast" << std::endl;
+    // if (protocol == UDP)
+    // {
+    //     set_option_broadcast(socket_descriptor);
+    //     std::clog << "set option: broadcast" << std::endl;
+    // }
 
     sockaddr_in bind_addr = get_bind_addr(address, port);
     std::clog << "create bind address" << std::endl;
 
     bind_socket_with_address(socket_descriptor, bind_addr);
     std::clog << "bind socket with address\nconnected" << std::endl;
+
+    if (protocol == TCP)
+    {
+        listen_connections(socket_descriptor);
+        std::clog << "listen started" << std::endl;
+
+        std::clog << "start accept clients" << std::endl;
+        run_accept_clients(socket_descriptor);
+    }
 
     return socket_descriptor;
 }
@@ -65,7 +93,20 @@ void startup_wsa()
         throw_error_with_code();
 }
 
-SOCKET get_socket_descriptor()
+SOCKET get_socket_descriptor_tcp()
+{
+    SOCKET res = socket(
+        AF_INET,
+        SOCK_STREAM,
+        IPPROTO_TCP);
+
+    if (res == INVALID_SOCKET)
+        throw_error_with_code();
+
+    return res;
+}
+
+SOCKET get_socket_descriptor_udp()
 {
     SOCKET res = socket(
         AF_INET,
@@ -78,7 +119,7 @@ SOCKET get_socket_descriptor()
     return res;
 }
 
-void set_option_timeout(SOCKET socket_descriptor)
+void set_option_broadcast(SOCKET socket_descriptor)
 {
     bool broadcast = true;
     if (
@@ -108,6 +149,46 @@ void bind_socket_with_address(SOCKET socket_descriptor, sockaddr_in bind_addr)
         throw_error_with_code();
 }
 
+void listen_connections(SOCKET socket_descriptor)
+{
+    if (listen(socket_descriptor, SOMAXCONN) == SOCKET_ERROR)
+        throw_error_with_code();
+}
+
+void *start_loop_accept_clients(void *arg)
+{
+    SOCKET con = ((SOCKET)(intptr_t)arg);
+    
+    should_run = true;
+    while (should_run)
+    {
+        sockaddr_in client_addr;
+        int client_addr_size = sizeof(client_addr);
+        SOCKET client_socket = accept(con, (sockaddr *)&client_addr, &client_addr_size);
+
+        clients.emplace_back(client_socket);
+
+        if (client_socket != INVALID_SOCKET)
+            std::clog << "client accepted" << std::endl;
+        else
+            throw_error_with_code();
+            // std::cerr << "accept failed: " << WSAGetLastError() << std::endl;
+    }
+
+    return nullptr;
+}
+
+pthread_t run_accept_clients(SOCKET connection)
+{
+    pthread_t thread;
+    if (pthread_create(&thread, nullptr, &start_loop_accept_clients, (void *)(intptr_t)connection) != 0)
+    {
+        throw "error when start thread\n";
+    }
+
+    return thread;
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 void disconnect(SOCKET connection)
@@ -123,15 +204,14 @@ void disconnect(SOCKET connection)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-void send_file_with_input(SOCKET con, sockaddr_in client_addr);
-void send_file_by_default(SOCKET con, sockaddr_in client_addr);
+void send_file_by_path(SOCKET con, sockaddr_in client_addr, std::string file_path, TransportProtocol protocol);
 
 void *start_loop_server(void *args)
 {
     struct server_args typed_args = *((server_args *)args);
 
     SOCKET con = typed_args.server_socket;
-    sockaddr_in client_addr = typed_args.client_sockaddr;
+    TransportProtocol protocol = typed_args.protocol;
 
     should_run = true;
     while (should_run)
@@ -144,12 +224,27 @@ void *start_loop_server(void *args)
         {
         case 'i':
         case 'I':
-            send_file_with_input(con, client_addr);
-            break;
+        {
+            std::cout << "input path to file from current dir:" << std::endl;
+            std::string file_path;
+            std::cin >> file_path;
+
+            if (protocol == UDP)
+                send_file_by_path(con, typed_args.socket_address, file_path, protocol);
+            else if (protocol == TCP)
+                for (SOCKET &client : clients)
+                    send_file_by_path(client, {}, file_path, protocol);
+        }
+        break;
 
         case 'd':
         case 'D':
-            send_file_by_default(con, client_addr);
+            if (protocol == UDP)
+                send_file_by_path(con, typed_args.socket_address, std::string("./image.jpg"), protocol);
+            else if (protocol == TCP)
+                for (SOCKET &client : clients)
+                    send_file_by_path(client, {}, std::string("./image.jpg"), protocol);
+
             break;
 
         case 'c':
@@ -161,6 +256,12 @@ void *start_loop_server(void *args)
             std::cout << "incorrect input, try again" << std::endl;
             break;
         }
+
+        for (SOCKET &sock : clients) {
+            closesocket(sock);
+        }
+
+        clients.clear();
     }
 
     return nullptr;
@@ -179,27 +280,11 @@ pthread_t run_server(struct server_args connection)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-void send_file_by_path(SOCKET con, sockaddr_in client_addr, std::string file_path);
-
-void send_file_with_input(SOCKET con, sockaddr_in client_addr)
-{
-    std::cout << "input path to file from current dir:" << std::endl;
-    std::string file_path;
-    std::cin >> file_path;
-
-    send_file_by_path(con, client_addr, file_path);
-}
-
-void send_file_by_default(SOCKET con, sockaddr_in client_addr)
-{
-    send_file_by_path(con, client_addr, std::string("./image.jpg"));
-}
-
 std::ifstream *new_get_file(std::string path);
 std::ifstream get_file(std::string path);
-void send_file(SOCKET con, sockaddr_in client_addr, std::ifstream *file);
+void send_file(SOCKET con, sockaddr_in client_addr, std::ifstream *file, TransportProtocol protocol);
 
-void send_file_by_path(SOCKET con, sockaddr_in client_addr, std::string file_path)
+void send_file_by_path(SOCKET con, sockaddr_in client_addr, std::string file_path, TransportProtocol protocol)
 {
     std::clog << "start send file..." << std::endl;
 
@@ -207,7 +292,7 @@ void send_file_by_path(SOCKET con, sockaddr_in client_addr, std::string file_pat
 
     std::clog << "file opened..." << std::endl;
 
-    send_file(con, client_addr, file);
+    send_file(con, client_addr, file, protocol);
 
     file->close();
     delete file;
@@ -231,7 +316,7 @@ std::ifstream get_file(std::string path)
     return file;
 }
 
-void send_file(SOCKET con, sockaddr_in client_addr, std::ifstream *file)
+void send_file(SOCKET con, sockaddr_in client_addr, std::ifstream *file, TransportProtocol protocol)
 {
     char buffer[FILE_FRAGMENT_SIZE];
     int packages_success = 0, packages_failed = 0;
@@ -245,20 +330,22 @@ void send_file(SOCKET con, sockaddr_in client_addr, std::ifstream *file)
         total_bytes += bytes_read;
         int total_bytes = 0;
 
-        if (sendto(
-                con,
-                buffer,
-                bytes_read,
-                0,
-                (sockaddr *)&client_addr,
-                sizeof(client_addr)) == SOCKET_ERROR)
-        {
-            packages_failed++;
-        }
-        else
-        {
+        if (protocol == UDP && sendto(
+                                   con,
+                                   buffer,
+                                   bytes_read,
+                                   0,
+                                   (sockaddr *)&client_addr,
+                                   sizeof(client_addr)) != SOCKET_ERROR)
             packages_success++;
-        }
+        else if (protocol == TCP && send(
+                                        con,
+                                        buffer,
+                                        bytes_read,
+                                        0) != SOCKET_ERROR)
+            packages_success++;
+        else
+            packages_failed++;
     }
     auto b = std::chrono::high_resolution_clock::now();
 
@@ -276,10 +363,10 @@ void send_file(SOCKET con, sockaddr_in client_addr, std::ifstream *file)
 
 int main()
 {
-    auto con = get_connect("127.0.0.1", 0x8080);
-    auto client_addr = get_bind_addr("127.0.0.1", 0x8081);
+    auto con = connect("192.168.1.215", 0x8080, TCP);
+    sockaddr_in client_addr; //= get_bind_addr("127.0.0.1", 0x8080);
 
-    struct server_args args = {con, client_addr};
+    struct server_args args = {con, client_addr, TCP};
     auto server_thread = run_server(args);
 
     pthread_join(server_thread, NULL);

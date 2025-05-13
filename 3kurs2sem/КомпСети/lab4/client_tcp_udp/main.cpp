@@ -12,6 +12,12 @@
 
 #define FILE_FRAGMENT_SIZE 512
 
+enum TransportProtocol
+{
+    TCP,
+    UDP
+};
+
 bool should_run = false;
 
 void throw_err_with_code()
@@ -22,12 +28,14 @@ void throw_err_with_code()
 }
 
 void startup_wsa();
-SOCKET get_socket_descriptor();
+SOCKET get_socket_descriptor_tcp();
+SOCKET get_socket_descriptor_udp();
 void set_option_timeout(SOCKET socket_descriptor, unsigned int timeout_ms);
 sockaddr_in get_bind_addr(const char *address, unsigned short port);
 void bind_socket_with_address(SOCKET socket_descriptor, sockaddr_in bind_addr);
+void connect_to_server(SOCKET socket_descriptor, sockaddr_in bind_addr);
 
-SOCKET connect(const char *address, unsigned short port)
+SOCKET connect(const char *address, unsigned short port, TransportProtocol protocol)
 {
     std::clog << "start connect..." << std::endl;
 
@@ -35,17 +43,29 @@ SOCKET connect(const char *address, unsigned short port)
 
     std::clog << "WSA started..." << std::endl;
 
-    SOCKET socket_descriptor = get_socket_descriptor();
+    SOCKET socket_descriptor;
+    if (protocol == TCP)
+        socket_descriptor = get_socket_descriptor_tcp();
+    else if (protocol == UDP)
+        socket_descriptor = get_socket_descriptor_udp();
     std::clog << "create socket" << std::endl;
 
     set_option_timeout(socket_descriptor, 10000);
-    std::clog << "set option: broadcast" << std::endl;
+    std::clog << "set option: timeout" << std::endl;
 
     sockaddr_in bind_addr = get_bind_addr(address, port);
     std::clog << "create bind address" << std::endl;
 
-    bind_socket_with_address(socket_descriptor, bind_addr);
-    std::clog << "bind socket with address\nconnected" << std::endl;
+    if (protocol == UDP)
+    {
+        bind_socket_with_address(socket_descriptor, bind_addr);
+        std::clog << "bind socket with address\nconnected" << std::endl;
+    }
+    else if (protocol == TCP)
+    {
+        connect_to_server(socket_descriptor, bind_addr);
+        std::clog << "connect to server\nconnected" << std::endl;
+    }
 
     return socket_descriptor;
 }
@@ -60,7 +80,20 @@ void startup_wsa()
         throw_err_with_code();
 }
 
-SOCKET get_socket_descriptor()
+SOCKET get_socket_descriptor_tcp()
+{
+    SOCKET res = socket(
+        AF_INET,
+        SOCK_STREAM,
+        IPPROTO_TCP);
+
+    if (res == INVALID_SOCKET)
+        throw_err_with_code();
+
+    return res;
+}
+
+SOCKET get_socket_descriptor_udp()
 {
     SOCKET res = socket(
         AF_INET,
@@ -102,6 +135,12 @@ void bind_socket_with_address(SOCKET socket_descriptor, sockaddr_in bind_addr)
         throw_err_with_code();
 }
 
+void connect_to_server(SOCKET socket_descriptor, sockaddr_in bind_addr)
+{
+    if (connect(socket_descriptor, (sockaddr *)&bind_addr, sizeof(bind_addr)) == SOCKET_ERROR)
+        throw_err_with_code();
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 void disconnect(SOCKET connection)
@@ -117,13 +156,13 @@ void disconnect(SOCKET connection)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-void recv_file(SOCKET con);
+void recv_file(SOCKET con, TransportProtocol protocol);
 
-void handle_client(SOCKET con)
+void handle_client(SOCKET con, TransportProtocol protocol)
 {
     should_run = true;
 
-    recv_file(con);
+    recv_file(con, protocol);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -132,22 +171,42 @@ std::string generate_filename();
 std::ofstream create_output_file(std::string filename);
 void save_file_fragment(std::ofstream &file, const char *data, size_t size);
 
-void recv_file(SOCKET con)
+void recv_file(SOCKET con, TransportProtocol protocol)
 {
     char buffer[FILE_FRAGMENT_SIZE];
     std::string filename = generate_filename();
     std::ofstream out_file = create_output_file(filename);
-    int bytes_received;
+    int bytes_received = 0;
+    bool is_recved = false;
 
     auto a = std::chrono::high_resolution_clock::now();
-    while (should_run && (bytes_received = recvfrom(
-                              con,
-                              buffer,
-                              sizeof(buffer),
-                              0,
-                              nullptr,
-                              nullptr)) != SOCKET_ERROR)
-        save_file_fragment(out_file, buffer, bytes_received);
+    while (should_run)
+    {
+        if (is_recved && !bytes_received)
+            break;
+
+        if (protocol == UDP && (bytes_received = recvfrom(
+                                    con,
+                                    buffer,
+                                    sizeof(buffer),
+                                    0,
+                                    nullptr,
+                                    nullptr)) != SOCKET_ERROR ||
+            protocol == TCP && (bytes_received = recv(
+                                    con,
+                                    buffer,
+                                    sizeof(buffer),
+                                    0)) != SOCKET_ERROR)
+        {
+            is_recved = true;
+            save_file_fragment(out_file, buffer, bytes_received);
+        }
+        else
+        {
+            std::cerr << "not get answer from server: " << GetLastError << std::endl;
+            break;
+        }
+    }
     auto b = std::chrono::high_resolution_clock::now();
 
     std::clog << "Answer accepted\n"
@@ -175,7 +234,6 @@ std::ofstream create_output_file(std::string filename)
 void save_file_fragment(std::ofstream &file, const char *data, size_t size)
 {
     file.write(data, size);
-    std::clog << size << std::endl;
     if (!file.good())
     {
         throw std::runtime_error("File write error");
@@ -186,9 +244,9 @@ void save_file_fragment(std::ofstream &file, const char *data, size_t size)
 
 int main()
 {
-    auto con = connect("127.0.0.1", 0x8081);
+    auto con = connect("192.168.1.215", 0x8081, UDP);
 
-    handle_client(con);
+    handle_client(con, UDP);
 
     disconnect(con);
 
