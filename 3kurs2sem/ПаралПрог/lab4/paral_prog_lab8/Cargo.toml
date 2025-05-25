@@ -1,0 +1,8 @@
+[package]
+name = "paral_prog_lab8"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ocl = "0.19"
+rand = "0.8"

@@ -1,0 +1,11 @@
+C:\Users\dmitr\Projects\BSTU_lab\3kurs2sem\paral_prog_lab8\target\release\deps\liblibc-cdc768d6c1fd8ee3.rmeta: C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src/lib.rs C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\macros.rs C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\primitives.rs C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\windows\mod.rs C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\windows\msvc\mod.rs
+
+C:\Users\dmitr\Projects\BSTU_lab\3kurs2sem\paral_prog_lab8\target\release\deps\liblibc-cdc768d6c1fd8ee3.rlib: C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src/lib.rs C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\macros.rs C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\primitives.rs C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\windows\mod.rs C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\windows\msvc\mod.rs
+
+C:\Users\dmitr\Projects\BSTU_lab\3kurs2sem\paral_prog_lab8\target\release\deps\libc-cdc768d6c1fd8ee3.d: C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src/lib.rs C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\macros.rs C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\primitives.rs C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\windows\mod.rs C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\windows\msvc\mod.rs
+
+C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src/lib.rs:
+C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\macros.rs:
+C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\primitives.rs:
+C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\windows\mod.rs:
+C:\Users\dmitr\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libc-0.2.172\src\windows\msvc\mod.rs:
