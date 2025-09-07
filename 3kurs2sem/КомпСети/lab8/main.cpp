@@ -1,354 +1,334 @@
-#include <winsock2.h>
+#include <WinSock2.h>
+#include <winsock.h>
 #include <ws2tcpip.h>
-#include <stdio.h>
 #include <iostream>
+#include <exception>
 #include <string>
-#include <windows.h>
-#include <schannel.h>
-#include <limits>
+#include <iostream>
+#include <fstream>
+#include <chrono>
+#include <vector>
+#include <sstream>
+// #include <pthread.h>
 
 #define STR_BUF_SIZE 256
-#define TEXT_BUF_SIZE 256
-#define SMTP_PORT 25
-#define POP3_PORT 110
 
-using namespace std;
+struct server_args
+{
+	SOCKET server_socket;
+	sockaddr_in socket_address;
+};
+
+struct Response
+{
+	int code;
+	std::string head;
+	std::string body;
+};
+
+std::string stuck_response(Response r)
+{
+	return r.head + "\r\n\r\n" + r.body;
+}
+
+Response get_server_error_page()
+{
+	int code = 501;
+	std::stringstream responseHead;
+	std::stringstream responseBody;
+
+	responseBody << "<!DOCTYPE HTML>"
+				 << "<html>"
+				 << "<head>"
+				 << "<title>" << std::to_string(code) << " Not Implemented</title>"
+				 << "</head>"
+				 << "<body>"
+				 << "<h1>Not Implemented</h1>"
+				 << "<p>This request can not be processed by this server</p>"
+				 << "</body>"
+				 << "</html>";
+
+	responseHead << "HTTP/1.1 " << std::to_string(code) << " Not Implemented\r\n"
+				 << "Version: HTTP/1.1\r\n"
+				 << "Content-Type: text/html; charset=utf-8\r\n"
+				 << "Content-Length: " << responseBody.str().length();
+
+	return {
+		code,
+		responseHead.str(),
+		responseBody.str()};
+}
+
+Response get_ok_page_headers()
+{
+	int code = 200;
+	std::stringstream responseHead;
+	std::stringstream responseBody;
+
+	responseHead << "HTTP/1.1 " << std::to_string(code) << " OK\r\n"
+				 << "Version: HTTP/1.1\r\n"
+				 << "Content-Type: text/html; charset=utf-8\r\n"
+				 << "Content-Length: "
+				 << responseBody.str().length()
+				 << "\r\n\r\n";
+
+	return {
+		code,
+		responseHead.str(),
+		responseBody.str()};
+}
+
+Response get_ok_page()
+{
+	int code = 200;
+	std::stringstream responseHead;
+	std::stringstream responseBody;
+
+	responseBody << "<!DOCTYPE HTML>"
+				 << "<html>"
+				 << "<head>"
+				 << "<title>" << std::to_string(code) << " Good</title>"
+				 << "</head>"
+				 << "<body>"
+				 << "<h1>Hello world!</h1>"
+				 << "<p>Are you want see another?</p>"
+				 << "</body>"
+				 << "</html>";
+
+	responseHead << "HTTP/1.1 " << std::to_string(code) << " OK\r\n"
+				 << "Version: HTTP/1.1\r\n"
+				 << "Content-Type: text/html; charset=utf-8\r\n"
+				 << "Content-Length: "
+				 << responseBody.str().length()
+				 << "\r\n\r\n";
+
+	return {
+		code,
+		responseHead.str(),
+		responseBody.str()};
+}
+
+Response get_client_error_page()
+{
+	int code = 404;
+	std::stringstream responseHead;
+	std::stringstream responseBody;
+
+	responseBody << "<!DOCTYPE HTML>"
+				 << "<html>"
+				 << "<head>"
+				 << "<title>404 Not Found</title>"
+				 << "</head>"
+				 << "<body>"
+				 << "<h1> 404 </h1>"
+				 << "<p></p>"
+				 << "</body>"
+				 << "</html>";
+
+	responseHead << "HTTP/1.1 " << std::to_string(code) << " Not Found\r\n"
+				 << "Version: HTTP/1.1\r\n"
+				 << "Content-Type: text/html; charset=utf-8\r\n"
+				 << "Content-Length: "
+				 << responseBody.str().length()
+				 << "\r\n\r\n";
+
+	return {
+		code,
+		responseHead.str(),
+		responseBody.str()};
+}
+
+bool should_run = false;
+std::vector<SOCKET> clients;
 
 void throw_error_with_code()
 {
-    std::string error_msg = "Error with code: ";
-    error_msg += to_string(WSAGetLastError());
-    throw std::runtime_error(error_msg);
+	std::string err_msg = "error with code: ";
+	err_msg += std::to_string(WSAGetLastError());
+	throw std::runtime_error(err_msg);
 }
 
 const char *getaddrbyname(const char *hostname)
 {
-    struct hostent *host_info;
-    struct in_addr addr = {0};
-    char *ip = NULL;
+	struct hostent *host_info;
+	struct in_addr addr = {0};
+	char *ip = NULL;
 
-    if ((host_info = gethostbyname(hostname)) == NULL)
-        return NULL;
+	if ((host_info = gethostbyname(hostname)) == NULL)
+		return NULL;
 
-    addr.s_addr = *(u_long *)host_info->h_addr_list[0];
+	addr.s_addr = *(u_long *)host_info->h_addr_list[0];
 
-    return inet_ntoa(addr);
+	return inet_ntoa(addr);
 }
 
 void startup_wsa();
 SOCKET get_socket_descriptor();
 sockaddr_in get_bind_addr(const char *address, unsigned short port);
-void connect_socket_with_address(SOCKET socket_descriptor, sockaddr_in bind_addr);
+void bind_socket_with_address(SOCKET socket_descriptor, sockaddr_in bind_addr);
+void listen_connections(SOCKET socket_descriptor);
 
-SOCKET get_connect(const char *address, unsigned short port)
+SOCKET connect(const char *address, unsigned short port)
 {
-    std::clog << "start connect..." << std::endl;
+	std::clog << "start connect..." << std::endl;
 
-    startup_wsa();
+	startup_wsa();
 
-    std::clog << "WSA started..." << std::endl;
+	std::clog << "WSA started..." << std::endl;
 
-    SOCKET socket_descriptor = get_socket_descriptor();
-    std::clog << "create socket" << std::endl;
+	SOCKET socket_descriptor = get_socket_descriptor();
+	std::clog << "create socket" << std::endl;
 
-    sockaddr_in bind_addr = get_bind_addr(address, port);
-    std::clog << "create bind address" << std::endl;
+	sockaddr_in bind_addr = get_bind_addr(address, port);
+	std::clog << "create bind address" << std::endl;
 
-    connect_socket_with_address(socket_descriptor, bind_addr);
-    std::clog << "connect socket with address\nconnected" << std::endl;
+	bind_socket_with_address(socket_descriptor, bind_addr);
+	std::clog << "bind socket with address\nconnected" << std::endl;
 
-    return socket_descriptor;
+	listen_connections(socket_descriptor);
+	std::clog << "listen started" << std::endl;
+
+	return socket_descriptor;
 }
 
 void startup_wsa()
 {
-    WORD wVersionRequested;
-    WSADATA wsaData;
-    wVersionRequested = MAKEWORD(2, 2);
+	WORD wVersionRequested;
+	WSADATA wsaData;
+	wVersionRequested = MAKEWORD(2, 0);
 
-    if (WSAStartup(wVersionRequested, &wsaData) == SOCKET_ERROR)
-        throw_error_with_code();
+	if (WSAStartup(wVersionRequested, &wsaData) == SOCKET_ERROR)
+		throw_error_with_code();
 }
 
 SOCKET get_socket_descriptor()
 {
-    SOCKET res = socket(
-        AF_INET,
-        SOCK_STREAM,
-        0);
+	SOCKET res = socket(
+		AF_INET,
+		SOCK_STREAM,
+		0);
 
-    if (res == INVALID_SOCKET)
-        throw_error_with_code();
+	if (res == INVALID_SOCKET)
+		throw_error_with_code();
 
-    return res;
+	return res;
 }
 
 sockaddr_in get_bind_addr(const char *address, unsigned short port)
 {
-    sockaddr_in res;
+	sockaddr_in res;
 
-    res.sin_family = AF_INET;
-    res.sin_addr.s_addr = inet_addr(address);
-    res.sin_port = htons(port);
+	res.sin_family = AF_INET;
+	res.sin_addr.s_addr = inet_addr(address);
+	res.sin_port = htons(port);
 
-    return res;
+	return res;
 }
 
-void connect_socket_with_address(SOCKET socket_descriptor, sockaddr_in bind_addr)
+void bind_socket_with_address(SOCKET socket_descriptor, sockaddr_in bind_addr)
 {
-    if (connect(socket_descriptor, (sockaddr *)&bind_addr, sizeof(bind_addr)) == SOCKET_ERROR)
-        throw_error_with_code();
+	if (bind(socket_descriptor, (sockaddr *)&bind_addr, sizeof(bind_addr)) == SOCKET_ERROR)
+		throw_error_with_code();
 }
 
-///////////////////////////////////////////////////////
+void listen_connections(SOCKET socket_descriptor)
+{
+	if (listen(socket_descriptor, 3) == SOCKET_ERROR)
+		throw_error_with_code();
+}
+
+void handle_client(SOCKET client_socket);
+
+void loop_accept_clients(SOCKET con)
+{
+	should_run = true;
+	while (should_run)
+	{
+		sockaddr_in client_addr;
+		int client_addr_size = sizeof(client_addr);
+		std::cout << "waiting accept" << std::endl;
+		SOCKET client_socket = accept(con, (sockaddr *)&client_addr, &client_addr_size);
+
+		if (client_socket != INVALID_SOCKET)
+		{
+			std::cout << "handle client" << std::endl;
+			handle_client(client_socket);
+		}
+		else
+			throw_error_with_code();
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+void handle_client(SOCKET client_socket)
+{
+	char request_buffer[STR_BUF_SIZE];
+	int request_buffer_len = STR_BUF_SIZE;
+	int iResult;
+	int iSendResult;
+	char method[STR_BUF_SIZE];
+	char URI[STR_BUF_SIZE];
+	char host[STR_BUF_SIZE];
+	int ver_h = 0;
+	int ver_l = 0;
+
+	iResult = recv(client_socket, request_buffer, request_buffer_len, 0);
+	if (iResult > 0)
+	{
+		request_buffer[iResult] = '\0';
+		sscanf(request_buffer, "%s %s HTTP/%i.%i\nHost: %s", method, URI, &ver_h, &ver_l, host);
+		printf("Client ask method %s for URI %s (HTTP ver %i.%i)\nHost: %s\n", method, URI, ver_h, ver_l, host);
+	}
+	else if (iResult == 0)
+	{
+		printf("Close connection\n");
+		return;
+	}
+	else
+		throw_error_with_code();
+
+	Response response = {};
+	if (strcmp(URI, "/index.html"))
+		response = get_client_error_page();
+	else if (strcmp(method, "GET") == 0)
+		response = get_ok_page();
+	else if (strcmp(method, "HEAD") == 0)
+		response = get_ok_page_headers();
+	else
+		response = get_server_error_page();
+
+	std::string stucked_response = stuck_response(response);
+	iSendResult = send(
+		client_socket,
+		stucked_response.c_str(),
+		stucked_response.length(),
+		0);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
 
 void disconnect(SOCKET connection)
 {
-    std::clog << "start disconnect..." << std::endl;
+	std::clog << "start disconnect..." << std::endl;
 
-    if (closesocket(connection) == SOCKET_ERROR)
-        throw_error_with_code();
-    WSACleanup();
+	if (closesocket(connection) == SOCKET_ERROR)
+		throw_error_with_code();
+	WSACleanup();
 
-    std::clog << "disconnected" << std::endl;
+	std::clog << "disconnected" << std::endl;
 }
 
-///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
-SOCKET wait_client(SOCKET connection)
+int main()
 {
-    sockaddr_in temp;
-    int size_temp = sizeof(sockaddr_in);
-    SOCKET client = accept(connection, (struct sockaddr *)&temp, &size_temp);
+	auto con = connect("127.0.0.1", 80);
 
-    if (client == INVALID_SOCKET)
-        throw_error_with_code();
+	std::clog << "start accept clients" << std::endl;
+	loop_accept_clients(con);
 
-    return client;
+	disconnect(con);
+
+	return 0;
 }
-
-///////////////////////////////////////////////////////
-
-struct UserInfo
-{
-    const char *login;
-    const char *password;
-};
-
-void send(UserInfo user_info);
-void get(UserInfo user_info);
-
-int main(int argc, char *argv[])
-{
-    UserInfo user_info = {0};
-    if (argc == 3)
-    {
-        user_info.login = argv[1];
-        user_info.password = argv[2];
-    }
-    else
-        throw "2 argumnts not wrotten\n";
-
-    int selected_value = 0;
-    while (true)
-    {
-        cout << "Change action:\n"
-             << "  1. Send\n"
-             << "  2. Get\n"
-             << "  3. Exit"
-             << endl;
-        cin >> selected_value;
-
-        switch (selected_value)
-        {
-        case 1:
-            send(user_info);
-            break;
-        case 2:
-            get(user_info);
-            break;
-        case 3:
-            exit(0);
-            break;
-        default:
-            cout << "Wrong input" << endl;
-        }
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    }
-
-    return 0;
-}
-
-void input_message(string &dst, UserInfo user_info)
-{
-    string full_message;
-    string line;
-    while (getline(cin, line) && line != ".")
-    {
-        full_message += line + "\r\n";
-    }
-
-    dst = "From: smtp-client <" + string(user_info.login) + ">\r\n";
-    dst += "Subject: smtp-client testmsg\r\n";
-    dst += full_message + "\r\n.\r\n";
-}
-
-void send(UserInfo user_info)
-{
-    startup_wsa();
-
-    SOCKET sock = get_connect(getaddrbyname("smtp.freesmtpservers.com"), SMTP_PORT);
-    char cmd_buf[STR_BUF_SIZE];
-    char text_buf[TEXT_BUF_SIZE];
-
-    // блок конверта
-    recv(sock, text_buf, TEXT_BUF_SIZE, 0);
-    printf("Server on start: %s", text_buf);
-
-    sprintf(cmd_buf, "HELO freesmtpservers.com\r\n");
-    send(sock, cmd_buf, strlen(cmd_buf), 0);
-    memset(text_buf, '\0', TEXT_BUF_SIZE);
-    recv(sock, text_buf, TEXT_BUF_SIZE, 0);
-    printf("Server on hello: %s", text_buf);
-
-    sprintf(cmd_buf, "MAIL FROM: <%s>\r\n", user_info.login);
-    send(sock, cmd_buf, strlen(cmd_buf), 0);
-    memset(text_buf, '\0', TEXT_BUF_SIZE);
-    recv(sock, text_buf, TEXT_BUF_SIZE, 0);
-    printf("Server on mail: %s", text_buf);
-
-    cout << "Input recipient: ";
-    cin >> text_buf;
-    sprintf(cmd_buf, "RCPT TO: <%s>\r\n", text_buf);
-    send(sock, cmd_buf, strlen(cmd_buf), 0);
-    memset(text_buf, '\0', TEXT_BUF_SIZE);
-    recv(sock, text_buf, TEXT_BUF_SIZE, 0);
-    printf("Server on recipient: %s", text_buf);
-
-    send(sock, "DATA\r\n", 6, 0);
-    memset(text_buf, '\0', TEXT_BUF_SIZE);
-    recv(sock, text_buf, TEXT_BUF_SIZE, 0);
-    printf("Server on data: %s", text_buf);
-
-    // блок сообщения
-    cout << "Input message:" << endl;
-    string message;
-    input_message(message, user_info);
-    send(sock, message.c_str(), message.length(), 0);
-
-    printf("\n\n--- msg ---\n\n%s\n\n", message.c_str());
-
-    memset(text_buf, '\0', TEXT_BUF_SIZE);
-    recv(sock, text_buf, TEXT_BUF_SIZE, 0);
-    printf("Server on message: %s", text_buf);
-
-    // завершение сессии
-    send(sock, "QUIT\r\n", 6, 0);
-    memset(text_buf, '\0', TEXT_BUF_SIZE);
-    recv(sock, text_buf, TEXT_BUF_SIZE, 0);
-    printf("Server on quit: %s", text_buf);
-
-    disconnect(sock);
-}
-
-void read_resp(SOCKET sock)
-{
-    char buffer[TEXT_BUF_SIZE];
-    int bytes;
-    int total_bytes = 0;
-
-    while ((bytes = recv(sock, buffer + total_bytes, TEXT_BUF_SIZE - total_bytes - 1, 0)) > 0)
-    {
-        total_bytes += bytes;
-        buffer[total_bytes] = '\0';
-
-        // Проверяем завершение ответа (для однострочных команд)
-        if (strstr(buffer, "\r\n"))
-        {
-            printf("%s", buffer);
-            break;
-        }
-
-        // Проверяем завершение многострочного ответа
-        if (strstr(buffer, "\r\n.\r\n"))
-        {
-            printf("%s", buffer);
-            break;
-        }
-
-        // Защита от переполнения буфера
-        if (total_bytes >= TEXT_BUF_SIZE - 1)
-        {
-            buffer[TEXT_BUF_SIZE - 1] = '\0';
-            printf("%s", buffer);
-            break;
-        }
-    }
-
-    if (bytes <= 0)
-    {
-        printf("Connection closed or error\n");
-    }
-}
-
-void send_cmd(SOCKET sock, const char *cmd)
-{
-    send(sock, cmd, strlen(cmd), 0);
-}
-
-void get(UserInfo user_info)
-{
-    startup_wsa();
-
-    SOCKET sock = get_connect(getaddrbyname("pop.mypop3.com"), POP3_PORT);
-    char cmd_buf[STR_BUF_SIZE];
-
-    printf("Server on start: ");
-    read_resp(sock);
-
-    // авторизация
-    sprintf(cmd_buf, "USER %s\r\n", user_info.login);
-    send_cmd(sock, cmd_buf);
-    printf("Server on user: ");
-    read_resp(sock);
-
-    printf("Server on password: +OK\n");
-    printf("Server on list: +OK\n1 303\n2 300\n3 301\n.\n");
-    printf("Server on retr: +OK Message follows\n");
-    printf("From: smtp-client <user@mypop3.com>\n");
-    printf("Subject: smtp-client testmsg\n");
-    printf("\n\n");
-    printf("test test\n");
-      
-    // sprintf(cmd_buf, "PASS %s\r\n", user_info.password);
-    // send_cmd(sock, cmd_buf);
-    // printf("Server on password: ");
-    // read_resp(sock);
-
-    // // обработка
-    // send_cmd(sock, "LIST\r\n");
-    // printf("Server on list: ");
-    // read_resp(sock);
-
-    // send_cmd(sock, "RETR 1\r\n");
-    // printf("Server on retr: ");
-    // read_resp(sock);
-
-    // // завершение сессии
-    // send_cmd(sock, "QUIT\r\n");
-    // printf("Server on quit: ");
-    // read_resp(sock);
-
-    disconnect(sock);
-}
-
-/*
-printf("Server on password: +OK\n");
-    printf("Server on list: +OK\n1 303\n2 300\n3 301\n.\n");
-    printf("Server on retr: +OK\n");
-    printf("From: smtp-client <user@mypop3.com>\n");
-    printf("Subject: smtp-client testmsg\n");
-    printf("\n\n");
-    printf("test test\n");
-*/

@@ -5,22 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f54d6ee-0369-4bfd-9e10-3bb1f72689f3" name="Changes" comment="change">
-      <change afterPath="$PROJECT_DIR$/БЖД/1_AD.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/КомпСети/lab4/client_tcp/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/КомпСети/lab4/server_tcp/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/КомпСети/lab4/КомпСети2_Дмитриев_ПВ-223.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/КомпСети/lab4/КомпСети2_Дмитриев_ПВ-223.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/КомпСети/lab4/диаграммы.bdg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/МетодыАД/lab2/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/МетодыАД/lab2/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/МетодыАД/lab3/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/МетодыАД/lab3/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/.cmake/api/v1/reply/cache-v2-7cb102dcb6d5805c49b3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-10edf3711d0280b37a0c.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-6c768957d7a77eef4495.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/.cmake/api/v1/reply/index-2024-11-17T08-20-13-0583.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/.cmake/api/v1/reply/target-lab_4-Debug-a4590d06d69d6d45e75a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-d9b82c3643e392be89fa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CMakeCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CMakeCCompiler.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CMakeCXXCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CMakeCXXCompiler.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CMakeSystem.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CMakeSystem.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CompilerIdC/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CompilerIdC/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CompilerIdCXX/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/3.25.2/CompilerIdCXX/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/lab_4.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/lab_4.dir/main.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/lab_4.dir/pain.c.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/lab_4.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../3kurs1sem/cg/lab_4/cmake-build-debug/lab_4.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/КомпСети/lab3/server_ip/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/КомпСети/lab3/server_ip/a.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/КомпСети/lab3/server_ip/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/КомпСети/lab3/server_ip/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/КомпСети/lab3/КомпСети3_Дмитриев_ПВ-223.docx" beforeDir="false" afterPath="$PROJECT_DIR$/КомпСети/lab3/КомпСети3_Дмитриев_ПВ-223.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/КомпСети/lab3/КомпСети3_Дмитриев_ПВ-223.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/КомпСети/lab3/КомпСети3_Дмитриев_ПВ-223.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/КомпСети/lab8/1.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/КомпСети/lab8/1.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/КомпСети/lab8/2.drawio" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/КомпСети/lab8/3.drawio" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/КомпСети/lab8/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/КомпСети/lab8/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/КомпСети/lab8/run.bat" beforeDir="false" afterPath="$PROJECT_DIR$/КомпСети/lab8/run.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/КомпСети/lab8/КомпСети8_Дмитриев_ПВ-223.docx" beforeDir="false" afterPath="$PROJECT_DIR$/КомпСети/lab8/КомпСети8_Дмитриев_ПВ-223.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/статьи/физ-ра/Статья ДмитриевА.docx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +92,7 @@
       <recent name="C:\Users\dmitr\Projects\3kurs1sem\3kurs2sem\Метрология\lab1" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.1 (1)">
+  <component name="RunManager" selected="Python.main">
     <configuration name="1 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="3kurs2sem" />
       <option name="ENV_FILES" value="" />
@@ -108,28 +129,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/БЖД/1.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="3kurs2sem" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/МетодыАД/lab1" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\dmitr\Projects\3kurs1sem\3kurs2sem\МетодыАД\lab1\1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -182,13 +181,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="3kurs2sem" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ПаралПрог/lab4" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ПаралПрог/lab4/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.1 (1)" />
         <item itemvalue="Python.1 (2)" />
         <item itemvalue="Python.main (1)" />
         <item itemvalue="Python.2" />
-        <item itemvalue="Python.1" />
       </list>
     </recent_temporary>
   </component>

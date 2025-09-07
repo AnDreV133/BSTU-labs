@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма авторизации</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/class.css">
+</head>
+
+<body>
+<header>
+    <div>
+        <h3>Авторизация</h3>
+    </div>
+</header>
+
+<main>
+    <div class="auth-container">
+        <form action="/signin" method="post">
+            <div class="input-container">
+                <input type="text" id="signin" required>
+                <label for="signin">Логин</label>
+            </div>
+            <div class="input-container">
+                <input type="password" id="password" required>
+                <label for="password">Пароль</label>
+            </div>
+            <div class="login-button">
+                <button type="submit">Войти</button>
+            </div>
+        </form>
+        <a href="signup.html">Ещё не зарегистрированы?</a>
+    </div>
+</main>
+</body>
+
+</html>
