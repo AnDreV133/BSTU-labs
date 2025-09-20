@@ -1,0 +1,23 @@
+@import './base.css';
+
+a {
+    color: black;
+}
+
+header {
+    background-color: lightgrey;
+    display: flex;
+    justify-content: space-between;
+    height: 8vh;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+header div {
+    align-content: center;
+}
+
+main {
+    position: relative;
+    height: 80vh;
+}
