@@ -1,23 +1,18 @@
 @import './base.css';
 
-a {
-    color: black;
+* {
+    background-color: white
 }
 
-header {
-    background-color: lightgrey;
-    display: flex;
-    justify-content: space-between;
-    height: 8vh;
-    padding: 10px;
-    margin-bottom: 10px;
+a {
+    color: black;
 }
 
 header div {
     align-content: center;
 }
 
-main {
+main div {
     position: relative;
     height: 80vh;
 }

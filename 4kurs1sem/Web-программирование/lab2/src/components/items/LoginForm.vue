@@ -1,29 +1,22 @@
 <template>
     <div>
-        <header>
-            <div>
-                <h3>{{ title }}</h3>
-            </div>
-        </header>
-        <main>
-            <div class="auth-container">
-                <form @submit.prevent="onSubmit">
-                    <div class="input-container">
-                        <input type="text" id="login" v-model="login" required />
-                        <label for="login">Логин</label>
-                    </div>
-                    <div class="input-container">
-                        <input type="password" id="password" v-model="password" required />
-                        <label for="password">Пароль</label>
-                    </div>
-                    <div class="login-button">
-                        <button type="submit">Войти</button>
-                    </div>
-                </form>
-                <div v-show="error">{{ error }}</div>
-                <a href="underHref">{{ underText }}</a>
-            </div>
-        </main>
+        <div class="auth-container">
+            <form @submit.prevent="onSubmit">
+                <div class="input-container">
+                    <input type="text" id="login" v-model="login" required />
+                    <label for="login">Логин</label>
+                </div>
+                <div class="input-container">
+                    <input type="password" id="password" v-model="password" required />
+                    <label for="password">Пароль</label>
+                </div>
+                <div class="login-button">
+                    <button type="submit">Войти</button>
+                </div>
+            </form>
+            <div v-show="error">{{ error }}</div>
+            <a href="underHref">{{ underText }}</a>
+        </div>
     </div>
 </template>
 
@@ -38,10 +31,6 @@ export default {
         };
     },
     props: {
-        title: {
-            type: String,
-            require: true
-        },
         onSubmitFunc: {
             type: Function,
             require: true
@@ -81,6 +70,7 @@ export default {
 
 <style scoped>
 @import '../assets/main.css';
+
 .auth-container {
     display: flex;
     height: 100%;

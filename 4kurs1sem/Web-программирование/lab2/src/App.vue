@@ -1,32 +1,15 @@
 <script setup>
-import Login from './components/Login.vue';
+import SigninScreen from './components/SigninScreen.vue';
 </script>
 
 <template>
-  <header>
-    
-  </header>
-
-  <main>
-    <Login 
-      title="Авторизация"
-      :onSubmit=submit 
-      under-text="Еще не зарегистрированы?"
-      under-href="kk"
-    />
-  </main>
+    <SigninScreen />
 </template>
 
 <script>
-  export default {
-    components: { Login },
-    methods: {
-      submit(login, password) {
-        alert("hui " + login + " " + password)
-      }
-    }
-  }
+export default {
+    components: { SigninScreen }
+}
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
