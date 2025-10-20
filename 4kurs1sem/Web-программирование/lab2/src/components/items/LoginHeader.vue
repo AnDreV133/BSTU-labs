@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <p class="title">{{ title }}</p>
+    <div class="main">
+        <h2 class="title">{{ title }}</h2>
     </div>
 </template>
 
@@ -16,19 +16,16 @@ export default {
 }
 </script>
 
-<style>
-header {
+<style scoped>
+.main {
     background-color: lightgrey;
     display: flex;
     justify-content: space-between;
-    height: 8vh;
+    align-items: center;
     padding: 10px;
-    margin-bottom: 10px;
 }
 
 .title {
-    font-size: 1.5em;
     color: black;
-    margin-bottom: 1em;
 }
 </style>

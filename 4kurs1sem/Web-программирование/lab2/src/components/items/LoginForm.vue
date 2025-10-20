@@ -1,22 +1,20 @@
 <template>
-    <div>
-        <div class="auth-container">
-            <form @submit.prevent="onSubmit">
-                <div class="input-container">
-                    <input type="text" id="login" v-model="login" required />
-                    <label for="login">Логин</label>
-                </div>
-                <div class="input-container">
-                    <input type="password" id="password" v-model="password" required />
-                    <label for="password">Пароль</label>
-                </div>
-                <div class="login-button">
-                    <button type="submit">Войти</button>
-                </div>
-            </form>
-            <div v-show="error">{{ error }}</div>
-            <a href="underHref">{{ underText }}</a>
-        </div>
+    <div class="auth-container">
+        <form @submit.prevent="onSubmit">
+            <div class="input-container">
+                <input type="text" id="login" v-model="login" required />
+                <label for="login">Логин</label>
+            </div>
+            <div class="input-container">
+                <input type="password" id="password" v-model="password" required />
+                <label for="password">Пароль</label>
+            </div>
+            <div class="login-button">
+                <button type="submit">Войти</button>
+            </div>
+        </form>
+        <div v-show="error">{{ error }}</div>
+        <a :href="underHref">{{ underText }}</a>
     </div>
 </template>
 
@@ -47,12 +45,12 @@ export default {
     methods: {
         validateForm() {
             if (!this.login) {
-                error = "Логин обязателен.";
+                this.error = "Логин обязателен.";
             }
             else if (!this.password) {
-                error = "Пароль обязателен.";
+                this.error = "Пароль обязателен.";
             } else {
-                error = ""
+                this.error = ""
             }
         },
         onSubmit() {
@@ -63,14 +61,15 @@ export default {
             this.onSubmitFunc(this.login, this.password)
 
             // alert(`Логин: ${this.login}\nПароль: ${this.password}`);
+        },
+        onUnderClick() {
+            this.$router.push(this.underHref)
         }
     }
 };
 </script>
 
 <style scoped>
-@import '../assets/main.css';
-
 .auth-container {
     display: flex;
     height: 100%;

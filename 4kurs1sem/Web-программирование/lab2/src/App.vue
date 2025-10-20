@@ -1,15 +1,13 @@
 <script setup>
-import SigninScreen from './components/SigninScreen.vue';
 </script>
 
 <template>
-    <SigninScreen />
+    <RouterView />
 </template>
 
-<script>
-export default {
-    components: { SigninScreen }
-}
-</script>
+<script></script>
 
-<style scoped></style>
+<style scoped>
+@import '@/assets/base.css';
+@import '@/assets/main.css';
+</style>

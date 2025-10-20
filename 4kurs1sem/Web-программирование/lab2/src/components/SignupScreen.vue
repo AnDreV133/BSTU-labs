@@ -5,11 +5,11 @@ import LoginForm from './items/LoginForm.vue';
 
 <template>
     <header>
-        <LoginHeader title="Авторизация" />
+        <LoginHeader title="Регистрация" />
     </header>
 
     <main>
-        <LoginForm class="form" :onSubmitFunc="submit" under-text="Еще не зарегистрированы?" under-href="/signup" />
+        <LoginForm class="form" :onSubmitFunc="submit" under-text="Есть аккаунт?" under-href="/signin" />
     </main>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     components: { LoginHeader, LoginForm },
     methods: {
         submit(login, password) {
-            this.$router.push("/main")
+            alert("signup with cred: " + login + " " + password)
         }
     }
 }

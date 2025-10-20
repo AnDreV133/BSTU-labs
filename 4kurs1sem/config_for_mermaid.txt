@@ -7,7 +7,7 @@
         "lineColor": "#000000",
         "textColor": "#000000",
         "fontFamily": "Arial, sans-serif",
-        "fontSize": "14px"
+        "fontSize": "24px"
    },
    "flowchart": {
         "curve": "stepAfter",
