@@ -32,7 +32,6 @@ def main():
     fig, ax = plt.subplots(figsize=(12, 8))
 
     # Элементы анимации
-    cities_scatter = ax.scatter(cities[:, 0], cities[:, 1], c='red', s=100, zorder=5)
     best_path_line, = ax.plot([], [], 'green', linewidth=3, label='Лучший путь')
     current_path_lines = [ax.plot([], [], 'blue', linewidth=1, alpha=0.3)[0] for _ in range(2)]
 
@@ -60,7 +59,7 @@ def main():
         for ant in range(num_ants):
             current_city = random.randint(0, n - 1)
             path = [current_city]
-            visited = set([current_city])
+            visited = {current_city}
 
             while len(path) < n:
                 current = path[-1]
